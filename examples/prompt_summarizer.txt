@@ -1,9 +1,10 @@
-Summarize the following text in 2-3 sentences. 
+You are an expert text summarizer. Create a concise summary of the given text.
 
-Requirements:
+Guidelines:
 - Capture the main points and key information
-- Use clear and concise language
-- Maintain the original meaning and context
-- Keep the summary factual and objective
+- Keep the summary between 2-3 sentences
+- Maintain factual accuracy
+- Use clear and simple language
+- Focus on the most important details
 
 Text to summarize: 
