@@ -1,0 +1,651 @@
+{
+  "timestamp": "2025-07-24T00:04:55.528666",
+  "prompt_file": "examples/prompt_summarizer.txt",
+  "input_text": "Large language models have revolutionized natural language processing by enabling unprecedented capabilities in text generation, translation, and comprehension. These models, trained on vast datasets, can perform complex reasoning tasks and generate human-like responses. However, they also present challenges including potential biases, computational requirements, and the need for careful prompt engineering. Researchers continue to investigate methods for improving their reliability, reducing harmful outputs, and making them more accessible for various applications across industries.",
+  "model": "gpt-3.5-turbo",
+  "total_mutations": 6,
+  "results": [
+    {
+      "mutation": {
+        "original_text": "You are an expert text summarizer. Create a concise summary of the given text.\n\nGuidelines:\n- Capture the main points and key information\n- Keep the summary between 2-3 sentences\n- Maintain factual accuracy\n- Use clear and simple language\n- Focus on the most important details\n\nText to summarize:\n\nLarge language models have revolutionized natural language processing by enabling unprecedented capabilities in text generation, translation, and comprehension. These models, trained on vast datasets, can perform complex reasoning tasks and generate human-like responses. However, they also present challenges including potential biases, computational requirements, and the need for careful prompt engineering. Researchers continue to investigate methods for improving their reliability, reducing harmful outputs, and making them more accessible for various applications across industries.",
+        "mutated_text": "YoU arE AN expErt TEXT sUmmAriZer. CrEATE A CoNciSe suMmAry OF THe GivEn tEXT.\n\nGUiDeLinES:\n- CaptuRE The MAiN PoIntS And kEY INfoRmation\n- keEP the sUmmARY bETween 2-3 SENTENCeS\n- mAiNTAIN fACTual accurACY\n- uSE cLEar aNd siMpLe laNGuaGe\n- fOcus oN THe mOST iMporTant DETaIlS\n\ntExt TO summArIZe:\n\nLArGE lAngUaGE MoDeLS hAve RevoLUtionIzed NaTUraL lANGuaGE pRocEssing by enaBliNG UNPrEcEdented CApabiLiTies In tEXt GenerAtIon, TRaNSLATioN, AnD CoMpREheNSiOn. THesE MOdElS, TrAiNed oN vaST dATaSEts, Can PErfOrm cOmpLEX ReaSoniNg tASkS AnD gENERATe HuMan-lIKE ResPoNsES. HowEver, tHEY aLsO pReSENt CHaLLengeS INCluDInG PotEnTIAL bIASeS, COMpUTatioNal rEqUiReMENTs, and tHE neED fOr CaRefuL proMpt EnGinEErIng. reSeARCHeRS COnTINUE to INvestIgATE MethODs FOR IMProVIng tHEiR ReliabILity, REdUCIng harMFUL OUTpUTs, ANd Making THem MOrE AccEsSibLe For varIOuS aPpLIcAtIoNs AcRoSs InduStRIES.",
+        "mutation_type": "lexical",
+        "description": "Randomly change case of characters",
+        "severity": 0.2
+      },
+      "original_response": {
+        "text": "Large language models have transformed natural language processing with their advanced text generation, translation, and comprehension abilities. Despite their potential, challenges like biases, computational demands, and prompt engineering need to be addressed. Researchers are working on enhancing their dependability, minimizing negative outputs, and increasing their usability in different industries.",
+        "model": "gpt-3.5-turbo",
+        "tokens_used": 218,
+        "response_time": 1.0645897388458252,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "Large language models have transformed natural language processing by enabling advanced capabilities in text generation, translation, and comprehension. While trained on extensive datasets, these models can perform complex reasoning tasks and generate human-like responses. However, they also pose challenges such as potential biases, computational requirements, and the need for careful engineering. Researchers are actively exploring methods to enhance their reliability, mitigate harmful outputs, and increase accessibility for various applications across industries.",
+        "model": "gpt-3.5-turbo",
+        "tokens_used": 506,
+        "response_time": 1.1244988441467285,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 0.4788732394366197,
+        "semantic_similarity": 0.8094675540924072,
+        "structural_similarity": 0.875,
+        "overall_similarity": 0.7233957488771896,
+        "classification": "behavioral_deviation",
+        "details": {
+          "character_diff": [
+            "--- original\n",
+            "+++ mutated\n",
+            "@@ -1 +1 @@\n",
+            "-Large language models have transformed natural language processing with their advanced text generation, translation, and comprehension abilities. Despite their potential, challenges like biases, computational demands, and prompt engineering need to be addressed. Researchers are working on enhancing their dependability, minimizing negative outputs, and increasing their usability in different industries.",
+            "+Large language models have transformed natural language processing by enabling advanced capabilities in text generation, translation, and comprehension. While trained on extensive datasets, these models can perform complex reasoning tasks and generate human-like responses. However, they also pose challenges such as potential biases, computational requirements, and the need for careful engineering. Researchers are actively exploring methods to enhance their reliability, mitigate harmful outputs, and increase accessibility for various applications across industries."
+          ],
+          "word_diff": {
+            "added": [
+              "by",
+              "enabling",
+              "capabilities",
+              "in",
+              "comprehension.",
+              "While",
+              "trained",
+              "on",
+              "extensive",
+              "datasets,",
+              "these",
+              "models",
+              "can",
+              "perform",
+              "complex",
+              "reasoning",
+              "tasks",
+              "and",
+              "generate",
+              "human-like",
+              "responses.",
+              "However,",
+              "they",
+              "also",
+              "pose",
+              "such",
+              "as",
+              "potential",
+              "requirements,",
+              "the",
+              "for",
+              "careful",
+              "engineering.",
+              "actively",
+              "exploring",
+              "methods",
+              "to",
+              "enhance",
+              "reliability,",
+              "mitigate",
+              "harmful",
+              "increase",
+              "accessibility",
+              "for",
+              "various",
+              "applications",
+              "across"
+            ],
+            "removed": [
+              "with",
+              "their",
+              "comprehension",
+              "abilities.",
+              "Despite",
+              "their",
+              "potential,",
+              "like",
+              "demands,",
+              "prompt",
+              "engineering",
+              "to",
+              "be",
+              "addressed.",
+              "working",
+              "on",
+              "enhancing",
+              "dependability,",
+              "minimizing",
+              "negative",
+              "increasing",
+              "their",
+              "usability",
+              "in",
+              "different"
+            ]
+          },
+          "length_ratio": 1.4074074074074074,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 0.22133277043230523
+        }
+      }
+    },
+    {
+      "mutation": {
+        "original_text": "You are an expert text summarizer. Create a concise summary of the given text.\n\nGuidelines:\n- Capture the main points and key information\n- Keep the summary between 2-3 sentences\n- Maintain factual accuracy\n- Use clear and simple language\n- Focus on the most important details\n\nText to summarize:\n\nLarge language models have revolutionized natural language processing by enabling unprecedented capabilities in text generation, translation, and comprehension. These models, trained on vast datasets, can perform complex reasoning tasks and generate human-like responses. However, they also present challenges including potential biases, computational requirements, and the need for careful prompt engineering. Researchers continue to investigate methods for improving their reliability, reducing harmful outputs, and making them more accessible for various applications across industries.",
+        "mutated_text": "You are! an expert text summarizer. Create. a concise? summary of: the given text. Guidelines:! - Capture the, main points: and key? information - Keep the summary between 2-3: sentences; -; Maintain factual. accuracy - Use? clear and simple? language? - Focus on. the most important details? Text to: summarize: Large. language models have revolutionized natural language processing by, enabling unprecedented capabilities in text generation, translation,: and comprehension. These models,; trained, on vast datasets, can perform complex; reasoning tasks and! generate human-like responses. However, they? also. present: challenges including potential biases, computational? requirements,: and? the need for. careful prompt engineering. Researchers continue to investigate: methods; for improving their reliability, reducing harmful outputs, and making them more accessible for? various applications across: industries.,",
+        "mutation_type": "lexical",
+        "description": "Add random punctuation",
+        "severity": 0.3
+      },
+      "original_response": {
+        "text": "Large language models have transformed natural language processing with their advanced text generation, translation, and comprehension abilities. Despite their potential, challenges like biases, computational demands, and prompt engineering need to be addressed. Researchers are working on enhancing their dependability, minimizing negative outputs, and increasing their usability in different industries.",
+        "model": "gpt-3.5-turbo",
+        "tokens_used": 218,
+        "response_time": 1.0645897388458252,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "Large language models have transformed natural language processing with their abilities in text generation, translation, and comprehension. Trained on extensive data, these models can handle complex tasks and produce human-like responses. Despite their benefits, challenges such as biases, computational demands, and prompt engineering need to be addressed. Researchers are working on enhancing their dependability, mitigating negative outcomes, and enhancing their usability for diverse industries.",
+        "model": "gpt-3.5-turbo",
+        "tokens_used": 265,
+        "response_time": 1.519434928894043,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 0.7407407407407407,
+        "semantic_similarity": 0.9268146753311157,
+        "structural_similarity": 0.875,
+        "overall_similarity": 0.8606295598877801,
+        "classification": "minor_variation",
+        "details": {
+          "character_diff": [
+            "--- original\n",
+            "+++ mutated\n",
+            "@@ -1 +1 @@\n",
+            "-Large language models have transformed natural language processing with their advanced text generation, translation, and comprehension abilities. Despite their potential, challenges like biases, computational demands, and prompt engineering need to be addressed. Researchers are working on enhancing their dependability, minimizing negative outputs, and increasing their usability in different industries.",
+            "+Large language models have transformed natural language processing with their abilities in text generation, translation, and comprehension. Trained on extensive data, these models can handle complex tasks and produce human-like responses. Despite their benefits, challenges such as biases, computational demands, and prompt engineering need to be addressed. Researchers are working on enhancing their dependability, mitigating negative outcomes, and enhancing their usability for diverse industries."
+          ],
+          "word_diff": {
+            "added": [
+              "abilities",
+              "in",
+              "comprehension.",
+              "Trained",
+              "on",
+              "extensive",
+              "data,",
+              "these",
+              "models",
+              "can",
+              "handle",
+              "complex",
+              "tasks",
+              "and",
+              "produce",
+              "human-like",
+              "responses.",
+              "benefits,",
+              "such",
+              "as",
+              "mitigating",
+              "outcomes,",
+              "enhancing",
+              "for",
+              "diverse"
+            ],
+            "removed": [
+              "advanced",
+              "comprehension",
+              "abilities.",
+              "potential,",
+              "like",
+              "minimizing",
+              "outputs,",
+              "increasing",
+              "in",
+              "different"
+            ]
+          },
+          "length_ratio": 1.2320987654320987,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 0.5073614030212764
+        }
+      }
+    },
+    {
+      "mutation": {
+        "original_text": "You are an expert text summarizer. Create a concise summary of the given text.\n\nGuidelines:\n- Capture the main points and key information\n- Keep the summary between 2-3 sentences\n- Maintain factual accuracy\n- Use clear and simple language\n- Focus on the most important details\n\nText to summarize:\n\nLarge language models have revolutionized natural language processing by enabling unprecedented capabilities in text generation, translation, and comprehension. These models, trained on vast datasets, can perform complex reasoning tasks and generate human-like responses. However, they also present challenges including potential biases, computational requirements, and the need for careful prompt engineering. Researchers continue to investigate methods for improving their reliability, reducing harmful outputs, and making them more accessible for various applications across industries.",
+        "mutated_text": "Researchers continue to investigate methods for improving their reliability, reducing harmful outputs, and making them more accessible for various applications across industries. However, they also present challenges including potential biases, computational requirements, and the need for careful prompt engineering. These models, trained on vast datasets, can perform complex reasoning tasks and generate human-like responses. Guidelines:\n- Capture the main points and key information\n- Keep the summary between 2-3 sentences\n- Maintain factual accuracy\n- Use clear and simple language\n- Focus on the most important details\n\nText to summarize:\n\nLarge language models have revolutionized natural language processing by enabling unprecedented capabilities in text generation, translation, and comprehension. Create a concise summary of the given text. You are an expert text summarizer.",
+        "mutation_type": "structural",
+        "description": "Reverse sentence order",
+        "severity": 0.5
+      },
+      "original_response": {
+        "text": "Large language models have transformed natural language processing with their advanced text generation, translation, and comprehension abilities. Despite their potential, challenges like biases, computational demands, and prompt engineering need to be addressed. Researchers are working on enhancing their dependability, minimizing negative outputs, and increasing their usability in different industries.",
+        "model": "gpt-3.5-turbo",
+        "tokens_used": 218,
+        "response_time": 1.0645897388458252,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "Large language models have transformed natural language processing with their advanced text generation, translation, and comprehension abilities. Researchers are working on enhancing their reliability and accessibility while addressing challenges like biases and computational requirements. These models, trained on extensive datasets, can perform intricate reasoning tasks and produce responses that resemble human language.",
+        "model": "gpt-3.5-turbo",
+        "tokens_used": 216,
+        "response_time": 0.9669551849365234,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 0.5084745762711864,
+        "semantic_similarity": 0.8081157207489014,
+        "structural_similarity": 1.0,
+        "overall_similarity": 0.7566002332558066,
+        "classification": "minor_variation",
+        "details": {
+          "character_diff": [
+            "--- original\n",
+            "+++ mutated\n",
+            "@@ -1 +1 @@\n",
+            "-Large language models have transformed natural language processing with their advanced text generation, translation, and comprehension abilities. Despite their potential, challenges like biases, computational demands, and prompt engineering need to be addressed. Researchers are working on enhancing their dependability, minimizing negative outputs, and increasing their usability in different industries.",
+            "+Large language models have transformed natural language processing with their advanced text generation, translation, and comprehension abilities. Researchers are working on enhancing their reliability and accessibility while addressing challenges like biases and computational requirements. These models, trained on extensive datasets, can perform intricate reasoning tasks and produce responses that resemble human language."
+          ],
+          "word_diff": {
+            "added": [
+              "reliability",
+              "accessibility",
+              "while",
+              "addressing",
+              "challenges",
+              "like",
+              "biases",
+              "and",
+              "computational",
+              "requirements.",
+              "These",
+              "models,",
+              "trained",
+              "on",
+              "extensive",
+              "datasets,",
+              "can",
+              "perform",
+              "intricate",
+              "reasoning",
+              "tasks",
+              "and",
+              "produce",
+              "responses",
+              "that",
+              "resemble",
+              "human",
+              "language."
+            ],
+            "removed": [
+              "Despite",
+              "their",
+              "potential,",
+              "challenges",
+              "like",
+              "biases,",
+              "computational",
+              "demands,",
+              "and",
+              "prompt",
+              "engineering",
+              "need",
+              "to",
+              "be",
+              "addressed.",
+              "dependability,",
+              "minimizing",
+              "negative",
+              "outputs,",
+              "increasing",
+              "their",
+              "usability",
+              "in",
+              "different",
+              "industries."
+            ]
+          },
+          "length_ratio": 1.0493827160493827,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 0.4601913788128529
+        }
+      }
+    },
+    {
+      "mutation": {
+        "original_text": "You are an expert text summarizer. Create a concise summary of the given text.\n\nGuidelines:\n- Capture the main points and key information\n- Keep the summary between 2-3 sentences\n- Maintain factual accuracy\n- Use clear and simple language\n- Focus on the most important details\n\nText to summarize:\n\nLarge language models have revolutionized natural language processing by enabling unprecedented capabilities in text generation, translation, and comprehension. These models, trained on vast datasets, can perform complex reasoning tasks and generate human-like responses. However, they also present challenges including potential biases, computational requirements, and the need for careful prompt engineering. Researchers continue to investigate methods for improving their reliability, reducing harmful outputs, and making them more accessible for various applications across industries.",
+        "mutated_text": "However, they also present challenges including potential biases, computational requirements, and the need for careful prompt engineering. You are an expert text summarizer. Researchers continue to investigate methods for improving their reliability, reducing harmful outputs, and making them more accessible for various applications across industries. Guidelines:\n- Capture the main points and key information\n- Keep the summary between 2-3 sentences\n- Maintain factual accuracy\n- Use clear and simple language\n- Focus on the most important details\n\nText to summarize:\n\nLarge language models have revolutionized natural language processing by enabling unprecedented capabilities in text generation, translation, and comprehension. Create a concise summary of the given text. These models, trained on vast datasets, can perform complex reasoning tasks and generate human-like responses.",
+        "mutation_type": "structural",
+        "description": "Randomly reorder sentences",
+        "severity": 0.6
+      },
+      "original_response": {
+        "text": "Large language models have transformed natural language processing with their advanced text generation, translation, and comprehension abilities. Despite their potential, challenges like biases, computational demands, and prompt engineering need to be addressed. Researchers are working on enhancing their dependability, minimizing negative outputs, and increasing their usability in different industries.",
+        "model": "gpt-3.5-turbo",
+        "tokens_used": 218,
+        "response_time": 1.0645897388458252,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "Large language models have transformed natural language processing with advanced text generation and comprehension abilities. Trained on extensive datasets, they can tackle complex reasoning tasks and produce responses that mimic human language.",
+        "model": "gpt-3.5-turbo",
+        "tokens_used": 193,
+        "response_time": 0.7867701053619385,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 0.40425531914893614,
+        "semantic_similarity": 0.7250671982765198,
+        "structural_similarity": 0.8333333333333334,
+        "overall_similarity": 0.6504768615496075,
+        "classification": "behavioral_deviation",
+        "details": {
+          "character_diff": [
+            "--- original\n",
+            "+++ mutated\n",
+            "@@ -1 +1 @@\n",
+            "-Large language models have transformed natural language processing with their advanced text generation, translation, and comprehension abilities. Despite their potential, challenges like biases, computational demands, and prompt engineering need to be addressed. Researchers are working on enhancing their dependability, minimizing negative outputs, and increasing their usability in different industries.",
+            "+Large language models have transformed natural language processing with advanced text generation and comprehension abilities. Trained on extensive datasets, they can tackle complex reasoning tasks and produce responses that mimic human language."
+          ],
+          "word_diff": {
+            "added": [
+              "generation",
+              "Trained",
+              "on",
+              "extensive",
+              "datasets,",
+              "they",
+              "can",
+              "tackle",
+              "complex",
+              "reasoning",
+              "tasks",
+              "produce",
+              "responses",
+              "that",
+              "mimic",
+              "human",
+              "language."
+            ],
+            "removed": [
+              "their",
+              "generation,",
+              "translation,",
+              "Despite",
+              "their",
+              "potential,",
+              "challenges",
+              "like",
+              "biases,",
+              "computational",
+              "demands,",
+              "prompt",
+              "engineering",
+              "need",
+              "to",
+              "be",
+              "addressed.",
+              "Researchers",
+              "are",
+              "working",
+              "on",
+              "enhancing",
+              "their",
+              "dependability,",
+              "minimizing",
+              "negative",
+              "outputs,",
+              "and",
+              "increasing",
+              "their",
+              "usability",
+              "in",
+              "different",
+              "industries."
+            ]
+          },
+          "length_ratio": 0.6049382716049383,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 0.17474839542267134
+        }
+      }
+    },
+    {
+      "mutation": {
+        "original_text": "You are an expert text summarizer. Create a concise summary of the given text.\n\nGuidelines:\n- Capture the main points and key information\n- Keep the summary between 2-3 sentences\n- Maintain factual accuracy\n- Use clear and simple language\n- Focus on the most important details\n\nText to summarize:\n\nLarge language models have revolutionized natural language processing by enabling unprecedented capabilities in text generation, translation, and comprehension. These models, trained on vast datasets, can perform complex reasoning tasks and generate human-like responses. However, they also present challenges including potential biases, computational requirements, and the need for careful prompt engineering. Researchers continue to investigate methods for improving their reliability, reducing harmful outputs, and making them more accessible for various applications across industries.",
+        "mutated_text": "Researchers continue to investigate methods for improving their reliability, reducing harmful outputs, and making them more accessible for various applications across industries. However, they also present challenges including potential biases, computational requirements, and the need for careful prompt engineering. These models, trained on vast datasets, can perform complex reasoning tasks and generate human-like responses. Guidelines:\n- Capture the main points and key information\n- Keep the summary between 2-3 sentences\n- Maintain factual accuracy\n- Use clear and simple language\n- Focus on the most important details\n\nText to summarize:\n\nLarge language models have revolutionized natural language processing by enabling unprecedented capabilities in text generation, translation, and comprehension. Create a concise summary of the given text. You are an expert text summarizer.",
+        "mutation_type": "structural",
+        "description": "Reverse sentence order",
+        "severity": 0.5
+      },
+      "original_response": {
+        "text": "Large language models have transformed natural language processing with their advanced text generation, translation, and comprehension abilities. Despite their potential, challenges like biases, computational demands, and prompt engineering need to be addressed. Researchers are working on enhancing their dependability, minimizing negative outputs, and increasing their usability in different industries.",
+        "model": "gpt-3.5-turbo",
+        "tokens_used": 218,
+        "response_time": 1.0645897388458252,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "Large language models have transformed natural language processing with their advanced abilities in text generation, translation, and understanding. Researchers are working on enhancing their reliability and accessibility while addressing challenges like biases and computational requirements. These models, trained on extensive datasets, can perform complex reasoning tasks and produce responses that resemble human language.",
+        "model": "gpt-3.5-turbo",
+        "tokens_used": 217,
+        "response_time": 3.5183329582214355,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 0.47058823529411764,
+        "semantic_similarity": 0.7873928546905518,
+        "structural_similarity": 1.0,
+        "overall_similarity": 0.7348728979335111,
+        "classification": "behavioral_deviation",
+        "details": {
+          "character_diff": [
+            "--- original\n",
+            "+++ mutated\n",
+            "@@ -1 +1 @@\n",
+            "-Large language models have transformed natural language processing with their advanced text generation, translation, and comprehension abilities. Despite their potential, challenges like biases, computational demands, and prompt engineering need to be addressed. Researchers are working on enhancing their dependability, minimizing negative outputs, and increasing their usability in different industries.",
+            "+Large language models have transformed natural language processing with their advanced abilities in text generation, translation, and understanding. Researchers are working on enhancing their reliability and accessibility while addressing challenges like biases and computational requirements. These models, trained on extensive datasets, can perform complex reasoning tasks and produce responses that resemble human language."
+          ],
+          "word_diff": {
+            "added": [
+              "abilities",
+              "in",
+              "understanding.",
+              "reliability",
+              "accessibility",
+              "while",
+              "addressing",
+              "challenges",
+              "like",
+              "biases",
+              "and",
+              "computational",
+              "requirements.",
+              "These",
+              "models,",
+              "trained",
+              "on",
+              "extensive",
+              "datasets,",
+              "can",
+              "perform",
+              "complex",
+              "reasoning",
+              "tasks",
+              "and",
+              "produce",
+              "responses",
+              "that",
+              "resemble",
+              "human",
+              "language."
+            ],
+            "removed": [
+              "comprehension",
+              "abilities.",
+              "Despite",
+              "their",
+              "potential,",
+              "challenges",
+              "like",
+              "biases,",
+              "computational",
+              "demands,",
+              "and",
+              "prompt",
+              "engineering",
+              "need",
+              "to",
+              "be",
+              "addressed.",
+              "dependability,",
+              "minimizing",
+              "negative",
+              "outputs,",
+              "increasing",
+              "their",
+              "usability",
+              "in",
+              "different",
+              "industries."
+            ]
+          },
+          "length_ratio": 1.0518518518518518,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 0.37682722433739885
+        }
+      }
+    },
+    {
+      "mutation": {
+        "original_text": "You are an expert text summarizer. Create a concise summary of the given text.\n\nGuidelines:\n- Capture the main points and key information\n- Keep the summary between 2-3 sentences\n- Maintain factual accuracy\n- Use clear and simple language\n- Focus on the most important details\n\nText to summarize:\n\nLarge language models have revolutionized natural language processing by enabling unprecedented capabilities in text generation, translation, and comprehension. These models, trained on vast datasets, can perform complex reasoning tasks and generate human-like responses. However, they also present challenges including potential biases, computational requirements, and the need for careful prompt engineering. Researchers continue to investigate methods for improving their reliability, reducing harmful outputs, and making them more accessible for various applications across industries.",
+        "mutated_text": "Researchers continue to investigate methods for improving their reliability, reducing harmful outputs, and making them more accessible for various applications across industries. However, they also present challenges including potential biases, computational requirements, and the need for careful prompt engineering. These models, trained on vast datasets, can perform complex reasoning tasks and generate human-like responses. Guidelines:\n- Capture the main points and key information\n- Keep the summary between 2-3 sentences\n- Maintain factual accuracy\n- Use clear and simple language\n- Focus on the most important details\n\nText to summarize:\n\nLarge language models have revolutionized natural language processing by enabling unprecedented capabilities in text generation, translation, and comprehension. Create a concise summary of the given text. You are an expert text summarizer.",
+        "mutation_type": "structural",
+        "description": "Reverse sentence order",
+        "severity": 0.5
+      },
+      "original_response": {
+        "text": "Large language models have transformed natural language processing with their advanced text generation, translation, and comprehension abilities. Despite their potential, challenges like biases, computational demands, and prompt engineering need to be addressed. Researchers are working on enhancing their dependability, minimizing negative outputs, and increasing their usability in different industries.",
+        "model": "gpt-3.5-turbo",
+        "tokens_used": 218,
+        "response_time": 1.0645897388458252,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "Large language models have transformed natural language processing with their advanced text generation, translation, and comprehension abilities. Researchers are working on enhancing their reliability, reducing harmful outputs, and improving accessibility across industries, though challenges like biases and computational requirements remain. These models are trained on extensive datasets and can perform complex reasoning tasks, producing human-like responses.",
+        "model": "gpt-3.5-turbo",
+        "tokens_used": 223,
+        "response_time": 0.8571641445159912,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 0.5161290322580645,
+        "semantic_similarity": 0.8321192860603333,
+        "structural_similarity": 1.0,
+        "overall_similarity": 0.7708983527075859,
+        "classification": "minor_variation",
+        "details": {
+          "character_diff": [
+            "--- original\n",
+            "+++ mutated\n",
+            "@@ -1 +1 @@\n",
+            "-Large language models have transformed natural language processing with their advanced text generation, translation, and comprehension abilities. Despite their potential, challenges like biases, computational demands, and prompt engineering need to be addressed. Researchers are working on enhancing their dependability, minimizing negative outputs, and increasing their usability in different industries.",
+            "+Large language models have transformed natural language processing with their advanced text generation, translation, and comprehension abilities. Researchers are working on enhancing their reliability, reducing harmful outputs, and improving accessibility across industries, though challenges like biases and computational requirements remain. These models are trained on extensive datasets and can perform complex reasoning tasks, producing human-like responses."
+          ],
+          "word_diff": {
+            "added": [
+              "reliability,",
+              "reducing",
+              "harmful",
+              "improving",
+              "accessibility",
+              "across",
+              "industries,",
+              "though",
+              "challenges",
+              "like",
+              "biases",
+              "and",
+              "computational",
+              "requirements",
+              "remain.",
+              "These",
+              "models",
+              "are",
+              "trained",
+              "on",
+              "extensive",
+              "datasets",
+              "and",
+              "can",
+              "perform",
+              "complex",
+              "reasoning",
+              "tasks,",
+              "producing",
+              "human-like",
+              "responses."
+            ],
+            "removed": [
+              "Despite",
+              "their",
+              "potential,",
+              "challenges",
+              "like",
+              "biases,",
+              "computational",
+              "demands,",
+              "and",
+              "prompt",
+              "engineering",
+              "need",
+              "to",
+              "be",
+              "addressed.",
+              "dependability,",
+              "minimizing",
+              "negative",
+              "increasing",
+              "their",
+              "usability",
+              "in",
+              "different",
+              "industries."
+            ]
+          },
+          "length_ratio": 1.14320987654321,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 0.43999519195700615
+        }
+      }
+    }
+  ],
+  "summary": {
+    "robustness_score": 0.3499999999999999,
+    "equivalent_count": 0,
+    "minor_variation_count": 3,
+    "behavioral_deviation_count": 3,
+    "equivalent_percentage": 0.0,
+    "minor_variation_percentage": 50.0,
+    "behavioral_deviation_percentage": 50.0,
+    "avg_response_time": 1.2633912165959675,
+    "failed_mutations": 0,
+    "total_mutations": 6
+  }
+}

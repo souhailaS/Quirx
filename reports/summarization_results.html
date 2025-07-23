@@ -1,0 +1,524 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quirx Report</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f8f9fa; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header { text-align: center; margin-bottom: 20px; }
+        .summary { background: #ffffff; padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .metric { display: inline-block; margin: 8px; padding: 12px 16px; background: #f8f9fa; border-radius: 8px; min-width: 120px; text-align: center; }
+        .metric strong { display: block; font-size: 1em; margin-bottom: 4px; }
+        .metric span { font-size: 1.2em; }
+        .equivalent { color: #28a745; border-left: 4px solid #28a745; }
+        .minor { color: #ffc107; border-left: 4px solid #ffc107; }
+        .deviation { color: #dc3545; border-left: 4px solid #dc3545; }
+        .charts-section { background: #ffffff; padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .charts-row { display: flex; flex-wrap: wrap; gap: 20px; }
+        .chart-container { flex: 1; min-width: 300px; }
+        .chart { width: 100%; height: 300px; }
+        .config-section { background: #ffffff; padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .results-section { background: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .result { border: 1px solid #e9ecef; margin: 15px 0; padding: 20px; border-radius: 8px; }
+        .mutation-text { background: #f8f9fa; padding: 15px; border-left: 4px solid #007bff; margin: 15px 0; border-radius: 5px; }
+        pre { white-space: pre-wrap; word-wrap: break-word; font-size: 0.9em; }
+        h1 { color: #2c3e50; }
+        h2 { color: #34495e; border-bottom: 2px solid #3498db; padding-bottom: 8px; margin-bottom: 15px; }
+        h3 { color: #7f8c8d; margin-bottom: 10px; }
+        @media (max-width: 768px) {
+            .charts-row { flex-direction: column; }
+            .metric { min-width: 100px; margin: 5px; padding: 8px 12px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Quirx Robustness Analysis Report</h1>
+            <p style="color: #7f8c8d; font-size: 1.1em;"> Prompt Mutation Testing Results</p>
+        </div>
+        
+        <div class="summary">
+            <h2>Executive Summary</h2>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+                <div class="metric">
+                    <strong style="color: #3498db;">Robustness Score</strong>
+                    <span style="font-size: 1.6em; color: #2c3e50;">0.58/1.00</span>
+                </div>
+                <div class="metric">
+                    <strong style="color: #9b59b6;">Total Mutations</strong>
+                    <span style="font-size: 1.6em; color: #2c3e50;">6</span>
+                </div>
+                <div class="metric equivalent">
+                    <strong>Equivalent</strong>
+                    <span>0 (0.0%)</span>
+                </div>
+                <div class="metric minor">
+                    <strong>Minor Variations</strong>
+                    <span>5 (83.3%)</span>
+                </div>
+                <div class="metric deviation">
+                    <strong>Behavioral Deviations</strong>
+                    <span>1 (16.7%)</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="charts-section">
+            <h2>Visual Analytics</h2>
+            <div class="charts-row">
+                <div class="chart-container">
+                    <h3>Robustness Score</h3>
+                    <div id="robustnessGauge" class="chart"></div>
+                </div>
+                
+                <div class="chart-container">
+                    <h3>Classification Distribution</h3>
+                    <div id="classificationPie" class="chart"></div>
+                </div>
+                
+                <div class="chart-container">
+                    <h3>Mutation Type Performance</h3>
+                    <div id="mutationTypeBar" class="chart"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="config-section">
+            <h2>Configuration</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                <div><strong>Timestamp:</strong> 2025-07-24T00:02:54.477030</div>
+                <div><strong>Prompt File:</strong> examples/prompt_summarizer.txt</div>
+                <div><strong>Model:</strong> gpt-3.5-turbo</div>
+                <div><strong>Input:</strong> Large language models have revolutionized natural language processing by enabling unprecedented capabilities in text generation, translation, and comprehension. These models, trained on vast datasets, can perform complex reasoning tasks and generate human-like responses. However, they also present challenges including potential biases, computational requirements, and the need for careful prompt engineering. Researchers continue to investigate methods for improving their reliability, reducing harmful outputs, and making them more accessible for various applications across industries.</div>
+            </div>
+        </div>
+        
+        <div class="results-section">
+            <h2>Detailed Results</h2>
+
+            <div class="result minor_variation">
+                <h3>Mutation 1: Convert text to title case</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 15px 0;">
+                    <div><strong>Type:</strong> Lexical</div>
+                    <div><strong>Severity:</strong> 0.10</div>
+                    <div><strong>Classification:</strong> Minor Variation</div>
+                    <div><strong>Similarity:</strong> 0.844</div>
+                </div>
+                
+                <div class="mutation-text">
+                    <strong>Original:</strong><br>
+                    <pre>You are an expert text summarizer. Create a concise summary of the given text.
+
+Guidelines:
+- Capture the main points and key information
+- Keep the summary between 2-3 sentences
+- Maintain factual accuracy
+- Use clear and simple language
+- Focus on the most important details
+
+Text to summarize:
+
+Large language models have revolutionized natural language processing by enabling unprecedented capabilities in text generation, translation, and comprehension. These models, trained on vast datasets, can perform complex reasoning tasks and generate human-like responses. However, they also present challenges including potential biases, computational requirements, and the need for careful prompt engineering. Researchers continue to investigate methods for improving their reliability, reducing harmful outputs, and making them more accessible for various applications across industries.</pre>
+                </div>
+                
+                <div class="mutation-text">
+                    <strong>Mutated:</strong><br>
+                    <pre>You Are An Expert Text Summarizer. Create A Concise Summary Of The Given Text.
+
+Guidelines:
+- Capture The Main Points And Key Information
+- Keep The Summary Between 2-3 Sentences
+- Maintain Factual Accuracy
+- Use Clear And Simple Language
+- Focus On The Most Important Details
+
+Text To Summarize:
+
+Large Language Models Have Revolutionized Natural Language Processing By Enabling Unprecedented Capabilities In Text Generation, Translation, And Comprehension. These Models, Trained On Vast Datasets, Can Perform Complex Reasoning Tasks And Generate Human-Like Responses. However, They Also Present Challenges Including Potential Biases, Computational Requirements, And The Need For Careful Prompt Engineering. Researchers Continue To Investigate Methods For Improving Their Reliability, Reducing Harmful Outputs, And Making Them More Accessible For Various Applications Across Industries.</pre>
+                </div>
+            </div>
+
+            <div class="result minor_variation">
+                <h3>Mutation 2: Add random punctuation</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 15px 0;">
+                    <div><strong>Type:</strong> Lexical</div>
+                    <div><strong>Severity:</strong> 0.30</div>
+                    <div><strong>Classification:</strong> Minor Variation</div>
+                    <div><strong>Similarity:</strong> 0.885</div>
+                </div>
+                
+                <div class="mutation-text">
+                    <strong>Original:</strong><br>
+                    <pre>You are an expert text summarizer. Create a concise summary of the given text.
+
+Guidelines:
+- Capture the main points and key information
+- Keep the summary between 2-3 sentences
+- Maintain factual accuracy
+- Use clear and simple language
+- Focus on the most important details
+
+Text to summarize:
+
+Large language models have revolutionized natural language processing by enabling unprecedented capabilities in text generation, translation, and comprehension. These models, trained on vast datasets, can perform complex reasoning tasks and generate human-like responses. However, they also present challenges including potential biases, computational requirements, and the need for careful prompt engineering. Researchers continue to investigate methods for improving their reliability, reducing harmful outputs, and making them more accessible for various applications across industries.</pre>
+                </div>
+                
+                <div class="mutation-text">
+                    <strong>Mutated:</strong><br>
+                    <pre>You are an expert. text summarizer. Create a concise summary, of the given! text.! Guidelines:; -; Capture; the main points and! key! information - Keep the summary between 2-3 sentences - Maintain factual, accuracy -! Use clear and simple language! - Focus: on the most. important details; Text to! summarize: Large language models have revolutionized? natural language processing by, enabling unprecedented capabilities in text generation,, translation, and comprehension. These, models,. trained on vast datasets,! can perform. complex reasoning tasks and generate human-like responses. However, they also present; challenges including. potential biases,! computational. requirements, and the? need: for careful, prompt engineering. Researchers continue to? investigate; methods for improving their reliability,, reducing harmful outputs, and making them more accessible: for! various; applications across industries.</pre>
+                </div>
+            </div>
+
+            <div class="result behavioral_deviation">
+                <h3>Mutation 3: Randomly reorder sentences</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 15px 0;">
+                    <div><strong>Type:</strong> Structural</div>
+                    <div><strong>Severity:</strong> 0.60</div>
+                    <div><strong>Classification:</strong> Behavioral Deviation</div>
+                    <div><strong>Similarity:</strong> 0.615</div>
+                </div>
+                
+                <div class="mutation-text">
+                    <strong>Original:</strong><br>
+                    <pre>You are an expert text summarizer. Create a concise summary of the given text.
+
+Guidelines:
+- Capture the main points and key information
+- Keep the summary between 2-3 sentences
+- Maintain factual accuracy
+- Use clear and simple language
+- Focus on the most important details
+
+Text to summarize:
+
+Large language models have revolutionized natural language processing by enabling unprecedented capabilities in text generation, translation, and comprehension. These models, trained on vast datasets, can perform complex reasoning tasks and generate human-like responses. However, they also present challenges including potential biases, computational requirements, and the need for careful prompt engineering. Researchers continue to investigate methods for improving their reliability, reducing harmful outputs, and making them more accessible for various applications across industries.</pre>
+                </div>
+                
+                <div class="mutation-text">
+                    <strong>Mutated:</strong><br>
+                    <pre>These models, trained on vast datasets, can perform complex reasoning tasks and generate human-like responses. Researchers continue to investigate methods for improving their reliability, reducing harmful outputs, and making them more accessible for various applications across industries. Create a concise summary of the given text. However, they also present challenges including potential biases, computational requirements, and the need for careful prompt engineering. Guidelines:
+- Capture the main points and key information
+- Keep the summary between 2-3 sentences
+- Maintain factual accuracy
+- Use clear and simple language
+- Focus on the most important details
+
+Text to summarize:
+
+Large language models have revolutionized natural language processing by enabling unprecedented capabilities in text generation, translation, and comprehension. You are an expert text summarizer.</pre>
+                </div>
+            </div>
+
+            <div class="result minor_variation">
+                <h3>Mutation 4: Reverse sentence order</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 15px 0;">
+                    <div><strong>Type:</strong> Structural</div>
+                    <div><strong>Severity:</strong> 0.50</div>
+                    <div><strong>Classification:</strong> Minor Variation</div>
+                    <div><strong>Similarity:</strong> 0.778</div>
+                </div>
+                
+                <div class="mutation-text">
+                    <strong>Original:</strong><br>
+                    <pre>You are an expert text summarizer. Create a concise summary of the given text.
+
+Guidelines:
+- Capture the main points and key information
+- Keep the summary between 2-3 sentences
+- Maintain factual accuracy
+- Use clear and simple language
+- Focus on the most important details
+
+Text to summarize:
+
+Large language models have revolutionized natural language processing by enabling unprecedented capabilities in text generation, translation, and comprehension. These models, trained on vast datasets, can perform complex reasoning tasks and generate human-like responses. However, they also present challenges including potential biases, computational requirements, and the need for careful prompt engineering. Researchers continue to investigate methods for improving their reliability, reducing harmful outputs, and making them more accessible for various applications across industries.</pre>
+                </div>
+                
+                <div class="mutation-text">
+                    <strong>Mutated:</strong><br>
+                    <pre>Researchers continue to investigate methods for improving their reliability, reducing harmful outputs, and making them more accessible for various applications across industries. However, they also present challenges including potential biases, computational requirements, and the need for careful prompt engineering. These models, trained on vast datasets, can perform complex reasoning tasks and generate human-like responses. Guidelines:
+- Capture the main points and key information
+- Keep the summary between 2-3 sentences
+- Maintain factual accuracy
+- Use clear and simple language
+- Focus on the most important details
+
+Text to summarize:
+
+Large language models have revolutionized natural language processing by enabling unprecedented capabilities in text generation, translation, and comprehension. Create a concise summary of the given text. You are an expert text summarizer.</pre>
+                </div>
+            </div>
+
+            <div class="result minor_variation">
+                <h3>Mutation 5: Reverse sentence order</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 15px 0;">
+                    <div><strong>Type:</strong> Structural</div>
+                    <div><strong>Severity:</strong> 0.50</div>
+                    <div><strong>Classification:</strong> Minor Variation</div>
+                    <div><strong>Similarity:</strong> 0.791</div>
+                </div>
+                
+                <div class="mutation-text">
+                    <strong>Original:</strong><br>
+                    <pre>You are an expert text summarizer. Create a concise summary of the given text.
+
+Guidelines:
+- Capture the main points and key information
+- Keep the summary between 2-3 sentences
+- Maintain factual accuracy
+- Use clear and simple language
+- Focus on the most important details
+
+Text to summarize:
+
+Large language models have revolutionized natural language processing by enabling unprecedented capabilities in text generation, translation, and comprehension. These models, trained on vast datasets, can perform complex reasoning tasks and generate human-like responses. However, they also present challenges including potential biases, computational requirements, and the need for careful prompt engineering. Researchers continue to investigate methods for improving their reliability, reducing harmful outputs, and making them more accessible for various applications across industries.</pre>
+                </div>
+                
+                <div class="mutation-text">
+                    <strong>Mutated:</strong><br>
+                    <pre>Researchers continue to investigate methods for improving their reliability, reducing harmful outputs, and making them more accessible for various applications across industries. However, they also present challenges including potential biases, computational requirements, and the need for careful prompt engineering. These models, trained on vast datasets, can perform complex reasoning tasks and generate human-like responses. Guidelines:
+- Capture the main points and key information
+- Keep the summary between 2-3 sentences
+- Maintain factual accuracy
+- Use clear and simple language
+- Focus on the most important details
+
+Text to summarize:
+
+Large language models have revolutionized natural language processing by enabling unprecedented capabilities in text generation, translation, and comprehension. Create a concise summary of the given text. You are an expert text summarizer.</pre>
+                </div>
+            </div>
+
+            <div class="result minor_variation">
+                <h3>Mutation 6: Reverse sentence order</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 15px 0;">
+                    <div><strong>Type:</strong> Structural</div>
+                    <div><strong>Severity:</strong> 0.50</div>
+                    <div><strong>Classification:</strong> Minor Variation</div>
+                    <div><strong>Similarity:</strong> 0.761</div>
+                </div>
+                
+                <div class="mutation-text">
+                    <strong>Original:</strong><br>
+                    <pre>You are an expert text summarizer. Create a concise summary of the given text.
+
+Guidelines:
+- Capture the main points and key information
+- Keep the summary between 2-3 sentences
+- Maintain factual accuracy
+- Use clear and simple language
+- Focus on the most important details
+
+Text to summarize:
+
+Large language models have revolutionized natural language processing by enabling unprecedented capabilities in text generation, translation, and comprehension. These models, trained on vast datasets, can perform complex reasoning tasks and generate human-like responses. However, they also present challenges including potential biases, computational requirements, and the need for careful prompt engineering. Researchers continue to investigate methods for improving their reliability, reducing harmful outputs, and making them more accessible for various applications across industries.</pre>
+                </div>
+                
+                <div class="mutation-text">
+                    <strong>Mutated:</strong><br>
+                    <pre>Researchers continue to investigate methods for improving their reliability, reducing harmful outputs, and making them more accessible for various applications across industries. However, they also present challenges including potential biases, computational requirements, and the need for careful prompt engineering. These models, trained on vast datasets, can perform complex reasoning tasks and generate human-like responses. Guidelines:
+- Capture the main points and key information
+- Keep the summary between 2-3 sentences
+- Maintain factual accuracy
+- Use clear and simple language
+- Focus on the most important details
+
+Text to summarize:
+
+Large language models have revolutionized natural language processing by enabling unprecedented capabilities in text generation, translation, and comprehension. Create a concise summary of the given text. You are an expert text summarizer.</pre>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+    <script>
+        // Robustness Score Gauge
+        var robustnessChart = echarts.init(document.getElementById('robustnessGauge'));
+        var robustnessOption = {
+            tooltip: {
+                formatter: '{a} <br/>{b} : {c}%'
+            },
+            series: [
+                {
+                    name: 'Robustness',
+                    type: 'gauge',
+                    startAngle: 180,
+                    endAngle: 0,
+                    center: ['50%', '75%'],
+                    radius: '90%',
+                    min: 0,
+                    max: 1,
+                    splitNumber: 8,
+                    axisLine: {
+                        lineStyle: {
+                            width: 6,
+                            color: [
+                                [0.3, '#ff4757'],
+                                [0.7, '#ffa502'],
+                                [1, '#2ed573']
+                            ]
+                        }
+                    },
+                    pointer: {
+                        icon: 'path://M12.8,0.7l12,40.1H0.7L12.8,0.7z',
+                        length: '12%',
+                        width: 20,
+                        offsetCenter: [0, '-60%'],
+                        itemStyle: {
+                            color: 'auto'
+                        }
+                    },
+                    axisTick: {
+                        length: 12,
+                        lineStyle: {
+                            color: 'auto',
+                            width: 2
+                        }
+                    },
+                    splitLine: {
+                        length: 20,
+                        lineStyle: {
+                            color: 'auto',
+                            width: 5
+                        }
+                    },
+                    axisLabel: {
+                        color: '#464646',
+                        fontSize: 16,
+                        distance: -50,
+                        formatter: function (value) {
+                            return value.toFixed(1);
+                        }
+                    },
+                    title: {
+                        offsetCenter: [0, '-20%'],
+                        fontSize: 16
+                    },
+                    detail: {
+                        fontSize: 24,
+                        offsetCenter: [0, '-35%'],
+                        valueAnimation: true,
+                        formatter: function (value) {
+                            return Math.round(value * 100) + '%';
+                        },
+                        color: 'auto'
+                    },
+                    data: [
+                        {
+                            value: 0.583,
+                            name: 'Score'
+                        }
+                    ]
+                }
+            ]
+        };
+        robustnessChart.setOption(robustnessOption);
+        
+        // Classification Pie Chart
+        var pieChart = echarts.init(document.getElementById('classificationPie'));
+        var pieOption = {
+            tooltip: {
+                trigger: 'item',
+                formatter: '{a} <br/>{b}: {c} ({d}%)'
+            },
+            legend: {
+                orient: 'horizontal',
+                bottom: '0%',
+                left: 'center'
+            },
+            series: [
+                {
+                    name: 'Classifications',
+                    type: 'pie',
+                    radius: ['30%', '60%'],
+                    center: ['50%', '45%'],
+                    data: [{"value": 0, "name": "Equivalent"}, {"value": 5, "name": "Minor Variations"}, {"value": 1, "name": "Behavioral Deviations"}],
+                    itemStyle: {
+                        borderRadius: 8,
+                        borderColor: '#fff',
+                        borderWidth: 2
+                    },
+                    emphasis: {
+                        itemStyle: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    },
+                    color: ['#2ed573', '#ffa502', '#ff4757']
+                }
+            ]
+        };
+        pieChart.setOption(pieOption);
+        
+        // Mutation Type Bar Chart
+        var barChart = echarts.init(document.getElementById('mutationTypeBar'));
+        var barOption = {
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    data: ["Lexical", "Structural"],
+                    axisTick: {
+                        alignWithLabel: true
+                    },
+                    axisLabel: {
+                        fontSize: 12
+                    }
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    max: 1,
+                    axisLabel: {
+                        formatter: '{value}',
+                        fontSize: 12
+                    }
+                }
+            ],
+            series: [
+                {
+                    name: 'Average Similarity',
+                    type: 'bar',
+                    barWidth: '60%',
+                    data: [0.8645653927722808, 0.7361711419298849],
+                    itemStyle: {
+                        borderRadius: [4, 4, 0, 0],
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                            { offset: 0, color: '#83bff6' },
+                            { offset: 0.5, color: '#188df0' },
+                            { offset: 1, color: '#188df0' }
+                        ])
+                    }
+                }
+            ]
+        };
+        barChart.setOption(barOption);
+        
+        // Make charts responsive
+        window.addEventListener('resize', function() {
+            robustnessChart.resize();
+            pieChart.resize();
+            barChart.resize();
+        });
+    </script>
+</body>
+</html>
