@@ -27,7 +27,7 @@ In production LLM-based applications, small variations in prompts can lead to dr
 
 Quirx is a Python-based tool designed to assess the robustness of LLM-based applications (like GPT-4, Claude, etc.) by introducing controlled, semantic-preserving mutations to prompts or input text. It helps detect prompt brittleness, semantic drift, and inconsistent outputs, which are major issues in prompt-based systems.
 
-## Architecture
+## Detailed Architecture
 
 ```mermaid
 graph TD
@@ -94,6 +94,8 @@ For a high-level overview, see the [Simplified Architecture diagram](docs/simpli
 
 ## Features
 
+The main features of the tool consists of:
+
 - **Multiple Mutation Types**: Lexical, semantic, and structural mutations
 - **LLM Provider Support**: OpenAI, Anthropic Claude, and mock providers
 - **Comprehensive Analysis**: Token-level, semantic, and structural similarity comparison
@@ -101,9 +103,15 @@ For a high-level overview, see the [Simplified Architecture diagram](docs/simpli
 - **CI/CD Integration**: Automated testing with exit codes for continuous integration
 - **Command-Line Interface**: Easy-to-use CLI tool
 
+
+
+<img src="cli-help.png" alt="CLI Help Screenshot" style="max-width: 100%;" />
+
 ## Installation
 
-### From PyPI (coming soon - after paper review results)
+### From PyPI - No available for now 
+
+coming soon - after paper review results and a few more needed improvements of of the CLI syntax. please install by cloning the repository as explained bellow. 
 
 ```bash
 pip install quirx
