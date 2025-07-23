@@ -224,90 +224,97 @@ class Reporter:
     <style>
         body {{ font-family: Arial, sans-serif; margin: 20px; background-color: #f8f9fa; }}
         .container {{ max-width: 1200px; margin: 0 auto; }}
-        .header {{ text-align: center; margin-bottom: 30px; }}
-        .summary {{ background: #ffffff; padding: 30px; border-radius: 10px; margin-bottom: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }}
-        .metric {{ display: inline-block; margin: 15px; padding: 20px; background: #f8f9fa; border-radius: 8px; min-width: 150px; text-align: center; }}
-        .metric strong {{ display: block; font-size: 1.2em; margin-bottom: 5px; }}
+        .header {{ text-align: center; margin-bottom: 20px; }}
+        .summary {{ background: #ffffff; padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }}
+        .metric {{ display: inline-block; margin: 8px; padding: 12px 16px; background: #f8f9fa; border-radius: 8px; min-width: 120px; text-align: center; }}
+        .metric strong {{ display: block; font-size: 1em; margin-bottom: 4px; }}
+        .metric span {{ font-size: 1.2em; }}
         .equivalent {{ color: #28a745; border-left: 4px solid #28a745; }}
         .minor {{ color: #ffc107; border-left: 4px solid #ffc107; }}
         .deviation {{ color: #dc3545; border-left: 4px solid #dc3545; }}
-        .charts-section {{ background: #ffffff; padding: 30px; border-radius: 10px; margin-bottom: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }}
-        .chart-container {{ margin: 20px 0; }}
-        .chart {{ width: 100%; height: 400px; }}
-        .config-section {{ background: #ffffff; padding: 30px; border-radius: 10px; margin-bottom: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }}
-        .results-section {{ background: #ffffff; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }}
+        .charts-section {{ background: #ffffff; padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }}
+        .charts-row {{ display: flex; flex-wrap: wrap; gap: 20px; }}
+        .chart-container {{ flex: 1; min-width: 300px; }}
+        .chart {{ width: 100%; height: 300px; }}
+        .config-section {{ background: #ffffff; padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }}
+        .results-section {{ background: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }}
         .result {{ border: 1px solid #e9ecef; margin: 15px 0; padding: 20px; border-radius: 8px; }}
         .mutation-text {{ background: #f8f9fa; padding: 15px; border-left: 4px solid #007bff; margin: 15px 0; border-radius: 5px; }}
         pre {{ white-space: pre-wrap; word-wrap: break-word; font-size: 0.9em; }}
         h1 {{ color: #2c3e50; }}
-        h2 {{ color: #34495e; border-bottom: 2px solid #3498db; padding-bottom: 10px; }}
-        h3 {{ color: #7f8c8d; }}
+        h2 {{ color: #34495e; border-bottom: 2px solid #3498db; padding-bottom: 8px; margin-bottom: 15px; }}
+        h3 {{ color: #7f8c8d; margin-bottom: 10px; }}
+        @media (max-width: 768px) {{
+            .charts-row {{ flex-direction: column; }}
+            .metric {{ min-width: 100px; margin: 5px; padding: 8px 12px; }}
+        }}
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>🔍 Quirx Robustness Analysis Report</h1>
+            <h1>Quirx Robustness Analysis Report</h1>
             <p style="color: #7f8c8d; font-size: 1.1em;">Comprehensive Prompt Mutation Testing Results</p>
         </div>
         
         <div class="summary">
-            <h2>📊 Executive Summary</h2>
+            <h2>Executive Summary</h2>
             <div style="display: flex; flex-wrap: wrap; justify-content: center;">
                 <div class="metric">
                     <strong style="color: #3498db;">Robustness Score</strong>
-                    <span style="font-size: 2em; color: #2c3e50;">{summary['robustness_score']:.2f}/1.00</span>
+                    <span style="font-size: 1.6em; color: #2c3e50;">{summary['robustness_score']:.2f}/1.00</span>
                 </div>
                 <div class="metric">
                     <strong style="color: #9b59b6;">Total Mutations</strong>
-                    <span style="font-size: 2em; color: #2c3e50;">{report.total_mutations}</span>
+                    <span style="font-size: 1.6em; color: #2c3e50;">{report.total_mutations}</span>
                 </div>
                 <div class="metric equivalent">
                     <strong>Equivalent</strong>
-                    <span style="font-size: 1.5em;">{summary['equivalent_count']} ({summary['equivalent_percentage']:.1f}%)</span>
+                    <span>{summary['equivalent_count']} ({summary['equivalent_percentage']:.1f}%)</span>
                 </div>
                 <div class="metric minor">
                     <strong>Minor Variations</strong>
-                    <span style="font-size: 1.5em;">{summary['minor_variation_count']} ({summary['minor_variation_percentage']:.1f}%)</span>
+                    <span>{summary['minor_variation_count']} ({summary['minor_variation_percentage']:.1f}%)</span>
                 </div>
                 <div class="metric deviation">
                     <strong>Behavioral Deviations</strong>
-                    <span style="font-size: 1.5em;">{summary['behavioral_deviation_count']} ({summary['behavioral_deviation_percentage']:.1f}%)</span>
+                    <span>{summary['behavioral_deviation_count']} ({summary['behavioral_deviation_percentage']:.1f}%)</span>
                 </div>
             </div>
         </div>
         
         <div class="charts-section">
-            <h2>📈 Visual Analytics</h2>
-            
-            <div class="chart-container">
-                <h3>Robustness Score Gauge</h3>
-                <div id="robustnessGauge" class="chart"></div>
-            </div>
-            
-            <div class="chart-container">
-                <h3>Classification Distribution</h3>
-                <div id="classificationPie" class="chart"></div>
-            </div>
-            
-            <div class="chart-container">
-                <h3>Mutation Type Performance</h3>
-                <div id="mutationTypeBar" class="chart"></div>
+            <h2>Visual Analytics</h2>
+            <div class="charts-row">
+                <div class="chart-container">
+                    <h3>Robustness Score</h3>
+                    <div id="robustnessGauge" class="chart"></div>
+                </div>
+                
+                <div class="chart-container">
+                    <h3>Classification Distribution</h3>
+                    <div id="classificationPie" class="chart"></div>
+                </div>
+                
+                <div class="chart-container">
+                    <h3>Mutation Type Performance</h3>
+                    <div id="mutationTypeBar" class="chart"></div>
+                </div>
             </div>
         </div>
         
         <div class="config-section">
-            <h2>⚙️ Configuration</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
-                <div><strong>📅 Timestamp:</strong> {report.timestamp}</div>
-                <div><strong>📄 Prompt File:</strong> {report.prompt_file}</div>
-                <div><strong>🤖 Model:</strong> {report.model}</div>
-                <div><strong>💬 Input:</strong> {report.input_text}</div>
+            <h2>Configuration</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                <div><strong>Timestamp:</strong> {report.timestamp}</div>
+                <div><strong>Prompt File:</strong> {report.prompt_file}</div>
+                <div><strong>Model:</strong> {report.model}</div>
+                <div><strong>Input:</strong> {report.input_text}</div>
             </div>
         </div>
         
         <div class="results-section">
-            <h2>📋 Detailed Results</h2>
+            <h2>Detailed Results</h2>
 """
         
         for i, result in enumerate(report.results):
@@ -315,7 +322,7 @@ class Reporter:
             
             html += f"""
             <div class="result {result.comparison.classification.value}">
-                <h3>🧬 Mutation {i+1}: {result.mutation.description}</h3>
+                <h3>Mutation {i+1}: {result.mutation.description}</h3>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 15px 0;">
                     <div><strong>Type:</strong> {result.mutation.mutation_type.value.title()}</div>
                     <div><strong>Severity:</strong> {result.mutation.severity:.2f}</div>
@@ -324,12 +331,12 @@ class Reporter:
                 </div>
                 
                 <div class="mutation-text">
-                    <strong>📝 Original:</strong><br>
+                    <strong>Original:</strong><br>
                     <pre>{result.mutation.original_text}</pre>
                 </div>
                 
                 <div class="mutation-text">
-                    <strong>🔄 Mutated:</strong><br>
+                    <strong>Mutated:</strong><br>
                     <pre>{result.mutation.mutated_text}</pre>
                 </div>
             </div>
@@ -392,18 +399,18 @@ class Reporter:
                     }},
                     axisLabel: {{
                         color: '#464646',
-                        fontSize: 20,
-                        distance: -60,
+                        fontSize: 16,
+                        distance: -50,
                         formatter: function (value) {{
                             return value.toFixed(1);
                         }}
                     }},
                     title: {{
                         offsetCenter: [0, '-20%'],
-                        fontSize: 20
+                        fontSize: 16
                     }},
                     detail: {{
-                        fontSize: 30,
+                        fontSize: 24,
                         offsetCenter: [0, '-35%'],
                         valueAnimation: true,
                         formatter: function (value) {{
@@ -430,17 +437,19 @@ class Reporter:
                 formatter: '{{a}} <br/>{{b}}: {{c}} ({{d}}%)'
             }},
             legend: {{
-                orient: 'vertical',
-                left: 'left'
+                orient: 'horizontal',
+                bottom: '0%',
+                left: 'center'
             }},
             series: [
                 {{
                     name: 'Classifications',
                     type: 'pie',
-                    radius: '50%',
+                    radius: ['30%', '60%'],
+                    center: ['50%', '45%'],
                     data: {json.dumps(classification_data)},
                     itemStyle: {{
-                        borderRadius: 10,
+                        borderRadius: 8,
                         borderColor: '#fff',
                         borderWidth: 2
                     }},
@@ -478,6 +487,9 @@ class Reporter:
                     data: {json.dumps(mutation_type_categories)},
                     axisTick: {{
                         alignWithLabel: true
+                    }},
+                    axisLabel: {{
+                        fontSize: 12
                     }}
                 }}
             ],
@@ -486,7 +498,8 @@ class Reporter:
                     type: 'value',
                     max: 1,
                     axisLabel: {{
-                        formatter: '{{value}}'
+                        formatter: '{{value}}',
+                        fontSize: 12
                     }}
                 }}
             ],
