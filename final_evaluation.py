@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Final evaluation of Quirx with OpenAI and Claude
+Final evaluation of Quirx with OpenAI and Claude - All Three Tasks
 
 @author: souhailaS
 """
@@ -24,7 +24,7 @@ def load_config():
                 os.environ[key] = value
 
 def run_final_evaluation():
-    """Run final evaluation"""
+    """Run final evaluation across all three tasks"""
     load_config()
     
     from quirx.core.mutator import Mutator
@@ -32,16 +32,30 @@ def run_final_evaluation():
     from quirx.core.comparer import OutputComparer
     from quirx.core.reporter import Reporter, FuzzingResult, FuzzingReport
     
-    print("Quirx Final Evaluation - OpenAI vs Claude")
+    print("Quirx Final Evaluation - All Three Tasks")
     print("="*70)
     
-    # Test configuration
-    test_case = {
-        'name': 'Sentiment Classification Comparison',
-        'prompt_file': 'examples/prompt_classifier.txt',
-        'input': 'I absolutely love this new product! It works perfectly and exceeded all my expectations.',
-        'mutations': 6
-    }
+    # Test configuration - All three tasks
+    test_cases = [
+        {
+            'name': 'Sentiment Classification',
+            'prompt_file': 'examples/prompt_classifier.txt',
+            'input': 'I absolutely love this new product! It works perfectly and exceeded all my expectations.',
+            'mutations': 8
+        },
+        {
+            'name': 'Text Summarization',
+            'prompt_file': 'examples/prompt_summarizer.txt',
+            'input': 'The quarterly earnings report reveals strong performance across all business segments. Revenue increased by 15% compared to the previous quarter, driven primarily by robust sales in the technology division and expanded international operations. Operating margins improved from 18% to 22%, reflecting successful cost optimization initiatives and improved operational efficiency. The company also announced plans to invest $50 million in research and development over the next fiscal year, focusing on artificial intelligence and sustainable technology solutions. Customer satisfaction scores reached an all-time high of 94%, while employee retention rates improved by 8%. Looking ahead, management expects continued growth momentum with projected revenue increases of 12-18% for the upcoming quarter.',
+            'mutations': 8
+        },
+        {
+            'name': 'SQL Generation',
+            'prompt_file': 'examples/prompt_sql.txt',
+            'input': 'Show me all users who registered in the last 30 days and have made at least one purchase',
+            'mutations': 8
+        }
+    ]
     
     # Models to test
     models = [
@@ -51,142 +65,147 @@ def run_final_evaluation():
         {'provider': 'anthropic', 'model': 'claude-sonnet-4-20250514', 'name': 'Anthropic Claude-Sonnet-4'},
     ]
     
-    # Load prompt
-    with open(test_case['prompt_file'], 'r') as f:
-        prompt = f.read().strip()
-    
-    full_prompt = f"{prompt}\n\n{test_case['input']}"
-    
-    print(f"Test Case: {test_case['name']}")
-    print(f"   Input: {test_case['input'][:60]}...")
-    print(f"   Mutations: {test_case['mutations']}")
-    
     results_comparison = {}
     all_reports = []
     
-    for model_config in models:
-        provider = model_config['provider']
-        model = model_config['model']
-        name = model_config['name']
+    for test_case in test_cases:
+        print(f"\n\nTEST CASE: {test_case['name']}")
+        print("="*70)
+        print(f"   Input: {test_case['input'][:80]}...")
+        print(f"   Mutations: {test_case['mutations']}")
         
-        print(f"\nTesting: {name}")
-        print("   " + "="*50)
+        # Load prompt
+        with open(test_case['prompt_file'], 'r') as f:
+            prompt = f.read().strip()
         
-        try:
-            # Initialize
-            mutator = Mutator(seed=42)  # Same seed for fair comparison
-            runner = LLMRunner(provider=provider)
-            comparer = OutputComparer()
-            reporter = Reporter()
+        full_prompt = f"{prompt}\n\n{test_case['input']}"
+        
+        for model_config in models:
+            provider = model_config['provider']
+            model = model_config['model']
+            name = model_config['name']
             
-            # Generate mutations
-            mutations = mutator.generate_mutations(full_prompt, count=test_case['mutations'])
-            print(f"   Generated {len(mutations)} mutations")
+            print(f"\n   Testing: {name}")
+            print("   " + "="*50)
             
-            # Get original response
-            original_response = runner.run_prompt(full_prompt, model=model)
-            
-            if original_response.error:
-                print(f"   Failed: {original_response.error}")
-                continue
-            
-            print(f"   Original: {original_response.text}")
-            print(f"   Tokens: {original_response.tokens_used}, Time: {original_response.response_time:.2f}s")
-            
-            # Process mutations
-            test_results = []
-            classifications = {'equivalent': 0, 'minor_variation': 0, 'behavioral_deviation': 0}
-            
-            for i, mutation in enumerate(mutations):
-                print(f"   Mutation {i+1}: {mutation.description}")
+            try:
+                # Initialize
+                mutator = Mutator(seed=42)  # Same seed for fair comparison
+                runner = LLMRunner(provider=provider)
+                comparer = OutputComparer()
+                reporter = Reporter()
                 
-                mutated_response = runner.run_prompt(
-                    mutation.mutated_text, 
-                    model=model,
-                    rate_limit_delay=0.3
-                )
+                # Generate mutations
+                mutations = mutator.generate_mutations(full_prompt, count=test_case['mutations'])
+                print(f"   Generated {len(mutations)} mutations")
                 
-                if mutated_response.error:
-                    print(f"      Error: {mutated_response.error}")
+                # Get original response
+                original_response = runner.run_prompt(full_prompt, model=model)
+                
+                if original_response.error:
+                    print(f"   Failed: {original_response.error}")
                     continue
                 
-                comparison = comparer.compare_outputs(
-                    original_response.text,
-                    mutated_response.text
-                )
+                print(f"   Original: {original_response.text}")
+                print(f"   Tokens: {original_response.tokens_used}, Time: {original_response.response_time:.2f}s")
                 
-                result = FuzzingResult(
-                    mutation=mutation,
-                    original_response=original_response,
-                    mutated_response=mutated_response,
-                    comparison=comparison
-                )
-                test_results.append(result)
+                # Process mutations
+                test_results = []
+                classifications = {'equivalent': 0, 'minor_variation': 0, 'behavioral_deviation': 0}
                 
-                # Track classification
-                classifications[comparison.classification.value] += 1
+                for i, mutation in enumerate(mutations):
+                    print(f"   Mutation {i+1}: {mutation.description}")
+                    
+                    mutated_response = runner.run_prompt(
+                        mutation.mutated_text, 
+                        model=model,
+                        rate_limit_delay=0.3
+                    )
+                    
+                    if mutated_response.error:
+                        print(f"      Error: {mutated_response.error}")
+                        continue
+                    
+                    comparison = comparer.compare_outputs(
+                        original_response.text,
+                        mutated_response.text
+                    )
+                    
+                    result = FuzzingResult(
+                        mutation=mutation,
+                        original_response=original_response,
+                        mutated_response=mutated_response,
+                        comparison=comparison
+                    )
+                    test_results.append(result)
+                    
+                    # Track classification
+                    classifications[comparison.classification.value] += 1
+                    
+                    # Status icon
+                    if comparison.classification.value == 'equivalent':
+                        status = "PASSED"
+                    elif comparison.classification.value == 'minor_variation':
+                        status = "WARNING"
+                    else:
+                        status = "FAILED"
+                    
+                    print(f"      {status} {comparison.classification.value} (similarity: {comparison.overall_similarity:.3f})")
+                    print(f"      Response: {mutated_response.text}")
                 
-                # Status icon
-                if comparison.classification.value == 'equivalent':
-                    status = "PASSED"
-                elif comparison.classification.value == 'minor_variation':
-                    status = "WARNING"
-                else:
-                    status = "FAILED"
-                
-                print(f"      {status} {comparison.classification.value} (similarity: {comparison.overall_similarity:.3f})")
-                print(f"      Response: {mutated_response.text}")
+                # Calculate results
+                total = len(test_results)
+                if total > 0:
+                    robustness = (classifications['equivalent'] * 1.0 + classifications['minor_variation'] * 0.7) / total
+                    
+                    print(f"\n   RESULTS:")
+                    print(f"      Robustness Score: {robustness:.2f}/1.00")
+                    print(f"      Equivalent: {classifications['equivalent']}/{total} ({classifications['equivalent']/total*100:.1f}%)")
+                    print(f"      Minor: {classifications['minor_variation']}/{total} ({classifications['minor_variation']/total*100:.1f}%)")
+                    print(f"      Deviations: {classifications['behavioral_deviation']}/{total} ({classifications['behavioral_deviation']/total*100:.1f}%)")
+                    
+                    # Store results
+                    result_key = f"{name} - {test_case['name']}"
+                    results_comparison[result_key] = {
+                        'robustness_score': robustness,
+                        'equivalent': classifications['equivalent'],
+                        'minor': classifications['minor_variation'],
+                        'deviation': classifications['behavioral_deviation'],
+                        'total': total,
+                        'avg_time': sum(r.original_response.response_time + r.mutated_response.response_time for r in test_results) / (total * 2),
+                        'avg_tokens': sum(r.original_response.tokens_used + r.mutated_response.tokens_used for r in test_results) / (total * 2)
+                    }
+                    
+                    # Generate detailed report
+                    summary = reporter.calculate_summary(test_results)
+                    report = FuzzingReport(
+                        timestamp=datetime.now().isoformat(),
+                        prompt_file=test_case['prompt_file'],
+                        input_text=test_case['input'],
+                        model=model,
+                        total_mutations=len(mutations),
+                        results=test_results,
+                        summary=summary
+                    )
+                    
+                    safe_name = name.lower().replace(' ', '_').replace('-', '_').replace('.', '_')
+                    safe_task = test_case['name'].lower().replace(' ', '_')
+                    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+                    base_filename = f"final_evaluation_{safe_name}_{safe_task}_{timestamp}"
+                    
+                    # Save both markdown and JSON reports
+                    md_report_path = reporter.save_report(report, f"{base_filename}.md", format="markdown")
+                    json_report_path = reporter.save_report(report, f"{base_filename}.json", format="json")
+                    print(f"      MD Report: {md_report_path}")
+                    print(f"      JSON Report: {json_report_path}")
+                    
+                    all_reports.append(md_report_path)
+                    all_reports.append(json_report_path)
             
-            # Calculate results
-            total = len(test_results)
-            if total > 0:
-                robustness = (classifications['equivalent'] * 1.0 + classifications['minor_variation'] * 0.7) / total
-                
-                print(f"\n   RESULTS:")
-                print(f"      Robustness Score: {robustness:.2f}/1.00")
-                print(f"      Equivalent: {classifications['equivalent']}/{total} ({classifications['equivalent']/total*100:.1f}%)")
-                print(f"      Minor: {classifications['minor_variation']}/{total} ({classifications['minor_variation']/total*100:.1f}%)")
-                print(f"      Deviations: {classifications['behavioral_deviation']}/{total} ({classifications['behavioral_deviation']/total*100:.1f}%)")
-                
-                # Store results
-                results_comparison[name] = {
-                    'robustness_score': robustness,
-                    'equivalent': classifications['equivalent'],
-                    'minor': classifications['minor_variation'],
-                    'deviation': classifications['behavioral_deviation'],
-                    'total': total,
-                    'avg_time': sum(r.original_response.response_time + r.mutated_response.response_time for r in test_results) / (total * 2),
-                    'avg_tokens': sum(r.original_response.tokens_used + r.mutated_response.tokens_used for r in test_results) / (total * 2)
-                }
-                
-                # Generate detailed report
-                summary = reporter.calculate_summary(test_results)
-                report = FuzzingReport(
-                    timestamp=datetime.now().isoformat(),
-                    prompt_file=test_case['prompt_file'],
-                    input_text=test_case['input'],
-                    model=model,
-                    total_mutations=len(mutations),
-                    results=test_results,
-                    summary=summary
-                )
-                
-                safe_name = name.lower().replace(' ', '_').replace('-', '_').replace('.', '_')
-                timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-                base_filename = f"final_evaluation_{safe_name}_{timestamp}"
-                
-                # Save both markdown and JSON reports
-                md_report_path = reporter.save_report(report, f"{base_filename}.md", format="markdown")
-                json_report_path = reporter.save_report(report, f"{base_filename}.json", format="json")
-                print(f"      MD Report: {md_report_path}")
-                print(f"      JSON Report: {json_report_path}")
-                
-                all_reports.append(md_report_path)
-                all_reports.append(json_report_path)
-        
-        except Exception as e:
-            print(f"   Failed: {e}")
-            results_comparison[name] = {'error': str(e)}
+            except Exception as e:
+                print(f"   Failed: {e}")
+                result_key = f"{name} - {test_case['name']}"
+                results_comparison[result_key] = {'error': str(e)}
     
     # Final comparison
     print(f"\n\nFINAL COMPARISON")

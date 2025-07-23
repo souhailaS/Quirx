@@ -51,10 +51,16 @@ def run_comprehensive_test():
             'mutations': 8
         },
         {
+            'name': 'Text Summarization',
+            'prompt_file': 'examples/prompt_summarizer.txt',
+            'input': 'The quarterly earnings report reveals strong performance across all business segments. Revenue increased by 15% compared to the previous quarter, driven primarily by robust sales in the technology division and expanded international operations. Operating margins improved from 18% to 22%, reflecting successful cost optimization initiatives and improved operational efficiency. The company also announced plans to invest $50 million in research and development over the next fiscal year, focusing on artificial intelligence and sustainable technology solutions. Customer satisfaction scores reached an all-time high of 94%, while employee retention rates improved by 8%. Looking ahead, management expects continued growth momentum with projected revenue increases of 12-18% for the upcoming quarter.',
+            'mutations': 8
+        },
+        {
             'name': 'SQL Generation',
             'prompt_file': 'examples/prompt_sql.txt', 
             'input': 'Show me all users who registered in the last 30 days and have made at least one purchase',
-            'mutations': 5
+            'mutations': 8
         }
     ]
     
