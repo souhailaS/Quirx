@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+.DS_Store
 
 # C extensions
 *.so
@@ -160,7 +161,7 @@ cython_debug/
 .idea/
 
 # LLMFuzz specific
-reports/
+# reports/
 *.md
 *.html
 *.json
