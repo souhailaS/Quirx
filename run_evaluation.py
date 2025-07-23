@@ -30,7 +30,7 @@ def load_config():
     return True
 
 def run_comprehensive_test():
-    """Run comprehensive evaluation"""
+    """Run evaluation"""
     if not load_config():
         return
     
@@ -39,7 +39,7 @@ def run_comprehensive_test():
     from quirx.core.comparer import OutputComparer
     from quirx.core.reporter import Reporter, FuzzingResult, FuzzingReport
     
-    print("Quirx Comprehensive Evaluation")
+    print("Quirx Evaluation")
     print("="*60)
     
     # Test cases

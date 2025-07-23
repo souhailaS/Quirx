@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Final comprehensive evaluation of Quirx with OpenAI and Claude
+Final evaluation of Quirx with OpenAI and Claude
 
 @author: souhailaS
 """
@@ -24,7 +24,7 @@ def load_config():
                 os.environ[key] = value
 
 def run_final_evaluation():
-    """Run final comprehensive evaluation"""
+    """Run final evaluation"""
     load_config()
     
     from quirx.core.mutator import Mutator

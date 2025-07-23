@@ -254,7 +254,7 @@ class Reporter:
     <div class="container">
         <div class="header">
             <h1>Quirx Robustness Analysis Report</h1>
-            <p style="color: #7f8c8d; font-size: 1.1em;">Comprehensive Prompt Mutation Testing Results</p>
+            <p style="color: #7f8c8d; font-size: 1.1em;"> Prompt Mutation Testing Results</p>
         </div>
         
         <div class="summary">
