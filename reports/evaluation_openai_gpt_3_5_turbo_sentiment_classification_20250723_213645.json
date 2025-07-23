@@ -1,0 +1,279 @@
+{
+  "timestamp": "2025-07-23T21:36:45.802083",
+  "prompt_file": "examples/prompt_classifier.txt",
+  "input_text": "I absolutely love this new product! It works perfectly and exceeded all my expectations.",
+  "model": "gpt-3.5-turbo",
+  "total_mutations": 6,
+  "results": [
+    {
+      "mutation": {
+        "original_text": "Classify the sentiment of the following text as either POSITIVE, NEGATIVE, or NEUTRAL.\n\nGuidelines:\n- Consider the overall tone and emotion\n- Look for sentiment indicators like adjectives and context\n- Return only one word: POSITIVE, NEGATIVE, or NEUTRAL\n- Be objective in your assessment\n\nText to classify:\n\nI absolutely love this new product! It works perfectly and exceeded all my expectations.",
+        "mutated_text": "Classify the sentiment of the following text as either POSITIVE NEGATIVE or NEUTRAL\n\nGuidelines\n Consider the overall tone and emotion\n Look for sentiment indicators like adjectives and context\n Return only one word POSITIVE NEGATIVE or NEUTRAL\n Be objective in your assessment\n\nText to classify\n\nI absolutely love this new product It works perfectly and exceeded all my expectations",
+        "mutation_type": "lexical",
+        "description": "Remove all punctuation",
+        "severity": 0.4
+      },
+      "original_response": {
+        "text": "POSITIVE",
+        "model": "gpt-3.5-turbo",
+        "tokens_used": 96,
+        "response_time": 0.48150181770324707,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "POSITIVE",
+        "model": "gpt-3.5-turbo",
+        "tokens_used": 85,
+        "response_time": 0.7366247177124023,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 1.0,
+        "semantic_similarity": 1.0,
+        "structural_similarity": 1.0,
+        "overall_similarity": 1.0,
+        "classification": "equivalent",
+        "details": {
+          "character_diff": [],
+          "word_diff": {
+            "added": [],
+            "removed": []
+          },
+          "length_ratio": 1.0,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 0.0
+        }
+      }
+    },
+    {
+      "mutation": {
+        "original_text": "Classify the sentiment of the following text as either POSITIVE, NEGATIVE, or NEUTRAL.\n\nGuidelines:\n- Consider the overall tone and emotion\n- Look for sentiment indicators like adjectives and context\n- Return only one word: POSITIVE, NEGATIVE, or NEUTRAL\n- Be objective in your assessment\n\nText to classify:\n\nI absolutely love this new product! It works perfectly and exceeded all my expectations.",
+        "mutated_text": "CLASSIFY THE SENTIMENT OF THE FOLLOWING TEXT AS EITHER POSITIVE, NEGATIVE, OR NEUTRAL.\n\nGUIDELINES:\n- CONSIDER THE OVERALL TONE AND EMOTION\n- LOOK FOR SENTIMENT INDICATORS LIKE ADJECTIVES AND CONTEXT\n- RETURN ONLY ONE WORD: POSITIVE, NEGATIVE, OR NEUTRAL\n- BE OBJECTIVE IN YOUR ASSESSMENT\n\nTEXT TO CLASSIFY:\n\nI ABSOLUTELY LOVE THIS NEW PRODUCT! IT WORKS PERFECTLY AND EXCEEDED ALL MY EXPECTATIONS.",
+        "mutation_type": "lexical",
+        "description": "Convert all text to uppercase",
+        "severity": 0.1
+      },
+      "original_response": {
+        "text": "POSITIVE",
+        "model": "gpt-3.5-turbo",
+        "tokens_used": 96,
+        "response_time": 0.48150181770324707,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "POSITIVE",
+        "model": "gpt-3.5-turbo",
+        "tokens_used": 121,
+        "response_time": 0.7154271602630615,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 1.0,
+        "semantic_similarity": 1.0,
+        "structural_similarity": 1.0,
+        "overall_similarity": 1.0,
+        "classification": "equivalent",
+        "details": {
+          "character_diff": [],
+          "word_diff": {
+            "added": [],
+            "removed": []
+          },
+          "length_ratio": 1.0,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 0.0
+        }
+      }
+    },
+    {
+      "mutation": {
+        "original_text": "Classify the sentiment of the following text as either POSITIVE, NEGATIVE, or NEUTRAL.\n\nGuidelines:\n- Consider the overall tone and emotion\n- Look for sentiment indicators like adjectives and context\n- Return only one word: POSITIVE, NEGATIVE, or NEUTRAL\n- Be objective in your assessment\n\nText to classify:\n\nI absolutely love this new product! It works perfectly and exceeded all my expectations.",
+        "mutated_text": "Classify the sentiment of the following text as either POSITIVE, NEGATIVE, or NEUTRAL Guidelines:\n- Consider the overall tone and emotion\n- Look for sentiment indicators like adjectives and context\n- Return only one word: POSITIVE, NEGATIVE, or NEUTRAL\n- Be objective in your assessment\n\nText to classify:\n\nI absolutely love this new product It works perfectly and exceeded all my expectations",
+        "mutation_type": "structural",
+        "description": "Randomly reorder sentences",
+        "severity": 0.6
+      },
+      "original_response": {
+        "text": "POSITIVE",
+        "model": "gpt-3.5-turbo",
+        "tokens_used": 96,
+        "response_time": 0.48150181770324707,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "POSITIVE",
+        "model": "gpt-3.5-turbo",
+        "tokens_used": 92,
+        "response_time": 1.0227739810943604,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 1.0,
+        "semantic_similarity": 1.0,
+        "structural_similarity": 1.0,
+        "overall_similarity": 1.0,
+        "classification": "equivalent",
+        "details": {
+          "character_diff": [],
+          "word_diff": {
+            "added": [],
+            "removed": []
+          },
+          "length_ratio": 1.0,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 0.0
+        }
+      }
+    },
+    {
+      "mutation": {
+        "original_text": "Classify the sentiment of the following text as either POSITIVE, NEGATIVE, or NEUTRAL.\n\nGuidelines:\n- Consider the overall tone and emotion\n- Look for sentiment indicators like adjectives and context\n- Return only one word: POSITIVE, NEGATIVE, or NEUTRAL\n- Be objective in your assessment\n\nText to classify:\n\nI absolutely love this new product! It works perfectly and exceeded all my expectations.",
+        "mutated_text": "Guidelines:\n- Consider the overall tone and emotion\n- Look for sentiment indicators like adjectives and context\n- Return only one word: POSITIVE, NEGATIVE, or NEUTRAL\n- Be objective in your assessment\n\nText to classify:\n\nI absolutely love this new product It works perfectly and exceeded all my expectations Classify the sentiment of the following text as either POSITIVE, NEGATIVE, or NEUTRAL",
+        "mutation_type": "structural",
+        "description": "Randomly reorder sentences",
+        "severity": 0.6
+      },
+      "original_response": {
+        "text": "POSITIVE",
+        "model": "gpt-3.5-turbo",
+        "tokens_used": 96,
+        "response_time": 0.48150181770324707,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "POSITIVE",
+        "model": "gpt-3.5-turbo",
+        "tokens_used": 93,
+        "response_time": 0.4940609931945801,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 1.0,
+        "semantic_similarity": 1.0,
+        "structural_similarity": 1.0,
+        "overall_similarity": 1.0,
+        "classification": "equivalent",
+        "details": {
+          "character_diff": [],
+          "word_diff": {
+            "added": [],
+            "removed": []
+          },
+          "length_ratio": 1.0,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 0.0
+        }
+      }
+    },
+    {
+      "mutation": {
+        "original_text": "Classify the sentiment of the following text as either POSITIVE, NEGATIVE, or NEUTRAL.\n\nGuidelines:\n- Consider the overall tone and emotion\n- Look for sentiment indicators like adjectives and context\n- Return only one word: POSITIVE, NEGATIVE, or NEUTRAL\n- Be objective in your assessment\n\nText to classify:\n\nI absolutely love this new product! It works perfectly and exceeded all my expectations.",
+        "mutated_text": "Guidelines:\n- Consider the overall tone and emotion\n- Look for sentiment indicators like adjectives and context\n- Return only one word: POSITIVE, NEGATIVE, or NEUTRAL\n- Be objective in your assessment\n\nText to classify:\n\nI absolutely love this new product Classify the sentiment of the following text as either POSITIVE, NEGATIVE, or NEUTRAL It works perfectly and exceeded all my expectations",
+        "mutation_type": "structural",
+        "description": "Randomly reorder sentences",
+        "severity": 0.6
+      },
+      "original_response": {
+        "text": "POSITIVE",
+        "model": "gpt-3.5-turbo",
+        "tokens_used": 96,
+        "response_time": 0.48150181770324707,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "POSITIVE",
+        "model": "gpt-3.5-turbo",
+        "tokens_used": 93,
+        "response_time": 0.8338587284088135,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 1.0,
+        "semantic_similarity": 1.0,
+        "structural_similarity": 1.0,
+        "overall_similarity": 1.0,
+        "classification": "equivalent",
+        "details": {
+          "character_diff": [],
+          "word_diff": {
+            "added": [],
+            "removed": []
+          },
+          "length_ratio": 1.0,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 0.0
+        }
+      }
+    },
+    {
+      "mutation": {
+        "original_text": "Classify the sentiment of the following text as either POSITIVE, NEGATIVE, or NEUTRAL.\n\nGuidelines:\n- Consider the overall tone and emotion\n- Look for sentiment indicators like adjectives and context\n- Return only one word: POSITIVE, NEGATIVE, or NEUTRAL\n- Be objective in your assessment\n\nText to classify:\n\nI absolutely love this new product! It works perfectly and exceeded all my expectations.",
+        "mutated_text": "It works perfectly and exceeded all my expectations Guidelines:\n- Consider the overall tone and emotion\n- Look for sentiment indicators like adjectives and context\n- Return only one word: POSITIVE, NEGATIVE, or NEUTRAL\n- Be objective in your assessment\n\nText to classify:\n\nI absolutely love this new product Classify the sentiment of the following text as either POSITIVE, NEGATIVE, or NEUTRAL",
+        "mutation_type": "structural",
+        "description": "Reverse sentence order",
+        "severity": 0.5
+      },
+      "original_response": {
+        "text": "POSITIVE",
+        "model": "gpt-3.5-turbo",
+        "tokens_used": 96,
+        "response_time": 0.48150181770324707,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "POSITIVE",
+        "model": "gpt-3.5-turbo",
+        "tokens_used": 92,
+        "response_time": 0.4128849506378174,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 1.0,
+        "semantic_similarity": 1.0,
+        "structural_similarity": 1.0,
+        "overall_similarity": 1.0,
+        "classification": "equivalent",
+        "details": {
+          "character_diff": [],
+          "word_diff": {
+            "added": [],
+            "removed": []
+          },
+          "length_ratio": 1.0,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 0.0
+        }
+      }
+    }
+  ],
+  "summary": {
+    "robustness_score": 1.0,
+    "equivalent_count": 6,
+    "minor_variation_count": 0,
+    "behavioral_deviation_count": 0,
+    "equivalent_percentage": 100.0,
+    "minor_variation_percentage": 0.0,
+    "behavioral_deviation_percentage": 0.0,
+    "avg_response_time": 0.5920534531275431,
+    "failed_mutations": 0,
+    "total_mutations": 6
+  }
+}

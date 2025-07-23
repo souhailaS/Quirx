@@ -162,9 +162,9 @@ cython_debug/
 
 # LLMFuzz specific
 # reports/
-*.md
-*.html
-*.json
+# *.md
+# *.html
+# *.json
 !README.md
 !examples/*.txt
 
