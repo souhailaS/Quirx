@@ -186,8 +186,32 @@ class Reporter:
         return json.dumps(report_dict, indent=2, ensure_ascii=False)
     
     def _generate_html_report(self, report: FuzzingReport) -> str:
-        """Generate an HTML report with basic visualization"""
+        """Generate an HTML report with ECharts visualization"""
         summary = report.summary
+        
+        # Prepare data for charts
+        classification_data = [
+            {'value': summary['equivalent_count'], 'name': 'Equivalent'},
+            {'value': summary['minor_variation_count'], 'name': 'Minor Variations'},
+            {'value': summary['behavioral_deviation_count'], 'name': 'Behavioral Deviations'}
+        ]
+        
+        # Mutation type analysis
+        mutation_type_data = {}
+        for result in report.results:
+            mut_type = result.mutation.mutation_type.value.title()
+            if mut_type not in mutation_type_data:
+                mutation_type_data[mut_type] = {'total': 0, 'avg_similarity': 0, 'similarities': []}
+            mutation_type_data[mut_type]['total'] += 1
+            mutation_type_data[mut_type]['similarities'].append(result.comparison.overall_similarity)
+        
+        # Calculate averages
+        for mut_type in mutation_type_data:
+            similarities = mutation_type_data[mut_type]['similarities']
+            mutation_type_data[mut_type]['avg_similarity'] = sum(similarities) / len(similarities)
+        
+        mutation_type_categories = list(mutation_type_data.keys())
+        mutation_type_values = [mutation_type_data[cat]['avg_similarity'] for cat in mutation_type_categories]
         
         html = f"""
 <!DOCTYPE html>
@@ -196,75 +220,302 @@ class Reporter:
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quirx Report</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
     <style>
-        body {{ font-family: Arial, sans-serif; margin: 20px; }}
-        .summary {{ background: #f5f5f5; padding: 20px; border-radius: 5px; margin-bottom: 20px; }}
-        .metric {{ display: inline-block; margin: 10px; padding: 10px; background: white; border-radius: 3px; }}
-        .equivalent {{ color: #28a745; }}
-        .minor {{ color: #ffc107; }}
-        .deviation {{ color: #dc3545; }}
-        .result {{ border: 1px solid #ddd; margin: 10px 0; padding: 15px; border-radius: 5px; }}
-        .mutation-text {{ background: #f8f9fa; padding: 10px; border-left: 3px solid #007bff; margin: 10px 0; }}
-        pre {{ white-space: pre-wrap; word-wrap: break-word; }}
+        body {{ font-family: Arial, sans-serif; margin: 20px; background-color: #f8f9fa; }}
+        .container {{ max-width: 1200px; margin: 0 auto; }}
+        .header {{ text-align: center; margin-bottom: 30px; }}
+        .summary {{ background: #ffffff; padding: 30px; border-radius: 10px; margin-bottom: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }}
+        .metric {{ display: inline-block; margin: 15px; padding: 20px; background: #f8f9fa; border-radius: 8px; min-width: 150px; text-align: center; }}
+        .metric strong {{ display: block; font-size: 1.2em; margin-bottom: 5px; }}
+        .equivalent {{ color: #28a745; border-left: 4px solid #28a745; }}
+        .minor {{ color: #ffc107; border-left: 4px solid #ffc107; }}
+        .deviation {{ color: #dc3545; border-left: 4px solid #dc3545; }}
+        .charts-section {{ background: #ffffff; padding: 30px; border-radius: 10px; margin-bottom: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }}
+        .chart-container {{ margin: 20px 0; }}
+        .chart {{ width: 100%; height: 400px; }}
+        .config-section {{ background: #ffffff; padding: 30px; border-radius: 10px; margin-bottom: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }}
+        .results-section {{ background: #ffffff; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }}
+        .result {{ border: 1px solid #e9ecef; margin: 15px 0; padding: 20px; border-radius: 8px; }}
+        .mutation-text {{ background: #f8f9fa; padding: 15px; border-left: 4px solid #007bff; margin: 15px 0; border-radius: 5px; }}
+        pre {{ white-space: pre-wrap; word-wrap: break-word; font-size: 0.9em; }}
+        h1 {{ color: #2c3e50; }}
+        h2 {{ color: #34495e; border-bottom: 2px solid #3498db; padding-bottom: 10px; }}
+        h3 {{ color: #7f8c8d; }}
     </style>
 </head>
 <body>
-    <h1>Quirx Report</h1>
-    
-    <div class="summary">
-        <h2>Summary</h2>
-        <div class="metric">
-            <strong>Robustness Score:</strong> {summary['robustness_score']:.2f}/1.00
+    <div class="container">
+        <div class="header">
+            <h1>🔍 Quirx Robustness Analysis Report</h1>
+            <p style="color: #7f8c8d; font-size: 1.1em;">Comprehensive Prompt Mutation Testing Results</p>
         </div>
-        <div class="metric">
-            <strong>Total Mutations:</strong> {report.total_mutations}
+        
+        <div class="summary">
+            <h2>📊 Executive Summary</h2>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+                <div class="metric">
+                    <strong style="color: #3498db;">Robustness Score</strong>
+                    <span style="font-size: 2em; color: #2c3e50;">{summary['robustness_score']:.2f}/1.00</span>
+                </div>
+                <div class="metric">
+                    <strong style="color: #9b59b6;">Total Mutations</strong>
+                    <span style="font-size: 2em; color: #2c3e50;">{report.total_mutations}</span>
+                </div>
+                <div class="metric equivalent">
+                    <strong>Equivalent</strong>
+                    <span style="font-size: 1.5em;">{summary['equivalent_count']} ({summary['equivalent_percentage']:.1f}%)</span>
+                </div>
+                <div class="metric minor">
+                    <strong>Minor Variations</strong>
+                    <span style="font-size: 1.5em;">{summary['minor_variation_count']} ({summary['minor_variation_percentage']:.1f}%)</span>
+                </div>
+                <div class="metric deviation">
+                    <strong>Behavioral Deviations</strong>
+                    <span style="font-size: 1.5em;">{summary['behavioral_deviation_count']} ({summary['behavioral_deviation_percentage']:.1f}%)</span>
+                </div>
+            </div>
         </div>
-        <div class="metric equivalent">
-            <strong>Equivalent:</strong> {summary['equivalent_count']} ({summary['equivalent_percentage']:.1f}%)
+        
+        <div class="charts-section">
+            <h2>📈 Visual Analytics</h2>
+            
+            <div class="chart-container">
+                <h3>Robustness Score Gauge</h3>
+                <div id="robustnessGauge" class="chart"></div>
+            </div>
+            
+            <div class="chart-container">
+                <h3>Classification Distribution</h3>
+                <div id="classificationPie" class="chart"></div>
+            </div>
+            
+            <div class="chart-container">
+                <h3>Mutation Type Performance</h3>
+                <div id="mutationTypeBar" class="chart"></div>
+            </div>
         </div>
-        <div class="metric minor">
-            <strong>Minor Variations:</strong> {summary['minor_variation_count']} ({summary['minor_variation_percentage']:.1f}%)
+        
+        <div class="config-section">
+            <h2>⚙️ Configuration</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                <div><strong>📅 Timestamp:</strong> {report.timestamp}</div>
+                <div><strong>📄 Prompt File:</strong> {report.prompt_file}</div>
+                <div><strong>🤖 Model:</strong> {report.model}</div>
+                <div><strong>💬 Input:</strong> {report.input_text}</div>
+            </div>
         </div>
-        <div class="metric deviation">
-            <strong>Behavioral Deviations:</strong> {summary['behavioral_deviation_count']} ({summary['behavioral_deviation_percentage']:.1f}%)
-        </div>
-    </div>
-    
-    <h2>Configuration</h2>
-    <ul>
-        <li><strong>Timestamp:</strong> {report.timestamp}</li>
-        <li><strong>Prompt File:</strong> {report.prompt_file}</li>
-        <li><strong>Model:</strong> {report.model}</li>
-        <li><strong>Input:</strong> {report.input_text}</li>
-    </ul>
-    
-    <h2>Results</h2>
+        
+        <div class="results-section">
+            <h2>📋 Detailed Results</h2>
 """
         
         for i, result in enumerate(report.results):
             classification_class = result.comparison.classification.value.replace('_', ' ')
             
             html += f"""
-    <div class="result {result.comparison.classification.value}">
-        <h3>Mutation {i+1}: {result.mutation.description}</h3>
-        <p><strong>Type:</strong> {result.mutation.mutation_type.value.title()}</p>
-        <p><strong>Severity:</strong> {result.mutation.severity:.2f}</p>
-        <p><strong>Classification:</strong> {classification_class.title()}</p>
-        <p><strong>Similarity:</strong> {result.comparison.overall_similarity:.3f}</p>
-        
-        <div class="mutation-text">
-            <strong>Original:</strong><br>
-            <pre>{result.mutation.original_text}</pre>
-        </div>
-        
-        <div class="mutation-text">
-            <strong>Mutated:</strong><br>
-            <pre>{result.mutation.mutated_text}</pre>
-        </div>
-    </div>
+            <div class="result {result.comparison.classification.value}">
+                <h3>🧬 Mutation {i+1}: {result.mutation.description}</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 15px 0;">
+                    <div><strong>Type:</strong> {result.mutation.mutation_type.value.title()}</div>
+                    <div><strong>Severity:</strong> {result.mutation.severity:.2f}</div>
+                    <div><strong>Classification:</strong> {classification_class.title()}</div>
+                    <div><strong>Similarity:</strong> {result.comparison.overall_similarity:.3f}</div>
+                </div>
+                
+                <div class="mutation-text">
+                    <strong>📝 Original:</strong><br>
+                    <pre>{result.mutation.original_text}</pre>
+                </div>
+                
+                <div class="mutation-text">
+                    <strong>🔄 Mutated:</strong><br>
+                    <pre>{result.mutation.mutated_text}</pre>
+                </div>
+            </div>
 """
         
-        html += """
+        html += f"""
+        </div>
+    </div>
+    
+    <script>
+        // Robustness Score Gauge
+        var robustnessChart = echarts.init(document.getElementById('robustnessGauge'));
+        var robustnessOption = {{
+            tooltip: {{
+                formatter: '{{a}} <br/>{{b}} : {{c}}%'
+            }},
+            series: [
+                {{
+                    name: 'Robustness',
+                    type: 'gauge',
+                    startAngle: 180,
+                    endAngle: 0,
+                    center: ['50%', '75%'],
+                    radius: '90%',
+                    min: 0,
+                    max: 1,
+                    splitNumber: 8,
+                    axisLine: {{
+                        lineStyle: {{
+                            width: 6,
+                            color: [
+                                [0.3, '#ff4757'],
+                                [0.7, '#ffa502'],
+                                [1, '#2ed573']
+                            ]
+                        }}
+                    }},
+                    pointer: {{
+                        icon: 'path://M12.8,0.7l12,40.1H0.7L12.8,0.7z',
+                        length: '12%',
+                        width: 20,
+                        offsetCenter: [0, '-60%'],
+                        itemStyle: {{
+                            color: 'auto'
+                        }}
+                    }},
+                    axisTick: {{
+                        length: 12,
+                        lineStyle: {{
+                            color: 'auto',
+                            width: 2
+                        }}
+                    }},
+                    splitLine: {{
+                        length: 20,
+                        lineStyle: {{
+                            color: 'auto',
+                            width: 5
+                        }}
+                    }},
+                    axisLabel: {{
+                        color: '#464646',
+                        fontSize: 20,
+                        distance: -60,
+                        formatter: function (value) {{
+                            return value.toFixed(1);
+                        }}
+                    }},
+                    title: {{
+                        offsetCenter: [0, '-20%'],
+                        fontSize: 20
+                    }},
+                    detail: {{
+                        fontSize: 30,
+                        offsetCenter: [0, '-35%'],
+                        valueAnimation: true,
+                        formatter: function (value) {{
+                            return Math.round(value * 100) + '%';
+                        }},
+                        color: 'auto'
+                    }},
+                    data: [
+                        {{
+                            value: {summary['robustness_score']:.3f},
+                            name: 'Score'
+                        }}
+                    ]
+                }}
+            ]
+        }};
+        robustnessChart.setOption(robustnessOption);
+        
+        // Classification Pie Chart
+        var pieChart = echarts.init(document.getElementById('classificationPie'));
+        var pieOption = {{
+            tooltip: {{
+                trigger: 'item',
+                formatter: '{{a}} <br/>{{b}}: {{c}} ({{d}}%)'
+            }},
+            legend: {{
+                orient: 'vertical',
+                left: 'left'
+            }},
+            series: [
+                {{
+                    name: 'Classifications',
+                    type: 'pie',
+                    radius: '50%',
+                    data: {json.dumps(classification_data)},
+                    itemStyle: {{
+                        borderRadius: 10,
+                        borderColor: '#fff',
+                        borderWidth: 2
+                    }},
+                    emphasis: {{
+                        itemStyle: {{
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }}
+                    }},
+                    color: ['#2ed573', '#ffa502', '#ff4757']
+                }}
+            ]
+        }};
+        pieChart.setOption(pieOption);
+        
+        // Mutation Type Bar Chart
+        var barChart = echarts.init(document.getElementById('mutationTypeBar'));
+        var barOption = {{
+            tooltip: {{
+                trigger: 'axis',
+                axisPointer: {{
+                    type: 'shadow'
+                }}
+            }},
+            grid: {{
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            }},
+            xAxis: [
+                {{
+                    type: 'category',
+                    data: {json.dumps(mutation_type_categories)},
+                    axisTick: {{
+                        alignWithLabel: true
+                    }}
+                }}
+            ],
+            yAxis: [
+                {{
+                    type: 'value',
+                    max: 1,
+                    axisLabel: {{
+                        formatter: '{{value}}'
+                    }}
+                }}
+            ],
+            series: [
+                {{
+                    name: 'Average Similarity',
+                    type: 'bar',
+                    barWidth: '60%',
+                    data: {json.dumps(mutation_type_values)},
+                    itemStyle: {{
+                        borderRadius: [4, 4, 0, 0],
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                            {{ offset: 0, color: '#83bff6' }},
+                            {{ offset: 0.5, color: '#188df0' }},
+                            {{ offset: 1, color: '#188df0' }}
+                        ])
+                    }}
+                }}
+            ]
+        }};
+        barChart.setOption(barOption);
+        
+        // Make charts responsive
+        window.addEventListener('resize', function() {{
+            robustnessChart.resize();
+            pieChart.resize();
+            barChart.resize();
+        }});
+    </script>
 </body>
 </html>
 """
