@@ -392,23 +392,3 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Documentation
-
-For detailed documentation, please visit our [documentation site](https://llmfuzz.readthedocs.io/) (coming soon).
-
-## Support
-
-- **Issues**: [GitHub Issues](https://github.com/yourusername/llmfuzz/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/llmfuzz/discussions)
-- **Email**: souhaila.serbout@example.com
-
-## Acknowledgments
-
-- OpenAI for the API and models
-- Anthropic for Claude API
-- The NLP community for open-source tools and libraries
-
----
-
-Made by Souhaila Serbout (@souhailaS) 
