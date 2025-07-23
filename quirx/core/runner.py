@@ -88,7 +88,7 @@ class AnthropicProvider(LLMProvider):
         
         self.client = anthropic.Anthropic(api_key=api_key or os.getenv('ANTHROPIC_API_KEY'))
     
-    def generate_response(self, prompt: str, model: str = "claude-3-sonnet-20240229", **kwargs) -> LLMResponse:
+    def generate_response(self, prompt: str, model: str = "claude-3-5-sonnet-20241022", **kwargs) -> LLMResponse:
         start_time = time.time()
         
         try:
@@ -182,7 +182,7 @@ class LLMRunner:
         """Get default model for the provider"""
         defaults = {
             "openai": "gpt-3.5-turbo",
-            "anthropic": "claude-3-sonnet-20240229",
+            "anthropic": "claude-3-5-sonnet-20241022",
             "mock": "mock-model"
         }
         return defaults.get(self.provider_name, "gpt-3.5-turbo")

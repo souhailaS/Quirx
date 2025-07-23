@@ -3,7 +3,7 @@ Tests for the mutator module
 """
 
 import pytest
-from llmfuzz.core.mutator import Mutator, MutationType
+from quirx.core.mutator import Mutator, MutationType
 
 
 def test_mutator_initialization():

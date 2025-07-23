@@ -1,6 +1,6 @@
 # Configuration Directory
 
-This directory contains configuration files for LLMFuzz.
+This directory contains configuration files for Quirx.
 
 ## API Keys Setup
 
@@ -20,9 +20,9 @@ This directory contains configuration files for LLMFuzz.
    source config/api_keys.env
    ```
 
-4. Run LLMFuzz:
+4. Run Quirx:
    ```bash
-   llmfuzz --prompt-file examples/prompt_classifier.txt --input "I love this!" --provider openai
+   quirx --prompt-file examples/prompt_classifier.txt --input "I love this!" --provider openai
    ```
 
 ### Security Notes
@@ -42,5 +42,5 @@ export ANTHROPIC_API_KEY="your-key-here"
 
 Or use the command line argument:
 ```bash
-llmfuzz --api-key "your-key-here" --provider openai
+quirx --api-key "your-key-here" --provider openai
 ``` 

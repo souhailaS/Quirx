@@ -34,14 +34,14 @@ def quick_test():
     if not load_config():
         return
     
-    from llmfuzz.core.mutator import Mutator
-    from llmfuzz.core.runner import LLMRunner
-    from llmfuzz.core.comparer import OutputComparer
+    from quirx.core.mutator import Mutator
+    from quirx.core.runner import LLMRunner
+    from quirx.core.comparer import OutputComparer
     
     # Test prompt
     prompt = "Classify the sentiment: I love this product!"
     
-    print("LLMFuzz API Test")
+    print("Quirx API Test")
     print("="*50)
     
     # Test OpenAI
@@ -104,8 +104,8 @@ def quick_test():
     
     print("\n3. Testing complete!")
     print("\nTo run full evaluation:")
-    print("   python -m llmfuzz.cli --prompt-file examples/prompt_classifier.txt --input 'I love this!' --provider openai --mutations 10")
-    print("   python -m llmfuzz.cli --prompt-file examples/prompt_classifier.txt --input 'I love this!' --provider anthropic --mutations 10")
+    print("   python -m quirx.cli --prompt-file examples/prompt_classifier.txt --input 'I love this!' --provider openai --mutations 10")
+    print("   python -m quirx.cli --prompt-file examples/prompt_classifier.txt --input 'I love this!' --provider anthropic --mutations 10")
 
 if __name__ == "__main__":
     quick_test() 

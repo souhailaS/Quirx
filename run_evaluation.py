@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Comprehensive evaluation script for LLMFuzz with OpenAI and Claude
+Evaluation script for Quirx with OpenAI and Claude
 
 @author: souhailaS
 """
@@ -34,12 +34,12 @@ def run_comprehensive_test():
     if not load_config():
         return
     
-    from llmfuzz.core.mutator import Mutator
-    from llmfuzz.core.runner import LLMRunner
-    from llmfuzz.core.comparer import OutputComparer
-    from llmfuzz.core.reporter import Reporter, FuzzingResult, FuzzingReport
+    from quirx.core.mutator import Mutator
+    from quirx.core.runner import LLMRunner
+    from quirx.core.comparer import OutputComparer
+    from quirx.core.reporter import Reporter, FuzzingResult, FuzzingReport
     
-    print("LLMFuzz Comprehensive Evaluation")
+    print("Quirx Comprehensive Evaluation")
     print("="*60)
     
     # Test cases
@@ -62,12 +62,14 @@ def run_comprehensive_test():
     models_to_test = [
         {'provider': 'openai', 'model': 'gpt-3.5-turbo'},
         {'provider': 'openai', 'model': 'gpt-4o-mini'},  # More cost-effective GPT-4 variant
+        {'provider': 'anthropic', 'model': 'claude-3-5-sonnet-20241022'},  # Claude 3.5 Sonnet
+        {'provider': 'anthropic', 'model': 'claude-sonnet-4-20250514'},  # Claude Sonnet 4
     ]
     
     results_summary = {}
     
     for test_case in test_cases:
-        print(f"\n\n🧪 TEST CASE: {test_case['name']}")
+        print(f"\n\nTEST CASE: {test_case['name']}")
         print(f"   Input: {test_case['input'][:60]}...")
         print("   " + "="*50)
         
@@ -81,7 +83,7 @@ def run_comprehensive_test():
             provider = model_config['provider']
             model = model_config['model']
             
-            print(f"\n   🔬 Testing {provider.upper()} - {model}")
+            print(f"\n   Testing {provider.upper()} - {model}")
             print("   " + "-"*40)
             
             try:
@@ -93,10 +95,10 @@ def run_comprehensive_test():
                 
                 # Test connection
                 if not runner.test_connection():
-                    print(f"   ❌ Connection failed for {provider}")
+                    print(f"   Connection failed for {provider}")
                     continue
                 
-                print(f"   ✅ Connected to {provider}")
+                print(f"   Connected to {provider}")
                 
                 # Generate mutations
                 mutations = mutator.generate_mutations(full_prompt, count=test_case['mutations'])
@@ -106,11 +108,11 @@ def run_comprehensive_test():
                 original_response = runner.run_prompt(full_prompt, model=model)
                 
                 if original_response.error:
-                    print(f"   ❌ Original request failed: {original_response.error}")
+                    print(f"   Original request failed: {original_response.error}")
                     continue
                 
-                print(f"   📤 Original response: {original_response.text[:80]}...")
-                print(f"   📊 Tokens: {original_response.tokens_used}, Time: {original_response.response_time:.2f}s")
+                print(f"   Original response: {original_response.text[:80]}...")
+                print(f"   Tokens: {original_response.tokens_used}, Time: {original_response.response_time:.2f}s")
                 
                 # Process mutations
                 test_results = []
@@ -119,7 +121,7 @@ def run_comprehensive_test():
                 deviation_count = 0
                 
                 for i, mutation in enumerate(mutations):
-                    print(f"   🔄 Mutation {i+1}/{len(mutations)}: {mutation.description}")
+                    print(f"   Mutation {i+1}/{len(mutations)}: {mutation.description}")
                     
                     mutated_response = runner.run_prompt(
                         mutation.mutated_text, 
@@ -128,7 +130,7 @@ def run_comprehensive_test():
                     )
                     
                     if mutated_response.error:
-                        print(f"      ❌ Error: {mutated_response.error}")
+                        print(f"      Error: {mutated_response.error}")
                         continue
                     
                     comparison = comparer.compare_outputs(
@@ -147,27 +149,27 @@ def run_comprehensive_test():
                     # Count classifications
                     if comparison.classification.value == 'equivalent':
                         equivalent_count += 1
-                        status = "✅"
+                        status = "PASSED"
                     elif comparison.classification.value == 'minor_variation':
                         minor_count += 1
-                        status = "⚠️"
+                        status = "WARNING"
                     else:  # behavioral_deviation
                         deviation_count += 1
-                        status = "❌"
+                        status = "FAILED"
                     
                     print(f"      {status} {comparison.classification.value} (similarity: {comparison.overall_similarity:.3f})")
-                    print(f"      📝 Response: {mutated_response.text[:60]}...")
+                    print(f"      Response: {mutated_response.text[:60]}...")
                 
                 # Calculate summary
                 total_tests = len(test_results)
                 if total_tests > 0:
                     robustness_score = (equivalent_count * 1.0 + minor_count * 0.7) / total_tests
                     
-                    print(f"\n   📈 RESULTS SUMMARY:")
+                    print(f"\n   RESULTS SUMMARY:")
                     print(f"      Robustness Score: {robustness_score:.2f}/1.00")
-                    print(f"      ✅ Equivalent: {equivalent_count}/{total_tests} ({equivalent_count/total_tests*100:.1f}%)")
-                    print(f"      ⚠️  Minor Variations: {minor_count}/{total_tests} ({minor_count/total_tests*100:.1f}%)")
-                    print(f"      ❌ Behavioral Deviations: {deviation_count}/{total_tests} ({deviation_count/total_tests*100:.1f}%)")
+                    print(f"      Equivalent: {equivalent_count}/{total_tests} ({equivalent_count/total_tests*100:.1f}%)")
+                    print(f"      Minor Variations: {minor_count}/{total_tests} ({minor_count/total_tests*100:.1f}%)")
+                    print(f"      Behavioral Deviations: {deviation_count}/{total_tests} ({deviation_count/total_tests*100:.1f}%)")
                     
                     # Save detailed report
                     summary = reporter.calculate_summary(test_results)
@@ -183,9 +185,14 @@ def run_comprehensive_test():
                     
                     safe_name = test_case['name'].lower().replace(' ', '_')
                     safe_model = model.replace('-', '_').replace('.', '_')
-                    report_filename = f"evaluation_{provider}_{safe_model}_{safe_name}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.md"
-                    report_path = reporter.save_report(report, report_filename)
-                    print(f"      📄 Detailed report saved: {report_path}")
+                    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+                    base_filename = f"evaluation_{provider}_{safe_model}_{safe_name}_{timestamp}"
+                    
+                    # Save both markdown and JSON reports
+                    md_report_path = reporter.save_report(report, f"{base_filename}.md", format="markdown")
+                    json_report_path = reporter.save_report(report, f"{base_filename}.json", format="json")
+                    print(f"      MD Report: {md_report_path}")
+                    print(f"      JSON Report: {json_report_path}")
                     
                     # Store for final summary
                     key = f"{provider}_{model}_{safe_name}"
@@ -199,26 +206,26 @@ def run_comprehensive_test():
                     }
                 
             except Exception as e:
-                print(f"   ❌ Test failed: {e}")
+                print(f"   Test failed: {e}")
                 results_summary[f"{provider}_{model}_{test_case['name'].lower().replace(' ', '_')}"] = {
                     'success': False,
                     'error': str(e)
                 }
     
     # Final summary
-    print(f"\n\n🎉 EVALUATION COMPLETE")
+    print(f"\n\nEVALUATION COMPLETE")
     print("="*60)
     
     for test_key, result in results_summary.items():
         if result.get('success'):
-            print(f"✅ {test_key}: Score {result['robustness_score']:.2f} "
+            print(f"PASSED {test_key}: Score {result['robustness_score']:.2f} "
                   f"({result['equivalent']}/{result['total']} equivalent)")
         else:
-            print(f"❌ {test_key}: FAILED - {result.get('error', 'Unknown error')}")
+            print(f"FAILED {test_key}: FAILED - {result.get('error', 'Unknown error')}")
     
-    print(f"\n📁 Check the 'reports/' directory for detailed analysis reports.")
-    print(f"🔧 To test individual cases, use:")
-    print(f"   python -m llmfuzz.cli --prompt-file examples/prompt_classifier.txt --input 'test' --provider openai --mutations 10")
+    print(f"\nCheck the 'reports/' directory for detailed analysis reports.")
+    print(f"To test individual cases, use:")
+    print(f"   python -m quirx.cli --prompt-file examples/prompt_classifier.txt --input 'test' --provider openai --mutations 10")
 
 if __name__ == "__main__":
     run_comprehensive_test() 

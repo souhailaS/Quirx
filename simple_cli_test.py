@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Simple CLI test for LLMFuzz
+Simple CLI test for Quirx
 """
 
 import sys
@@ -11,7 +11,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 # Create a test argument list
 test_args = [
-    'llmfuzz',
+    'quirx',
     '--prompt-file', 'examples/prompt_classifier.txt',
     '--input', 'I love this product!',
     '--provider', 'mock',
@@ -24,7 +24,7 @@ test_args = [
 sys.argv = test_args
 
 try:
-    from llmfuzz.cli import main
+    from quirx.cli import main
     print("Testing CLI with mock provider...")
     main()
     print("CLI test completed successfully!")

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Evaluation script for testing LLMFuzz with OpenAI and Claude APIs
+Evaluation script for testing Quirx with OpenAI and Claude APIs
 
 @author: souhailaS
 """
@@ -12,10 +12,10 @@ from datetime import datetime
 # Add the current directory to Python path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from llmfuzz.core.mutator import Mutator
-from llmfuzz.core.runner import LLMRunner
-from llmfuzz.core.comparer import OutputComparer
-from llmfuzz.core.reporter import Reporter, FuzzingResult, FuzzingReport
+from quirx.core.mutator import Mutator
+from quirx.core.runner import LLMRunner
+from quirx.core.comparer import OutputComparer
+from quirx.core.reporter import Reporter, FuzzingResult, FuzzingReport
 
 
 def test_provider(provider_name, model_name, prompt_file, input_text, mutations_count=5):
@@ -116,17 +116,21 @@ def test_provider(provider_name, model_name, prompt_file, input_text, mutations_
             summary=summary
         )
         
-        # Save report
-        report_filename = f"evaluation_{provider_name}_{model_name.replace('-', '_')}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.md"
-        report_path = reporter.save_report(report, report_filename)
+        # Save reports in both formats
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        base_filename = f"evaluation_{provider_name}_{model_name.replace('-', '_')}_{timestamp}"
         
-        print(f"\n📊 RESULTS SUMMARY for {provider_name.upper()}:")
+        md_report_path = reporter.save_report(report, f"{base_filename}.md", format="markdown")
+        json_report_path = reporter.save_report(report, f"{base_filename}.json", format="json")
+        
+        print(f"\nRESULTS SUMMARY for {provider_name.upper()}:")
         print(f"   Robustness Score: {summary['robustness_score']:.2f}/1.00")
         print(f"   Equivalent: {summary['equivalent_count']} ({summary['equivalent_percentage']:.1f}%)")
         print(f"   Minor Variations: {summary['minor_variation_count']} ({summary['minor_variation_percentage']:.1f}%)")
         print(f"   Behavioral Deviations: {summary['behavioral_deviation_count']} ({summary['behavioral_deviation_percentage']:.1f}%)")
         print(f"   Average Response Time: {summary['avg_response_time']:.2f}s")
-        print(f"   Report saved: {report_path}")
+        print(f"   MD Report: {md_report_path}")
+        print(f"   JSON Report: {json_report_path}")
         
         return True
         
@@ -139,7 +143,7 @@ def test_provider(provider_name, model_name, prompt_file, input_text, mutations_
 
 def main():
     """Main evaluation function"""
-    print("LLMFuzz API Evaluation")
+    print("Quirx API Evaluation")
     print("=" * 50)
     
     # Check if API keys are set
@@ -170,14 +174,15 @@ def main():
     # API providers to test
     providers = [
         {'name': 'openai', 'model': 'gpt-3.5-turbo'},
-        {'name': 'openai', 'model': 'gpt-4'},
-        {'name': 'anthropic', 'model': 'claude-3-sonnet-20240229'}
+        {'name': 'openai', 'model': 'gpt-4o-mini'},
+        {'name': 'anthropic', 'model': 'claude-3-5-sonnet-20241022'},
+        {'name': 'anthropic', 'model': 'claude-sonnet-4-20250514'}
     ]
     
     results = {}
     
     for test_case in test_cases:
-        print(f"\n\n🧪 TEST CASE: {test_case['prompt_file']}")
+        print(f"\n\nTEST CASE: {test_case['prompt_file']}")
         print(f"   Input: {test_case['input_text'][:50]}...")
         
         for provider in providers:
@@ -193,7 +198,7 @@ def main():
             results[key] = success
     
     # Final summary
-    print(f"\n\n🎉 EVALUATION COMPLETE")
+    print(f"\n\nEVALUATION COMPLETE")
     print("=" * 50)
     for provider, success in results.items():
         status = "SUCCESS" if success else "FAILED"

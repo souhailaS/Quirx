@@ -1,4 +1,4 @@
-# Security Guidelines for LLMFuzz
+# Security Guidelines for Quirx
 
 ## API Key Management
 

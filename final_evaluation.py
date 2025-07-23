@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Final comprehensive evaluation of LLMFuzz with OpenAI and Claude
+Final comprehensive evaluation of Quirx with OpenAI and Claude
 
 @author: souhailaS
 """
@@ -27,12 +27,12 @@ def run_final_evaluation():
     """Run final comprehensive evaluation"""
     load_config()
     
-    from llmfuzz.core.mutator import Mutator
-    from llmfuzz.core.runner import LLMRunner
-    from llmfuzz.core.comparer import OutputComparer
-    from llmfuzz.core.reporter import Reporter, FuzzingResult, FuzzingReport
+    from quirx.core.mutator import Mutator
+    from quirx.core.runner import LLMRunner
+    from quirx.core.comparer import OutputComparer
+    from quirx.core.reporter import Reporter, FuzzingResult, FuzzingReport
     
-    print("🚀 LLMFuzz Final Evaluation - OpenAI vs Claude")
+    print("Quirx Final Evaluation - OpenAI vs Claude")
     print("="*70)
     
     # Test configuration
@@ -48,6 +48,7 @@ def run_final_evaluation():
         {'provider': 'openai', 'model': 'gpt-3.5-turbo', 'name': 'OpenAI GPT-3.5-turbo'},
         {'provider': 'openai', 'model': 'gpt-4o-mini', 'name': 'OpenAI GPT-4o-mini'},
         {'provider': 'anthropic', 'model': 'claude-3-5-sonnet-20241022', 'name': 'Anthropic Claude-3.5-Sonnet'},
+        {'provider': 'anthropic', 'model': 'claude-sonnet-4-20250514', 'name': 'Anthropic Claude-Sonnet-4'},
     ]
     
     # Load prompt
@@ -56,7 +57,7 @@ def run_final_evaluation():
     
     full_prompt = f"{prompt}\n\n{test_case['input']}"
     
-    print(f"📝 Test Case: {test_case['name']}")
+    print(f"Test Case: {test_case['name']}")
     print(f"   Input: {test_case['input'][:60]}...")
     print(f"   Mutations: {test_case['mutations']}")
     
@@ -68,7 +69,7 @@ def run_final_evaluation():
         model = model_config['model']
         name = model_config['name']
         
-        print(f"\n🔬 Testing: {name}")
+        print(f"\nTesting: {name}")
         print("   " + "="*50)
         
         try:
@@ -86,18 +87,18 @@ def run_final_evaluation():
             original_response = runner.run_prompt(full_prompt, model=model)
             
             if original_response.error:
-                print(f"   ❌ Failed: {original_response.error}")
+                print(f"   Failed: {original_response.error}")
                 continue
             
-            print(f"   📤 Original: {original_response.text}")
-            print(f"   📊 Tokens: {original_response.tokens_used}, Time: {original_response.response_time:.2f}s")
+            print(f"   Original: {original_response.text}")
+            print(f"   Tokens: {original_response.tokens_used}, Time: {original_response.response_time:.2f}s")
             
             # Process mutations
             test_results = []
             classifications = {'equivalent': 0, 'minor_variation': 0, 'behavioral_deviation': 0}
             
             for i, mutation in enumerate(mutations):
-                print(f"   🔄 Mutation {i+1}: {mutation.description}")
+                print(f"   Mutation {i+1}: {mutation.description}")
                 
                 mutated_response = runner.run_prompt(
                     mutation.mutated_text, 
@@ -106,7 +107,7 @@ def run_final_evaluation():
                 )
                 
                 if mutated_response.error:
-                    print(f"      ❌ Error: {mutated_response.error}")
+                    print(f"      Error: {mutated_response.error}")
                     continue
                 
                 comparison = comparer.compare_outputs(
@@ -127,25 +128,25 @@ def run_final_evaluation():
                 
                 # Status icon
                 if comparison.classification.value == 'equivalent':
-                    status = "✅"
+                    status = "PASSED"
                 elif comparison.classification.value == 'minor_variation':
-                    status = "⚠️"
+                    status = "WARNING"
                 else:
-                    status = "❌"
+                    status = "FAILED"
                 
                 print(f"      {status} {comparison.classification.value} (similarity: {comparison.overall_similarity:.3f})")
-                print(f"      📝 {mutated_response.text}")
+                print(f"      Response: {mutated_response.text}")
             
             # Calculate results
             total = len(test_results)
             if total > 0:
                 robustness = (classifications['equivalent'] * 1.0 + classifications['minor_variation'] * 0.7) / total
                 
-                print(f"\n   📈 RESULTS:")
-                print(f"      🏆 Robustness Score: {robustness:.2f}/1.00")
-                print(f"      ✅ Equivalent: {classifications['equivalent']}/{total} ({classifications['equivalent']/total*100:.1f}%)")
-                print(f"      ⚠️  Minor: {classifications['minor_variation']}/{total} ({classifications['minor_variation']/total*100:.1f}%)")
-                print(f"      ❌ Deviations: {classifications['behavioral_deviation']}/{total} ({classifications['behavioral_deviation']/total*100:.1f}%)")
+                print(f"\n   RESULTS:")
+                print(f"      Robustness Score: {robustness:.2f}/1.00")
+                print(f"      Equivalent: {classifications['equivalent']}/{total} ({classifications['equivalent']/total*100:.1f}%)")
+                print(f"      Minor: {classifications['minor_variation']}/{total} ({classifications['minor_variation']/total*100:.1f}%)")
+                print(f"      Deviations: {classifications['behavioral_deviation']}/{total} ({classifications['behavioral_deviation']/total*100:.1f}%)")
                 
                 # Store results
                 results_comparison[name] = {
@@ -171,18 +172,24 @@ def run_final_evaluation():
                 )
                 
                 safe_name = name.lower().replace(' ', '_').replace('-', '_').replace('.', '_')
-                report_filename = f"final_evaluation_{safe_name}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.md"
-                report_path = reporter.save_report(report, report_filename)
-                print(f"      📄 Report: {report_path}")
+                timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+                base_filename = f"final_evaluation_{safe_name}_{timestamp}"
                 
-                all_reports.append(report_path)
+                # Save both markdown and JSON reports
+                md_report_path = reporter.save_report(report, f"{base_filename}.md", format="markdown")
+                json_report_path = reporter.save_report(report, f"{base_filename}.json", format="json")
+                print(f"      MD Report: {md_report_path}")
+                print(f"      JSON Report: {json_report_path}")
+                
+                all_reports.append(md_report_path)
+                all_reports.append(json_report_path)
         
         except Exception as e:
-            print(f"   ❌ Failed: {e}")
+            print(f"   Failed: {e}")
             results_comparison[name] = {'error': str(e)}
     
     # Final comparison
-    print(f"\n\n🏁 FINAL COMPARISON")
+    print(f"\n\nFINAL COMPARISON")
     print("="*70)
     
     # Sort by robustness score
@@ -192,15 +199,15 @@ def run_final_evaluation():
         reverse=True
     )
     
-    print("🏆 ROBUSTNESS RANKING:")
+    print("ROBUSTNESS RANKING:")
     for i, (name, data) in enumerate(sorted_results):
-        rank = "🥇" if i == 0 else "🥈" if i == 1 else "🥉" if i == 2 else f"{i+1}."
+        rank = f"{i+1}."
         print(f"   {rank} {name}: {data['robustness_score']:.2f}/1.00")
-        print(f"      ✅ {data['equivalent']}/{data['total']} equivalent ({data['equivalent']/data['total']*100:.1f}%)")
-        print(f"      ⚡ Avg time: {data['avg_time']:.2f}s, Avg tokens: {data['avg_tokens']:.0f}")
+        print(f"      {data['equivalent']}/{data['total']} equivalent ({data['equivalent']/data['total']*100:.1f}%)")
+        print(f"      Avg time: {data['avg_time']:.2f}s, Avg tokens: {data['avg_tokens']:.0f}")
         print()
     
-    print("📊 KEY INSIGHTS:")
+    print("KEY INSIGHTS:")
     if sorted_results:
         best = sorted_results[0]
         print(f"   • Most robust: {best[0]} ({best[1]['robustness_score']:.2f}/1.00)")
@@ -209,11 +216,11 @@ def run_final_evaluation():
             fastest = min(sorted_results, key=lambda x: x[1]['avg_time'])
             print(f"   • Fastest: {fastest[0]} ({fastest[1]['avg_time']:.2f}s avg)")
     
-    print(f"\n📁 Detailed reports saved:")
+    print(f"\nDetailed reports saved:")
     for report in all_reports:
         print(f"   • {report}")
     
-    print(f"\n🎯 CONCLUSION: LLMFuzz successfully evaluated prompt robustness across multiple LLM providers!")
+    print(f"\nCONCLUSION: Quirx successfully evaluated prompt robustness across multiple LLM providers!")
     print(f"   Use these insights to choose the most robust model for your use case.")
 
 if __name__ == "__main__":

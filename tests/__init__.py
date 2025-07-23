@@ -1,3 +1,3 @@
 """
-Test package for LLMFuzz
+Test package for Quirx
 """ 

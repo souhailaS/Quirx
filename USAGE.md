@@ -1,4 +1,4 @@
-# LLMFuzz Usage Guide
+# Quirx Usage Guide
 
 ## Quick Start
 
@@ -9,18 +9,18 @@ pip install openai anthropic nltk sentence-transformers numpy
 
 ### 2. Basic Usage with Mock Provider (No API Key Required)
 ```bash
-python -m llmfuzz.cli --prompt-file examples/prompt_classifier.txt --input "I love this product!" --provider mock --mutations 10 --verbose
+python -m quirx.cli --prompt-file examples/prompt_classifier.txt --input "I love this product!" --provider mock --mutations 10 --verbose
 ```
 
 ### 3. Usage with OpenAI (Requires API Key)
 ```bash
 export OPENAI_API_KEY="your-api-key-here"
-python -m llmfuzz.cli --prompt-file examples/prompt_sql.txt --input "Show all users from database" --model gpt-3.5-turbo --mutations 20
+python -m quirx.cli --prompt-file examples/prompt_sql.txt --input "Show all users from database" --model gpt-3.5-turbo --mutations 20
 ```
 
 ### 4. CI/CD Integration
 ```bash
-python -m llmfuzz.cli --prompt-file prompt.txt --input "test input" --provider mock --ci-mode --format json
+python -m quirx.cli --prompt-file prompt.txt --input "test input" --provider mock --ci-mode --format json
 echo $?  # Check exit code: 0=pass, 1=fail, 2=warning
 ```
 
@@ -28,7 +28,7 @@ echo $?  # Check exit code: 0=pass, 1=fail, 2=warning
 
 Run our test script:
 ```bash
-python test_llmfuzz.py
+python test_quirx.py
 ```
 
 Or test the CLI directly:
@@ -52,7 +52,7 @@ We've included several example prompts in the `examples/` directory:
 
 ## Mutation Types
 
-LLMFuzz generates three types of mutations:
+Quirx generates three types of mutations:
 
 1. **Lexical**: Case changes, punctuation modifications, spacing changes
 2. **Semantic**: Synonym replacement (when NLTK is available)

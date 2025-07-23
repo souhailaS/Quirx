@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Test Claude with LLMFuzz
+Test Claude with Quirx
 
 @author: souhailaS
 """
@@ -23,14 +23,14 @@ def load_config():
                 os.environ[key] = value
 
 def test_claude():
-    """Test Claude with LLMFuzz"""
+    """Test Claude with Quirx"""
     load_config()
     
-    from llmfuzz.core.mutator import Mutator
-    from llmfuzz.core.runner import LLMRunner
-    from llmfuzz.core.comparer import OutputComparer
+    from quirx.core.mutator import Mutator
+    from quirx.core.runner import LLMRunner
+    from quirx.core.comparer import OutputComparer
     
-    print("Testing Claude with LLMFuzz")
+    print("Testing Claude with Quirx")
     print("="*40)
     
     # Use the working model name we found
@@ -44,7 +44,7 @@ def test_claude():
             print("Connection failed")
             return
         
-        print("✅ Claude connection successful!")
+        print("Claude connection successful!")
         
         # Simple test
         prompt = "Classify the sentiment: I love this product!"
@@ -52,27 +52,27 @@ def test_claude():
         response = runner.run_prompt(prompt, model=model_name)
         
         if response.error:
-            print(f"❌ Error: {response.error}")
+            print(f"Error: {response.error}")
         else:
-            print(f"✅ Response: {response.text}")
-            print(f"📊 Tokens: {response.tokens_used}, Time: {response.response_time:.2f}s")
+            print(f"Response: {response.text}")
+            print(f"Tokens: {response.tokens_used}, Time: {response.response_time:.2f}s")
             
             # Test with one mutation
             mutator = Mutator(seed=42)
             mutations = mutator.generate_mutations(prompt, count=1)
             
             if mutations:
-                print(f"\n🔄 Testing mutation: {mutations[0].description}")
+                print(f"\nTesting mutation: {mutations[0].description}")
                 mutated_response = runner.run_prompt(mutations[0].mutated_text, model=model_name)
                 
                 if not mutated_response.error:
                     comparer = OutputComparer()
                     comparison = comparer.compare_outputs(response.text, mutated_response.text)
-                    print(f"✅ Mutation result: {comparison.classification.value} (similarity: {comparison.overall_similarity:.3f})")
-                    print(f"📝 Mutated response: {mutated_response.text}")
+                    print(f"Mutation result: {comparison.classification.value} (similarity: {comparison.overall_similarity:.3f})")
+                    print(f"Mutated response: {mutated_response.text}")
     
     except Exception as e:
-        print(f"❌ Error: {e}")
+        print(f"Error: {e}")
         import traceback
         traceback.print_exc()
 

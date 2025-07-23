@@ -1,5 +1,5 @@
 """
-Report generation module for LLMFuzz results
+Report generation module for Quirx results
 
 @author: souhailaS
 """
@@ -64,7 +64,7 @@ class Reporter:
         """
         if filename is None:
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            filename = f"llmfuzz_report_{timestamp}.{format}"
+            filename = f"quirx_report_{timestamp}.{format}"
         
         filepath = os.path.join(self.output_dir, filename)
         
@@ -80,7 +80,7 @@ class Reporter:
         md = []
         
         # Header
-        md.append("# LLMFuzz Report")
+        md.append("# Quirx Report")
         md.append("")
         
         # Metadata
@@ -180,8 +180,8 @@ class Reporter:
         
         # Convert enums to strings
         for result in report_dict['results']:
-            result['mutation']['mutation_type'] = result['mutation']['mutation_type']
-            result['comparison']['classification'] = result['comparison']['classification']
+            result['mutation']['mutation_type'] = result['mutation']['mutation_type'].value
+            result['comparison']['classification'] = result['comparison']['classification'].value
         
         return json.dumps(report_dict, indent=2, ensure_ascii=False)
     
@@ -195,7 +195,7 @@ class Reporter:
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LLMFuzz Report</title>
+    <title>Quirx Report</title>
     <style>
         body {{ font-family: Arial, sans-serif; margin: 20px; }}
         .summary {{ background: #f5f5f5; padding: 20px; border-radius: 5px; margin-bottom: 20px; }}
@@ -209,7 +209,7 @@ class Reporter:
     </style>
 </head>
 <body>
-    <h1>LLMFuzz Report</h1>
+    <h1>Quirx Report</h1>
     
     <div class="summary">
         <h2>Summary</h2>

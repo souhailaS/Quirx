@@ -1,6 +1,6 @@
-# LLMFuzz - Simplified Architecture
+# Quirx - Simplified Architecture
 
-This document provides a high-level overview of how LLMFuzz works.
+This document provides a high-level overview of how Quirx works.
 
 ## Architecture Overview
 
@@ -22,7 +22,7 @@ graph LR
 ## Process Flow
 
 1. **Input**: You provide a prompt file and optional input text
-2. **Mutation**: LLMFuzz generates variations of your prompt using three mutation types:
+2. **Mutation**: Quirx generates variations of your prompt using three mutation types:
    - **Lexical**: Case changes, punctuation modifications
    - **Semantic**: Synonym replacements  
    - **Structural**: Sentence reordering
@@ -46,7 +46,7 @@ graph LR
 
 ```bash
 # Test a classification prompt with 10 mutations
-llmfuzz --prompt-file sentiment.txt --input "I love this!" --mutations 10
+quirx --prompt-file sentiment.txt --input "I love this!" --mutations 10
 
 # Result: Robustness score of 0.85/1.0 with detailed breakdown
 ```

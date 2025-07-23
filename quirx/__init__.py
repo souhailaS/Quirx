@@ -1,5 +1,5 @@
 """
-LLMFuzz - A Mutation-Based Fuzzer for Evaluating Prompt Robustness in LLM-Driven Applications
+Quirx - A Mutation-Based Fuzzer for Evaluating Prompt Robustness in LLM-Driven Applications
 
 @author: souhailaS
 """

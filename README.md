@@ -1,4 +1,4 @@
-# LLMFuzz
+# Quirx
 
 **A Mutation-Based Fuzzer for Evaluating Prompt Robustness in LLM-Driven Applications**
 
@@ -7,7 +7,7 @@
 
 ## Motivation
 
-In production LLM-based applications, small variations in prompts can lead to dramatically different outputs, potentially breaking critical functionality. A single typo, case change, or rephrasing can cause a well-designed prompt to fail catastrophically. LLMFuzz addresses this critical gap by systematically testing prompt robustness through controlled mutations.
+In production LLM-based applications, small variations in prompts can lead to dramatically different outputs, potentially breaking critical functionality. A single typo, case change, or rephrasing can cause a well-designed prompt to fail catastrophically. Quirx addresses this critical gap by systematically testing prompt robustness through controlled mutations.
 
 **Why does this matter?**
 - **Production Reliability**: Ensure your LLM-based features work consistently across varied inputs
@@ -16,16 +16,16 @@ In production LLM-based applications, small variations in prompts can lead to dr
 - **Compliance & Safety**: Verify that safety prompts remain effective under variations
 - **CI/CD Integration**: Catch prompt regressions before they reach production
 
-**When to use LLMFuzz:**
+**When to use Quirx:**
 - Before deploying LLM features to production
 - When designing critical prompts for classification, extraction, or generation tasks
 - During prompt engineering iterations to validate robustness improvements
 - In CI/CD pipelines to prevent prompt regressions
 - When troubleshooting inconsistent LLM behavior in production systems
 
-## LLMFuzz tool overview
+## Quirx tool overview
 
-LLMFuzz is a Python-based tool designed to assess the robustness of LLM-based applications (like GPT-4, Claude, etc.) by introducing controlled, semantic-preserving mutations to prompts or input text. It helps detect prompt brittleness, semantic drift, and inconsistent outputs, which are major issues in prompt-based systems.
+Quirx is a Python-based tool designed to assess the robustness of LLM-based applications (like GPT-4, Claude, etc.) by introducing controlled, semantic-preserving mutations to prompts or input text. It helps detect prompt brittleness, semantic drift, and inconsistent outputs, which are major issues in prompt-based systems.
 
 ## Architecture
 
@@ -106,20 +106,20 @@ For a high-level overview, see the [Simplified Architecture diagram](docs/simpli
 ### From PyPI (coming soon - after paper review results)
 
 ```bash
-pip install llmfuzz
+pip install quirx
 ```
 
 ### From Source
 
 ```bash
-git clone https://github.com/yourusername/llmfuzz.git
-cd llmfuzz
+git clone https://github.com/yourusername/quirx.git
+cd quirx
 pip install -e .
 ```
 
 ### Dependencies
 
-LLMFuzz requires Python 3.8+ and the following core dependencies:
+Quirx requires Python 3.8+ and the following core dependencies:
 
 - `openai` - For OpenAI API integration
 - `anthropic` - For Claude API integration
@@ -145,26 +145,26 @@ Guidelines:
 Text to classify:
 ```
 
-### 2. Run LLMFuzz
+### 2. Run Quirx
 
 ```bash
 # Basic usage with mock provider (no API key needed)
-llmfuzz --prompt-file prompt.txt --input "I love this product!" --provider mock
+quirx --prompt-file prompt.txt --input "I love this product!" --provider mock
 
 # With OpenAI (set environment variable first)
 export OPENAI_API_KEY="your-openai-key"
-llmfuzz --prompt-file prompt.txt --input "I love this product!" --model gpt-3.5-turbo
+quirx --prompt-file prompt.txt --input "I love this product!" --model gpt-3.5-turbo
 
 # Generate more mutations and save to file
-llmfuzz --prompt-file prompt.txt --input "I love this product!" --mutations 50 --output results.md
+quirx --prompt-file prompt.txt --input "I love this product!" --mutations 50 --output results.md
 
 # CI mode with JSON output
-llmfuzz --prompt-file prompt.txt --input "I love this product!" --ci-mode --format json
+quirx --prompt-file prompt.txt --input "I love this product!" --ci-mode --format json
 ```
 
 ### 3. Analyze Results
 
-LLMFuzz will generate a detailed report showing:
+Quirx will generate a detailed report showing:
 
 - **Robustness Score**: Overall prompt stability (0.0 to 1.0)
 - **Mutation Analysis**: Breakdown by mutation type
@@ -178,13 +178,13 @@ LLMFuzz will generate a detailed report showing:
 ```bash
 # Test SQL generation prompt (with environment variable)
 export OPENAI_API_KEY="your-openai-key"
-llmfuzz --prompt-file examples/prompt_sql.txt --input "Show all users from the database" --model gpt-4
+quirx --prompt-file examples/prompt_sql.txt --input "Show all users from the database" --model gpt-4
 
 # Or with command line argument
-llmfuzz --prompt-file examples/prompt_sql.txt --input "Show all users from the database" --model gpt-4 --api-key "your-key"
+quirx --prompt-file examples/prompt_sql.txt --input "Show all users from the database" --model gpt-4 --api-key "your-key"
 
 # Test with custom parameters
-llmfuzz --prompt-file prompt.txt \
+quirx --prompt-file prompt.txt \
         --input "Your input here" \
         --model gpt-3.5-turbo \
         --mutations 30 \
@@ -194,16 +194,16 @@ llmfuzz --prompt-file prompt.txt \
         --verbose
 
 # CI/CD integration
-llmfuzz --prompt-file prompt.txt --input "test input" --ci-mode --format json
+quirx --prompt-file prompt.txt --input "test input" --ci-mode --format json
 echo $?  # Check exit code: 0=pass, 1=fail, 2=warning
 ```
 
 ### Programmatic Usage
 
 ```python
-from llmfuzz.core.mutator import Mutator
-from llmfuzz.core.runner import LLMRunner
-from llmfuzz.core.comparer import OutputComparer
+from quirx.core.mutator import Mutator
+from quirx.core.runner import LLMRunner
+from quirx.core.comparer import OutputComparer
 
 # Initialize components
 mutator = Mutator(seed=42)
@@ -247,7 +247,7 @@ for mutation in mutations:
 
 ### Markdown Report
 ```markdown
-# LLMFuzz Report
+# Quirx Report
 
 ## Summary
 - **Robustness Score:** 0.85/1.00
@@ -276,11 +276,11 @@ Interactive HTML report with visual charts and detailed analysis.
 
 ### API Keys
 
-LLMFuzz supports multiple ways to provide API keys, in order of precedence:
+Quirx supports multiple ways to provide API keys, in order of precedence:
 
 #### 1. Command Line Argument (Highest Priority)
 ```bash
-llmfuzz --prompt-file prompt.txt --input "test" --api-key "your-api-key-here"
+quirx --prompt-file prompt.txt --input "test" --api-key "your-api-key-here"
 ```
 
 #### 2. Configuration File (Most Secure)
@@ -294,8 +294,8 @@ nano config/api_keys.env
 # Load the configuration
 source config/api_keys.env
 
-# Run LLMFuzz
-llmfuzz --prompt-file prompt.txt --input "test" --provider openai
+# Run Quirx
+quirx --prompt-file prompt.txt --input "test" --provider openai
 ```
 
 #### 3. Environment Variables
@@ -307,12 +307,12 @@ export OPENAI_API_KEY="your-openai-key"
 export ANTHROPIC_API_KEY="your-anthropic-key"
 
 # Then run without --api-key
-llmfuzz --prompt-file prompt.txt --input "test" --provider openai
+quirx --prompt-file prompt.txt --input "test" --provider openai
 ```
 
 #### 4. Programmatic Usage
 ```python
-from llmfuzz.core.runner import LLMRunner
+from quirx.core.runner import LLMRunner
 
 # Pass API key directly
 runner = LLMRunner(provider='openai', api_key='your-api-key')
@@ -324,7 +324,7 @@ runner = LLMRunner(provider='openai')  # Uses OPENAI_API_KEY env var
 #### 5. No API Key Required
 ```bash
 # Use mock provider for testing without real API calls
-llmfuzz --prompt-file prompt.txt --input "test" --provider mock
+quirx --prompt-file prompt.txt --input "test" --provider mock
 ```
 
 ### API Providers
@@ -335,7 +335,7 @@ llmfuzz --prompt-file prompt.txt --input "test" --provider mock
 
 ## Testing Scenarios
 
-LLMFuzz is particularly useful for testing:
+Quirx is particularly useful for testing:
 
 - **SQL Query Generation**: Ensure queries remain syntactically correct
 - **JSON Parsing**: Verify structured output consistency  
@@ -362,12 +362,12 @@ jobs:
         with:
           python-version: '3.10'
       - name: Install dependencies
-        run: pip install llmfuzz
-      - name: Run LLMFuzz
+        run: pip install quirx
+      - name: Run Quirx
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
-          llmfuzz --prompt-file prompts/classify.txt \
+          quirx --prompt-file prompts/classify.txt \
                   --input "Tweet: I hate this product" \
                   --ci-mode \
                   --format json

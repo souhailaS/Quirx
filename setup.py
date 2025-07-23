@@ -1,5 +1,5 @@
 """
-Setup script for LLMFuzz
+Setup script for Quirx
 """
 
 from setuptools import setup, find_packages
@@ -11,7 +11,7 @@ def read_readme():
         with open("README.md", "r", encoding="utf-8") as fh:
             return fh.read()
     except FileNotFoundError:
-        return "LLMFuzz - A Mutation-Based Fuzzer for Evaluating Prompt Robustness in LLM-Driven Applications"
+        return "Quirx - A Mutation-Based Fuzzer for Evaluating Prompt Robustness in LLM-Driven Applications"
 
 # Read requirements
 def read_requirements():
@@ -19,14 +19,14 @@ def read_requirements():
         return [line.strip() for line in fh if line.strip() and not line.startswith("#")]
 
 setup(
-    name="llmfuzz",
+    name="quirx",
     version="0.1.0",
     author="Souhaila Serbout",
     author_email="souhaila.serbout@example.com",
     description="A Mutation-Based Fuzzer for Evaluating Prompt Robustness in LLM-Driven Applications",
     long_description=read_readme(),
     long_description_content_type="text/markdown",
-    url="https://github.com/yourusername/llmfuzz",
+    url="https://github.com/souhailaS/Quirx",
     packages=find_packages(),
     classifiers=[
         "Development Status :: 3 - Alpha",
@@ -58,7 +58,7 @@ setup(
     },
     entry_points={
         "console_scripts": [
-            "llmfuzz=llmfuzz.cli:main",
+            "quirx=quirx.cli:main",
         ],
     },
     include_package_data=True,

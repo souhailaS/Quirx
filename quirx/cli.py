@@ -1,5 +1,5 @@
 """
-Command-line interface for LLMFuzz
+Command-line interface for Quirx
 
 @author: souhailaS
 """
@@ -32,13 +32,13 @@ def load_prompt_file(filepath: str) -> str:
 def main():
     """Main CLI entry point"""
     parser = argparse.ArgumentParser(
-        description="LLMFuzz - A Mutation-Based Fuzzer for Evaluating Prompt Robustness",
+        description="Quirx - A Mutation-Based Fuzzer for Evaluating Prompt Robustness",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  llmfuzz --prompt-file prompt.txt --input "Generate a SQL query" --model gpt-4
-  llmfuzz --prompt-file prompt.txt --mutations 50 --output results.md
-  llmfuzz --prompt-file prompt.txt --ci-mode --format json
+  quirx --prompt-file prompt.txt --input "Generate a SQL query" --model gpt-4
+  quirx --prompt-file prompt.txt --mutations 50 --output results.md
+  quirx --prompt-file prompt.txt --ci-mode --format json
         """
     )
     
@@ -136,7 +136,7 @@ Examples:
     full_prompt = f"{prompt}\n\n{args.input}" if args.input else prompt
     
     if args.verbose:
-        print(f"LLMFuzz - Starting analysis with {args.mutations} mutations")
+        print(f"Quirx - Starting analysis with {args.mutations} mutations")
         print(f"Prompt file: {args.prompt_file}")
         print(f"Model: {args.model}")
         print(f"Provider: {args.provider}")

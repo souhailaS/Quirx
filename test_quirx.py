@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Simple test script for LLMFuzz
+Simple test script for Quirx
 """
 
 import sys
@@ -9,15 +9,15 @@ import os
 # Add the current directory to Python path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from llmfuzz.core.mutator import Mutator
-from llmfuzz.core.runner import LLMRunner
-from llmfuzz.core.comparer import OutputComparer
-from llmfuzz.core.reporter import Reporter, FuzzingResult, FuzzingReport
+from quirx.core.mutator import Mutator
+from quirx.core.runner import LLMRunner
+from quirx.core.comparer import OutputComparer
+from quirx.core.reporter import Reporter, FuzzingResult, FuzzingReport
 from datetime import datetime
 
 def test_basic_functionality():
-    """Test basic LLMFuzz functionality"""
-    print("Testing LLMFuzz Basic Functionality")
+    """Test basic Quirx functionality"""
+    print("Testing Quirx Basic Functionality")
     print("=" * 50)
     
     # Test prompt
@@ -118,7 +118,7 @@ def test_cli_import():
     try:
         print("\nTesting CLI Import")
         print("=" * 30)
-        from llmfuzz.cli import main
+        from quirx.cli import main
         print("   CLI module imported successfully")
         return True
     except Exception as e:
@@ -126,7 +126,7 @@ def test_cli_import():
         return False
 
 if __name__ == "__main__":
-    print("LLMFuzz Test Suite")
+    print("Quirx Test Suite")
     print("==================")
     
     success = True
