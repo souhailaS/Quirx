@@ -1,0 +1,10 @@
+Extract structured information from the given text and return it as JSON.
+
+Instructions:
+- Parse the text carefully
+- Extract key entities like names, dates, locations, organizations
+- Return valid JSON format only
+- Use null for missing information
+- Ensure consistent field names
+
+Text to analyze: 

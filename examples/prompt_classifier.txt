@@ -1,0 +1,9 @@
+Classify the sentiment of the following text as either POSITIVE, NEGATIVE, or NEUTRAL.
+
+Guidelines:
+- Consider the overall tone and emotion
+- Look for sentiment indicators like adjectives and context
+- Return only one word: POSITIVE, NEGATIVE, or NEUTRAL
+- Be objective in your assessment
+
+Text to classify: 

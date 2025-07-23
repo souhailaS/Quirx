@@ -1,0 +1,9 @@
+Summarize the following text in 2-3 sentences. 
+
+Requirements:
+- Capture the main points and key information
+- Use clear and concise language
+- Maintain the original meaning and context
+- Keep the summary factual and objective
+
+Text to summarize: 
