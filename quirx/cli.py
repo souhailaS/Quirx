@@ -233,9 +233,25 @@ Examples:
             )
             print(f"Report saved to: {filepath}")
         else:
-            # Print to stdout
-            content = reporter.generate_report(report, args.format, args.ci_mode)
-            print(content)
+            # For JSON and HTML formats, always save to file and show link
+            # For markdown, print to stdout (traditional behavior)
+            if args.format in ['json', 'html']:
+                filepath = reporter.save_report(
+                    report,
+                    filename=None,  # Let reporter auto-generate filename
+                    format=args.format,
+                    ci_mode=args.ci_mode
+                )
+                if args.format == 'html':
+                    print(f"HTML report generated: {filepath}")
+                    print(f"Open in browser: file://{os.path.abspath(filepath)}")
+                else:  # json
+                    print(f"JSON report generated: {filepath}")
+                    print(f"View with: cat {filepath} | jq  # or your preferred JSON viewer")
+            else:
+                # Print markdown to stdout (traditional behavior)
+                content = reporter.generate_report(report, args.format, args.ci_mode)
+                print(content)
         
         # CI mode exit codes
         if args.ci_mode:
