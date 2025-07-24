@@ -6,7 +6,7 @@ Quirx - A Mutation-Based Fuzzer for Evaluating Prompt Robustness in LLM-Driven A
 
 __version__ = "0.1.0"
 __author__ = "Souhaila Serbout"
-__email__ = "souhaila.serbout@example.com"
+__email__ = "souhaila.serbout@uzh.ch"
 
 from .core.mutator import Mutator
 from .core.runner import LLMRunner

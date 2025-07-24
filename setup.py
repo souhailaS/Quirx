@@ -22,7 +22,7 @@ setup(
     name="quirx",
     version="0.1.0",
     author="Souhaila Serbout",
-    author_email="souhaila.serbout@example.com",
+    author_email="souhaila.serbout@uzh.ch",
     description="A Mutation-Based Fuzzer for Evaluating Prompt Robustness in LLM-Driven Applications",
     long_description=read_readme(),
     long_description_content_type="text/markdown",
