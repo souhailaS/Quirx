@@ -120,7 +120,7 @@ pip install quirx
 ### From Source
 
 ```bash
-git clone https://github.com/yourusername/quirx.git
+git clone https://github.com/souhailaS/quirx.git
 cd quirx
 pip install -e .
 ```
