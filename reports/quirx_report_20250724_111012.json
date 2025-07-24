@@ -1,0 +1,117 @@
+{
+  "timestamp": "2025-07-24T11:10:12.288499",
+  "prompt_file": "examples/prompt_classifier.txt",
+  "input_text": "I love this!",
+  "model": "gpt-3.5-turbo",
+  "total_mutations": 2,
+  "results": [
+    {
+      "mutation": {
+        "original_text": "Classify the sentiment of the following text as either POSITIVE, NEGATIVE, or NEUTRAL.\n\nGuidelines:\n- Consider the overall tone and emotion\n- Look for sentiment indicators like adjectives and context\n- Return only one word: POSITIVE, NEGATIVE, or NEUTRAL\n- Be objective in your assessment\n\nText to classify:\n\nI love this!",
+        "mutated_text": "ClAssifY tHE sEntIMEnt oF THE follOWINg text AS EiThER PosiTIve, nEGATivE, or nEUtRAl.\n\nGUiDeLInes:\n- cOnSidEr tHE OvERalL TOnE And emOtiON\n- lOok FOR SentiMeNt inDiCATORS like adJeCTivEs aNd ConTeXT\n- retURn oNLY ONE woRd: pOsItivE, NEgative, OR neutral\n- BE obJEctIVE In Your AsSEssment\n\ntexT to clasSify:\n\ni LOve THIS!",
+        "mutation_type": "lexical",
+        "description": "Randomly change case of characters",
+        "severity": 0.2
+      },
+      "original_response": {
+        "text": "Mock response 1",
+        "model": "gpt-3.5-turbo",
+        "tokens_used": 54,
+        "response_time": 0.10509085655212402,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "Mock response 2",
+        "model": "gpt-3.5-turbo",
+        "tokens_used": 54,
+        "response_time": 0.10503792762756348,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 0.6666666666666666,
+        "semantic_similarity": 0.9877138137817383,
+        "structural_similarity": 1.0,
+        "overall_similarity": 0.893856906890869,
+        "classification": "minor_variation",
+        "details": {
+          "character_diff": [
+            "--- original\n",
+            "+++ mutated\n",
+            "@@ -1 +1 @@\n",
+            "-Mock response 1",
+            "+Mock response 2"
+          ],
+          "word_diff": {
+            "added": [
+              "2"
+            ],
+            "removed": [
+              "1"
+            ]
+          },
+          "length_ratio": 1.0,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 1.133422688662942e-154
+        }
+      }
+    },
+    {
+      "mutation": {
+        "original_text": "Classify the sentiment of the following text as either POSITIVE, NEGATIVE, or NEUTRAL.\n\nGuidelines:\n- Consider the overall tone and emotion\n- Look for sentiment indicators like adjectives and context\n- Return only one word: POSITIVE, NEGATIVE, or NEUTRAL\n- Be objective in your assessment\n\nText to classify:\n\nI love this!",
+        "mutated_text": "Guidelines:\n- Consider the overall tone and emotion\n- Look for sentiment indicators like adjectives and context\n- Return only one word: POSITIVE, NEGATIVE, or NEUTRAL\n- Be objective in your assessment\n\nText to classify:\n\nI love this! Classify the sentiment of the following text as either POSITIVE, NEGATIVE, or NEUTRAL.",
+        "mutation_type": "structural",
+        "description": "Randomly reorder sentences",
+        "severity": 0.6
+      },
+      "original_response": {
+        "text": "Mock response 1",
+        "model": "gpt-3.5-turbo",
+        "tokens_used": 54,
+        "response_time": 0.10509085655212402,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "Mock response 1",
+        "model": "gpt-3.5-turbo",
+        "tokens_used": 54,
+        "response_time": 0.10506105422973633,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 1.0,
+        "semantic_similarity": 1.0000001192092896,
+        "structural_similarity": 1.0,
+        "overall_similarity": 1.0000000596046448,
+        "classification": "equivalent",
+        "details": {
+          "character_diff": [],
+          "word_diff": {
+            "added": [],
+            "removed": []
+          },
+          "length_ratio": 1.0,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 1.2213386697554703e-77
+        }
+      }
+    }
+  ],
+  "summary": {
+    "robustness_score": 0.85,
+    "equivalent_count": 1,
+    "minor_variation_count": 1,
+    "behavioral_deviation_count": 0,
+    "equivalent_percentage": 50.0,
+    "minor_variation_percentage": 50.0,
+    "behavioral_deviation_percentage": 0.0,
+    "avg_response_time": 0.10507017374038696,
+    "failed_mutations": 0,
+    "total_mutations": 2
+  }
+}
