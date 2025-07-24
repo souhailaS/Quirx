@@ -1,0 +1,685 @@
+{
+  "timestamp": "2025-07-24T00:28:28.937116",
+  "prompt_file": "examples/prompt_summarizer.txt",
+  "input_text": "The quarterly earnings report reveals strong performance across all business segments. Revenue increased by 15% compared to the previous quarter, driven primarily by robust sales in the technology division and expanded international operations. Operating margins improved from 18% to 22%, reflecting successful cost optimization initiatives and improved operational efficiency. The company also announced plans to invest $50 million in research and development over the next fiscal year, focusing on artificial intelligence and sustainable technology solutions. Customer satisfaction scores reached an all-time high of 94%, while employee retention rates improved by 8%. Looking ahead, management expects continued growth momentum with projected revenue increases of 12-18% for the upcoming quarter.",
+  "model": "claude-3-5-sonnet-20241022",
+  "total_mutations": 6,
+  "results": [
+    {
+      "mutation": {
+        "original_text": "You are an expert text summarizer. Create a concise summary of the given text.\n\nGuidelines:\n- Capture the main points and key information\n- Keep the summary between 2-3 sentences\n- Maintain factual accuracy\n- Use clear and simple language\n- Focus on the most important details\n\nText to summarize:\n\nThe quarterly earnings report reveals strong performance across all business segments. Revenue increased by 15% compared to the previous quarter, driven primarily by robust sales in the technology division and expanded international operations. Operating margins improved from 18% to 22%, reflecting successful cost optimization initiatives and improved operational efficiency. The company also announced plans to invest $50 million in research and development over the next fiscal year, focusing on artificial intelligence and sustainable technology solutions. Customer satisfaction scores reached an all-time high of 94%, while employee retention rates improved by 8%. Looking ahead, management expects continued growth momentum with projected revenue increases of 12-18% for the upcoming quarter.",
+        "mutated_text": "You are an expert text summarizer Create a concise summary of the given text\n\nGuidelines\n Capture the main points and key information\n Keep the summary between 23 sentences\n Maintain factual accuracy\n Use clear and simple language\n Focus on the most important details\n\nText to summarize\n\nThe quarterly earnings report reveals strong performance across all business segments Revenue increased by 15 compared to the previous quarter driven primarily by robust sales in the technology division and expanded international operations Operating margins improved from 18 to 22 reflecting successful cost optimization initiatives and improved operational efficiency The company also announced plans to invest 50 million in research and development over the next fiscal year focusing on artificial intelligence and sustainable technology solutions Customer satisfaction scores reached an alltime high of 94 while employee retention rates improved by 8 Looking ahead management expects continued growth momentum with projected revenue increases of 1218 for the upcoming quarter",
+        "mutation_type": "lexical",
+        "description": "Remove all punctuation",
+        "severity": 0.4
+      },
+      "original_response": {
+        "text": "The company reported a strong quarterly performance with a 15% revenue increase and improved operating margins of 22%, driven by technology sales and international growth. Customer satisfaction and employee retention metrics showed significant improvement, while the company plans to invest $50 million in R&D focusing on AI and sustainable technologies, with management projecting continued growth of 12-18% next quarter.",
+        "model": "claude-3-5-sonnet-20241022",
+        "tokens_used": 292,
+        "response_time": 4.335089921951294,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "Here's a concise summary of the quarterly earnings report:\n\nThe company demonstrated strong quarterly performance with a 15% revenue increase, primarily due to technology division sales and international expansion. Operating margins rose from 18% to 22%, while customer satisfaction hit 94%. The company plans to invest $50 million in AI and sustainable technology R&D, with projected revenue growth of 12-18% for the next quarter.",
+        "model": "claude-3-5-sonnet-20241022",
+        "tokens_used": 288,
+        "response_time": 17.04602813720703,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 0.5333333333333333,
+        "semantic_similarity": 0.9021032452583313,
+        "structural_similarity": 0.8333333333333334,
+        "overall_similarity": 0.7777182892958323,
+        "classification": "minor_variation",
+        "details": {
+          "character_diff": [
+            "--- original\n",
+            "+++ mutated\n",
+            "@@ -1 +1,3 @@\n",
+            "-The company reported a strong quarterly performance with a 15% revenue increase and improved operating margins of 22%, driven by technology sales and international growth. Customer satisfaction and employee retention metrics showed significant improvement, while the company plans to invest $50 million in R&D focusing on AI and sustainable technologies, with management projecting continued growth of 12-18% next quarter.",
+            "+Here's a concise summary of the quarterly earnings report:\n",
+            "+\n",
+            "+The company demonstrated strong quarterly performance with a 15% revenue increase, primarily due to technology division sales and international expansion. Operating margins rose from 18% to 22%, while customer satisfaction hit 94%. The company plans to invest $50 million in AI and sustainable technology R&D, with projected revenue growth of 12-18% for the next quarter."
+          ],
+          "word_diff": {
+            "added": [
+              "Here's",
+              "a",
+              "concise",
+              "summary",
+              "of",
+              "the",
+              "quarterly",
+              "earnings",
+              "report:",
+              "demonstrated",
+              "increase,",
+              "primarily",
+              "due",
+              "to",
+              "division",
+              "expansion.",
+              "Operating",
+              "margins",
+              "rose",
+              "from",
+              "18%",
+              "to",
+              "22%,",
+              "while",
+              "customer",
+              "hit",
+              "94%.",
+              "The",
+              "technology",
+              "R&D,",
+              "projected",
+              "revenue",
+              "for",
+              "the"
+            ],
+            "removed": [
+              "reported",
+              "a",
+              "increase",
+              "and",
+              "improved",
+              "operating",
+              "margins",
+              "of",
+              "22%,",
+              "driven",
+              "by",
+              "growth.",
+              "Customer",
+              "and",
+              "employee",
+              "retention",
+              "metrics",
+              "showed",
+              "significant",
+              "improvement,",
+              "while",
+              "the",
+              "R&D",
+              "focusing",
+              "on",
+              "technologies,",
+              "management",
+              "projecting",
+              "continued"
+            ]
+          },
+          "length_ratio": 1.0213270142180095,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 0.33417759833264743
+        }
+      }
+    },
+    {
+      "mutation": {
+        "original_text": "You are an expert text summarizer. Create a concise summary of the given text.\n\nGuidelines:\n- Capture the main points and key information\n- Keep the summary between 2-3 sentences\n- Maintain factual accuracy\n- Use clear and simple language\n- Focus on the most important details\n\nText to summarize:\n\nThe quarterly earnings report reveals strong performance across all business segments. Revenue increased by 15% compared to the previous quarter, driven primarily by robust sales in the technology division and expanded international operations. Operating margins improved from 18% to 22%, reflecting successful cost optimization initiatives and improved operational efficiency. The company also announced plans to invest $50 million in research and development over the next fiscal year, focusing on artificial intelligence and sustainable technology solutions. Customer satisfaction scores reached an all-time high of 94%, while employee retention rates improved by 8%. Looking ahead, management expects continued growth momentum with projected revenue increases of 12-18% for the upcoming quarter.",
+        "mutated_text": "YOU ARE AN EXPERT TEXT SUMMARIZER. CREATE A CONCISE SUMMARY OF THE GIVEN TEXT.\n\nGUIDELINES:\n- CAPTURE THE MAIN POINTS AND KEY INFORMATION\n- KEEP THE SUMMARY BETWEEN 2-3 SENTENCES\n- MAINTAIN FACTUAL ACCURACY\n- USE CLEAR AND SIMPLE LANGUAGE\n- FOCUS ON THE MOST IMPORTANT DETAILS\n\nTEXT TO SUMMARIZE:\n\nTHE QUARTERLY EARNINGS REPORT REVEALS STRONG PERFORMANCE ACROSS ALL BUSINESS SEGMENTS. REVENUE INCREASED BY 15% COMPARED TO THE PREVIOUS QUARTER, DRIVEN PRIMARILY BY ROBUST SALES IN THE TECHNOLOGY DIVISION AND EXPANDED INTERNATIONAL OPERATIONS. OPERATING MARGINS IMPROVED FROM 18% TO 22%, REFLECTING SUCCESSFUL COST OPTIMIZATION INITIATIVES AND IMPROVED OPERATIONAL EFFICIENCY. THE COMPANY ALSO ANNOUNCED PLANS TO INVEST $50 MILLION IN RESEARCH AND DEVELOPMENT OVER THE NEXT FISCAL YEAR, FOCUSING ON ARTIFICIAL INTELLIGENCE AND SUSTAINABLE TECHNOLOGY SOLUTIONS. CUSTOMER SATISFACTION SCORES REACHED AN ALL-TIME HIGH OF 94%, WHILE EMPLOYEE RETENTION RATES IMPROVED BY 8%. LOOKING AHEAD, MANAGEMENT EXPECTS CONTINUED GROWTH MOMENTUM WITH PROJECTED REVENUE INCREASES OF 12-18% FOR THE UPCOMING QUARTER.",
+        "mutation_type": "lexical",
+        "description": "Convert all text to uppercase",
+        "severity": 0.1
+      },
+      "original_response": {
+        "text": "The company reported a strong quarterly performance with a 15% revenue increase and improved operating margins of 22%, driven by technology sales and international growth. Customer satisfaction and employee retention metrics showed significant improvement, while the company plans to invest $50 million in R&D focusing on AI and sustainable technologies, with management projecting continued growth of 12-18% next quarter.",
+        "model": "claude-3-5-sonnet-20241022",
+        "tokens_used": 292,
+        "response_time": 4.335089921951294,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "The company reported a strong quarterly performance with a 15% revenue increase and improved operating margins of 22%, driven by technology sales and international expansion. The positive results were accompanied by record-high customer satisfaction scores of 94% and plans for a $50 million investment in R&D, with management projecting continued growth of 12-18% next quarter.",
+        "model": "claude-3-5-sonnet-20241022",
+        "tokens_used": 387,
+        "response_time": 3.6952271461486816,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 0.75,
+        "semantic_similarity": 0.9201229810714722,
+        "structural_similarity": 1.0,
+        "overall_similarity": 0.8850614905357361,
+        "classification": "minor_variation",
+        "details": {
+          "character_diff": [
+            "--- original\n",
+            "+++ mutated\n",
+            "@@ -1 +1 @@\n",
+            "-The company reported a strong quarterly performance with a 15% revenue increase and improved operating margins of 22%, driven by technology sales and international growth. Customer satisfaction and employee retention metrics showed significant improvement, while the company plans to invest $50 million in R&D focusing on AI and sustainable technologies, with management projecting continued growth of 12-18% next quarter.",
+            "+The company reported a strong quarterly performance with a 15% revenue increase and improved operating margins of 22%, driven by technology sales and international expansion. The positive results were accompanied by record-high customer satisfaction scores of 94% and plans for a $50 million investment in R&D, with management projecting continued growth of 12-18% next quarter."
+          ],
+          "word_diff": {
+            "added": [
+              "expansion.",
+              "The",
+              "positive",
+              "results",
+              "were",
+              "accompanied",
+              "by",
+              "record-high",
+              "customer",
+              "scores",
+              "of",
+              "94%",
+              "for",
+              "a",
+              "investment",
+              "R&D,"
+            ],
+            "removed": [
+              "growth.",
+              "Customer",
+              "employee",
+              "retention",
+              "metrics",
+              "showed",
+              "significant",
+              "improvement,",
+              "while",
+              "the",
+              "company",
+              "to",
+              "invest",
+              "R&D",
+              "focusing",
+              "on",
+              "AI",
+              "and",
+              "sustainable",
+              "technologies,"
+            ]
+          },
+          "length_ratio": 0.8957345971563981,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 0.6016837003999346
+        }
+      }
+    },
+    {
+      "mutation": {
+        "original_text": "You are an expert text summarizer. Create a concise summary of the given text.\n\nGuidelines:\n- Capture the main points and key information\n- Keep the summary between 2-3 sentences\n- Maintain factual accuracy\n- Use clear and simple language\n- Focus on the most important details\n\nText to summarize:\n\nThe quarterly earnings report reveals strong performance across all business segments. Revenue increased by 15% compared to the previous quarter, driven primarily by robust sales in the technology division and expanded international operations. Operating margins improved from 18% to 22%, reflecting successful cost optimization initiatives and improved operational efficiency. The company also announced plans to invest $50 million in research and development over the next fiscal year, focusing on artificial intelligence and sustainable technology solutions. Customer satisfaction scores reached an all-time high of 94%, while employee retention rates improved by 8%. Looking ahead, management expects continued growth momentum with projected revenue increases of 12-18% for the upcoming quarter.",
+        "mutated_text": "Looking ahead, management expects continued growth momentum with projected revenue increases of 12-18% for the upcoming quarter. Customer satisfaction scores reached an all-time high of 94%, while employee retention rates improved by 8%. Guidelines:\n- Capture the main points and key information\n- Keep the summary between 2-3 sentences\n- Maintain factual accuracy\n- Use clear and simple language\n- Focus on the most important details\n\nText to summarize:\n\nThe quarterly earnings report reveals strong performance across all business segments. Operating margins improved from 18% to 22%, reflecting successful cost optimization initiatives and improved operational efficiency. You are an expert text summarizer. The company also announced plans to invest $50 million in research and development over the next fiscal year, focusing on artificial intelligence and sustainable technology solutions. Create a concise summary of the given text. Revenue increased by 15% compared to the previous quarter, driven primarily by robust sales in the technology division and expanded international operations.",
+        "mutation_type": "structural",
+        "description": "Randomly reorder sentences",
+        "severity": 0.6
+      },
+      "original_response": {
+        "text": "The company reported a strong quarterly performance with a 15% revenue increase and improved operating margins of 22%, driven by technology sales and international growth. Customer satisfaction and employee retention metrics showed significant improvement, while the company plans to invest $50 million in R&D focusing on AI and sustainable technologies, with management projecting continued growth of 12-18% next quarter.",
+        "model": "claude-3-5-sonnet-20241022",
+        "tokens_used": 292,
+        "response_time": 4.335089921951294,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "Management forecasts 12-18% revenue growth next quarter, with customer satisfaction at a peak of 94% and improved employee retention rates. The company demonstrated strong current performance with revenue up 15%, improved operating margins of 22%, and plans to invest $50 million in R&D focused on AI and sustainable technology.",
+        "model": "claude-3-5-sonnet-20241022",
+        "tokens_used": 282,
+        "response_time": 3.4950740337371826,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 0.4580152671755725,
+        "semantic_similarity": 0.8578125238418579,
+        "structural_similarity": 1.0,
+        "overall_similarity": 0.7663108420736007,
+        "classification": "minor_variation",
+        "details": {
+          "character_diff": [
+            "--- original\n",
+            "+++ mutated\n",
+            "@@ -1 +1 @@\n",
+            "-The company reported a strong quarterly performance with a 15% revenue increase and improved operating margins of 22%, driven by technology sales and international growth. Customer satisfaction and employee retention metrics showed significant improvement, while the company plans to invest $50 million in R&D focusing on AI and sustainable technologies, with management projecting continued growth of 12-18% next quarter.",
+            "+Management forecasts 12-18% revenue growth next quarter, with customer satisfaction at a peak of 94% and improved employee retention rates. The company demonstrated strong current performance with revenue up 15%, improved operating margins of 22%, and plans to invest $50 million in R&D focused on AI and sustainable technology."
+          ],
+          "word_diff": {
+            "added": [
+              "Management",
+              "forecasts",
+              "12-18%",
+              "revenue",
+              "growth",
+              "next",
+              "quarter,",
+              "with",
+              "customer",
+              "satisfaction",
+              "at",
+              "a",
+              "peak",
+              "of",
+              "94%",
+              "and",
+              "improved",
+              "employee",
+              "retention",
+              "rates.",
+              "demonstrated",
+              "current",
+              "up",
+              "15%,",
+              "focused",
+              "technology."
+            ],
+            "removed": [
+              "reported",
+              "a",
+              "quarterly",
+              "a",
+              "15%",
+              "increase",
+              "and",
+              "driven",
+              "by",
+              "technology",
+              "sales",
+              "international",
+              "growth.",
+              "Customer",
+              "satisfaction",
+              "and",
+              "employee",
+              "retention",
+              "metrics",
+              "showed",
+              "significant",
+              "improvement,",
+              "while",
+              "the",
+              "company",
+              "focusing",
+              "technologies,",
+              "with",
+              "management",
+              "projecting",
+              "continued",
+              "growth",
+              "of",
+              "12-18%",
+              "next",
+              "quarter."
+            ]
+          },
+          "length_ratio": 0.7772511848341233,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 0.32332564039636286
+        }
+      }
+    },
+    {
+      "mutation": {
+        "original_text": "You are an expert text summarizer. Create a concise summary of the given text.\n\nGuidelines:\n- Capture the main points and key information\n- Keep the summary between 2-3 sentences\n- Maintain factual accuracy\n- Use clear and simple language\n- Focus on the most important details\n\nText to summarize:\n\nThe quarterly earnings report reveals strong performance across all business segments. Revenue increased by 15% compared to the previous quarter, driven primarily by robust sales in the technology division and expanded international operations. Operating margins improved from 18% to 22%, reflecting successful cost optimization initiatives and improved operational efficiency. The company also announced plans to invest $50 million in research and development over the next fiscal year, focusing on artificial intelligence and sustainable technology solutions. Customer satisfaction scores reached an all-time high of 94%, while employee retention rates improved by 8%. Looking ahead, management expects continued growth momentum with projected revenue increases of 12-18% for the upcoming quarter.",
+        "mutated_text": "Operating margins improved from 18% to 22%, reflecting successful cost optimization initiatives and improved operational efficiency. Revenue increased by 15% compared to the previous quarter, driven primarily by robust sales in the technology division and expanded international operations. Guidelines:\n- Capture the main points and key information\n- Keep the summary between 2-3 sentences\n- Maintain factual accuracy\n- Use clear and simple language\n- Focus on the most important details\n\nText to summarize:\n\nThe quarterly earnings report reveals strong performance across all business segments. Customer satisfaction scores reached an all-time high of 94%, while employee retention rates improved by 8%. The company also announced plans to invest $50 million in research and development over the next fiscal year, focusing on artificial intelligence and sustainable technology solutions. Create a concise summary of the given text. Looking ahead, management expects continued growth momentum with projected revenue increases of 12-18% for the upcoming quarter. You are an expert text summarizer.",
+        "mutation_type": "structural",
+        "description": "Randomly reorder sentences",
+        "severity": 0.6
+      },
+      "original_response": {
+        "text": "The company reported a strong quarterly performance with a 15% revenue increase and improved operating margins of 22%, driven by technology sales and international growth. Customer satisfaction and employee retention metrics showed significant improvement, while the company plans to invest $50 million in R&D focusing on AI and sustainable technologies, with management projecting continued growth of 12-18% next quarter.",
+        "model": "claude-3-5-sonnet-20241022",
+        "tokens_used": 292,
+        "response_time": 4.335089921951294,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "Operating margins rose from 18% to 22% due to improved cost management, while revenue grew 15% driven by strong technology sales and international expansion. The company achieved record customer satisfaction of 94%, improved employee retention, and plans to invest $50M in R&D, with management projecting 12-18% revenue growth next quarter.",
+        "model": "claude-3-5-sonnet-20241022",
+        "tokens_used": 287,
+        "response_time": 2.176419973373413,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 0.4626865671641791,
+        "semantic_similarity": 0.8470736742019653,
+        "structural_similarity": 1.0,
+        "overall_similarity": 0.7623428072502363,
+        "classification": "minor_variation",
+        "details": {
+          "character_diff": [
+            "--- original\n",
+            "+++ mutated\n",
+            "@@ -1 +1 @@\n",
+            "-The company reported a strong quarterly performance with a 15% revenue increase and improved operating margins of 22%, driven by technology sales and international growth. Customer satisfaction and employee retention metrics showed significant improvement, while the company plans to invest $50 million in R&D focusing on AI and sustainable technologies, with management projecting continued growth of 12-18% next quarter.",
+            "+Operating margins rose from 18% to 22% due to improved cost management, while revenue grew 15% driven by strong technology sales and international expansion. The company achieved record customer satisfaction of 94%, improved employee retention, and plans to invest $50M in R&D, with management projecting 12-18% revenue growth next quarter."
+          ],
+          "word_diff": {
+            "added": [
+              "Operating",
+              "margins",
+              "rose",
+              "from",
+              "18%",
+              "to",
+              "22%",
+              "due",
+              "to",
+              "improved",
+              "cost",
+              "management,",
+              "while",
+              "revenue",
+              "grew",
+              "strong",
+              "expansion.",
+              "The",
+              "company",
+              "achieved",
+              "record",
+              "customer",
+              "of",
+              "94%,",
+              "improved",
+              "employee",
+              "retention,",
+              "$50M",
+              "R&D,",
+              "12-18%",
+              "revenue"
+            ],
+            "removed": [
+              "The",
+              "company",
+              "reported",
+              "a",
+              "strong",
+              "quarterly",
+              "performance",
+              "with",
+              "a",
+              "revenue",
+              "increase",
+              "and",
+              "improved",
+              "operating",
+              "margins",
+              "of",
+              "22%,",
+              "growth.",
+              "Customer",
+              "employee",
+              "retention",
+              "metrics",
+              "showed",
+              "significant",
+              "improvement,",
+              "while",
+              "the",
+              "company",
+              "$50",
+              "million",
+              "R&D",
+              "focusing",
+              "on",
+              "AI",
+              "and",
+              "sustainable",
+              "technologies,",
+              "continued",
+              "of",
+              "12-18%"
+            ]
+          },
+          "length_ratio": 0.8056872037914692,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 0.20669888606066766
+        }
+      }
+    },
+    {
+      "mutation": {
+        "original_text": "You are an expert text summarizer. Create a concise summary of the given text.\n\nGuidelines:\n- Capture the main points and key information\n- Keep the summary between 2-3 sentences\n- Maintain factual accuracy\n- Use clear and simple language\n- Focus on the most important details\n\nText to summarize:\n\nThe quarterly earnings report reveals strong performance across all business segments. Revenue increased by 15% compared to the previous quarter, driven primarily by robust sales in the technology division and expanded international operations. Operating margins improved from 18% to 22%, reflecting successful cost optimization initiatives and improved operational efficiency. The company also announced plans to invest $50 million in research and development over the next fiscal year, focusing on artificial intelligence and sustainable technology solutions. Customer satisfaction scores reached an all-time high of 94%, while employee retention rates improved by 8%. Looking ahead, management expects continued growth momentum with projected revenue increases of 12-18% for the upcoming quarter.",
+        "mutated_text": "Looking ahead, management expects continued growth momentum with projected revenue increases of 12-18% for the upcoming quarter. Customer satisfaction scores reached an all-time high of 94%, while employee retention rates improved by 8%. The company also announced plans to invest $50 million in research and development over the next fiscal year, focusing on artificial intelligence and sustainable technology solutions. Operating margins improved from 18% to 22%, reflecting successful cost optimization initiatives and improved operational efficiency. Revenue increased by 15% compared to the previous quarter, driven primarily by robust sales in the technology division and expanded international operations. Guidelines:\n- Capture the main points and key information\n- Keep the summary between 2-3 sentences\n- Maintain factual accuracy\n- Use clear and simple language\n- Focus on the most important details\n\nText to summarize:\n\nThe quarterly earnings report reveals strong performance across all business segments. Create a concise summary of the given text. You are an expert text summarizer.",
+        "mutation_type": "structural",
+        "description": "Reverse sentence order",
+        "severity": 0.5
+      },
+      "original_response": {
+        "text": "The company reported a strong quarterly performance with a 15% revenue increase and improved operating margins of 22%, driven by technology sales and international growth. Customer satisfaction and employee retention metrics showed significant improvement, while the company plans to invest $50 million in R&D focusing on AI and sustainable technologies, with management projecting continued growth of 12-18% next quarter.",
+        "model": "claude-3-5-sonnet-20241022",
+        "tokens_used": 292,
+        "response_time": 4.335089921951294,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "The company demonstrated strong quarterly performance with 15% revenue growth, improved operating margins from 18% to 22%, and record-high customer satisfaction scores of 94%. Management projects continued growth of 12-18% next quarter and plans to invest $50 million in R&D, focusing on AI and sustainable technology solutions.",
+        "model": "claude-3-5-sonnet-20241022",
+        "tokens_used": 283,
+        "response_time": 2.2368600368499756,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 0.5384615384615384,
+        "semantic_similarity": 0.9133718013763428,
+        "structural_similarity": 1.0,
+        "overall_similarity": 0.818224362226633,
+        "classification": "minor_variation",
+        "details": {
+          "character_diff": [
+            "--- original\n",
+            "+++ mutated\n",
+            "@@ -1 +1 @@\n",
+            "-The company reported a strong quarterly performance with a 15% revenue increase and improved operating margins of 22%, driven by technology sales and international growth. Customer satisfaction and employee retention metrics showed significant improvement, while the company plans to invest $50 million in R&D focusing on AI and sustainable technologies, with management projecting continued growth of 12-18% next quarter.",
+            "+The company demonstrated strong quarterly performance with 15% revenue growth, improved operating margins from 18% to 22%, and record-high customer satisfaction scores of 94%. Management projects continued growth of 12-18% next quarter and plans to invest $50 million in R&D, focusing on AI and sustainable technology solutions."
+          ],
+          "word_diff": {
+            "added": [
+              "demonstrated",
+              "growth,",
+              "from",
+              "18%",
+              "to",
+              "22%,",
+              "and",
+              "record-high",
+              "customer",
+              "satisfaction",
+              "scores",
+              "94%.",
+              "Management",
+              "projects",
+              "continued",
+              "growth",
+              "of",
+              "12-18%",
+              "next",
+              "quarter",
+              "R&D,",
+              "technology",
+              "solutions."
+            ],
+            "removed": [
+              "reported",
+              "a",
+              "a",
+              "increase",
+              "and",
+              "22%,",
+              "driven",
+              "by",
+              "technology",
+              "sales",
+              "international",
+              "growth.",
+              "Customer",
+              "satisfaction",
+              "and",
+              "employee",
+              "retention",
+              "metrics",
+              "showed",
+              "significant",
+              "improvement,",
+              "while",
+              "the",
+              "company",
+              "R&D",
+              "technologies,",
+              "with",
+              "management",
+              "projecting",
+              "continued",
+              "growth",
+              "of",
+              "12-18%",
+              "next",
+              "quarter."
+            ]
+          },
+          "length_ratio": 0.7772511848341233,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 0.3710711796004208
+        }
+      }
+    },
+    {
+      "mutation": {
+        "original_text": "You are an expert text summarizer. Create a concise summary of the given text.\n\nGuidelines:\n- Capture the main points and key information\n- Keep the summary between 2-3 sentences\n- Maintain factual accuracy\n- Use clear and simple language\n- Focus on the most important details\n\nText to summarize:\n\nThe quarterly earnings report reveals strong performance across all business segments. Revenue increased by 15% compared to the previous quarter, driven primarily by robust sales in the technology division and expanded international operations. Operating margins improved from 18% to 22%, reflecting successful cost optimization initiatives and improved operational efficiency. The company also announced plans to invest $50 million in research and development over the next fiscal year, focusing on artificial intelligence and sustainable technology solutions. Customer satisfaction scores reached an all-time high of 94%, while employee retention rates improved by 8%. Looking ahead, management expects continued growth momentum with projected revenue increases of 12-18% for the upcoming quarter.",
+        "mutated_text": "Customer satisfaction scores reached an all-time high of 94%, while employee retention rates improved by 8%. Revenue increased by 15% compared to the previous quarter, driven primarily by robust sales in the technology division and expanded international operations. The company also announced plans to invest $50 million in research and development over the next fiscal year, focusing on artificial intelligence and sustainable technology solutions. Create a concise summary of the given text. You are an expert text summarizer. Guidelines:\n- Capture the main points and key information\n- Keep the summary between 2-3 sentences\n- Maintain factual accuracy\n- Use clear and simple language\n- Focus on the most important details\n\nText to summarize:\n\nThe quarterly earnings report reveals strong performance across all business segments. Operating margins improved from 18% to 22%, reflecting successful cost optimization initiatives and improved operational efficiency. Looking ahead, management expects continued growth momentum with projected revenue increases of 12-18% for the upcoming quarter.",
+        "mutation_type": "structural",
+        "description": "Randomly reorder sentences",
+        "severity": 0.6
+      },
+      "original_response": {
+        "text": "The company reported a strong quarterly performance with a 15% revenue increase and improved operating margins of 22%, driven by technology sales and international growth. Customer satisfaction and employee retention metrics showed significant improvement, while the company plans to invest $50 million in R&D focusing on AI and sustainable technologies, with management projecting continued growth of 12-18% next quarter.",
+        "model": "claude-3-5-sonnet-20241022",
+        "tokens_used": 292,
+        "response_time": 4.335089921951294,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "Here's a concise summary:\n\nThe company demonstrated strong quarterly performance with operating margins rising from 18% to 22%, driven by successful cost optimization and improved efficiency. Management anticipates continued growth, projecting revenue increases of 12-18% for the next quarter.",
+        "model": "claude-3-5-sonnet-20241022",
+        "tokens_used": 271,
+        "response_time": 1.5505549907684326,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 0.4067796610169492,
+        "semantic_similarity": 0.7297986745834351,
+        "structural_similarity": 1.0,
+        "overall_similarity": 0.6869332355968023,
+        "classification": "behavioral_deviation",
+        "details": {
+          "character_diff": [
+            "--- original\n",
+            "+++ mutated\n",
+            "@@ -1 +1,3 @@\n",
+            "-The company reported a strong quarterly performance with a 15% revenue increase and improved operating margins of 22%, driven by technology sales and international growth. Customer satisfaction and employee retention metrics showed significant improvement, while the company plans to invest $50 million in R&D focusing on AI and sustainable technologies, with management projecting continued growth of 12-18% next quarter.",
+            "+Here's a concise summary:\n",
+            "+\n",
+            "+The company demonstrated strong quarterly performance with operating margins rising from 18% to 22%, driven by successful cost optimization and improved efficiency. Management anticipates continued growth, projecting revenue increases of 12-18% for the next quarter."
+          ],
+          "word_diff": {
+            "added": [
+              "Here's",
+              "a",
+              "concise",
+              "summary:",
+              "demonstrated",
+              "rising",
+              "from",
+              "18%",
+              "to",
+              "successful",
+              "cost",
+              "optimization",
+              "improved",
+              "efficiency.",
+              "Management",
+              "anticipates",
+              "continued",
+              "growth,",
+              "revenue",
+              "increases",
+              "for",
+              "the"
+            ],
+            "removed": [
+              "reported",
+              "a",
+              "a",
+              "15%",
+              "revenue",
+              "increase",
+              "and",
+              "improved",
+              "of",
+              "technology",
+              "sales",
+              "international",
+              "growth.",
+              "Customer",
+              "satisfaction",
+              "and",
+              "employee",
+              "retention",
+              "metrics",
+              "showed",
+              "significant",
+              "improvement,",
+              "while",
+              "the",
+              "company",
+              "plans",
+              "to",
+              "invest",
+              "$50",
+              "million",
+              "in",
+              "R&D",
+              "focusing",
+              "on",
+              "AI",
+              "and",
+              "sustainable",
+              "technologies,",
+              "with",
+              "management",
+              "continued",
+              "growth"
+            ]
+          },
+          "length_ratio": 0.6943127962085308,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 0.1362969493175618
+        }
+      }
+    }
+  ],
+  "summary": {
+    "robustness_score": 0.5833333333333334,
+    "equivalent_count": 0,
+    "minor_variation_count": 5,
+    "behavioral_deviation_count": 1,
+    "equivalent_percentage": 0.0,
+    "minor_variation_percentage": 83.33333333333334,
+    "behavioral_deviation_percentage": 16.666666666666664,
+    "avg_response_time": 4.68422532081604,
+    "failed_mutations": 0,
+    "total_mutations": 6
+  }
+}

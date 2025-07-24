@@ -1,0 +1,310 @@
+{
+  "timestamp": "2025-07-24T00:29:58.496996",
+  "prompt_file": "examples/prompt_sql.txt",
+  "input_text": "Show me all users who registered in the last 30 days and have made at least one purchase",
+  "model": "claude-sonnet-4-20250514",
+  "total_mutations": 6,
+  "results": [
+    {
+      "mutation": {
+        "original_text": "You are a SQL expert. Generate a valid SQL query for the given request.\n\nRules:\n- Use proper SQL syntax\n- Return only the SQL query without explanations\n- Use appropriate table and column names\n- Ensure the query is syntactically correct\n\nRequest:\n\nShow me all users who registered in the last 30 days and have made at least one purchase",
+        "mutated_text": "You are a SQL expert Generate a valid SQL query for the given request\n\nRules\n Use proper SQL syntax\n Return only the SQL query without explanations\n Use appropriate table and column names\n Ensure the query is syntactically correct\n\nRequest\n\nShow me all users who registered in the last 30 days and have made at least one purchase",
+        "mutation_type": "lexical",
+        "description": "Remove all punctuation",
+        "severity": 0.4
+      },
+      "original_response": {
+        "text": "```sql\nSELECT DISTINCT u.*\nFROM users u\nINNER JOIN purchases p ON u.user_id = p.user_id\nWHERE u.registration_date >= DATE_SUB(CURRENT_DATE, INTERVAL 30 DAY);\n```",
+        "model": "claude-sonnet-4-20250514",
+        "tokens_used": 146,
+        "response_time": 1.895509958267212,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "```sql\nSELECT DISTINCT u.*\nFROM users u\nINNER JOIN purchases p ON u.user_id = p.user_id\nWHERE u.registration_date >= DATE_SUB(CURRENT_DATE, INTERVAL 30 DAY);\n```",
+        "model": "claude-sonnet-4-20250514",
+        "tokens_used": 142,
+        "response_time": 2.149167776107788,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 1.0,
+        "semantic_similarity": 1.0000001192092896,
+        "structural_similarity": 1.0,
+        "overall_similarity": 1.0000000596046448,
+        "classification": "equivalent",
+        "details": {
+          "character_diff": [],
+          "word_diff": {
+            "added": [],
+            "removed": []
+          },
+          "length_ratio": 1.0,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 1.0
+        }
+      }
+    },
+    {
+      "mutation": {
+        "original_text": "You are a SQL expert. Generate a valid SQL query for the given request.\n\nRules:\n- Use proper SQL syntax\n- Return only the SQL query without explanations\n- Use appropriate table and column names\n- Ensure the query is syntactically correct\n\nRequest:\n\nShow me all users who registered in the last 30 days and have made at least one purchase",
+        "mutated_text": "YOU ARE A SQL EXPERT. GENERATE A VALID SQL QUERY FOR THE GIVEN REQUEST.\n\nRULES:\n- USE PROPER SQL SYNTAX\n- RETURN ONLY THE SQL QUERY WITHOUT EXPLANATIONS\n- USE APPROPRIATE TABLE AND COLUMN NAMES\n- ENSURE THE QUERY IS SYNTACTICALLY CORRECT\n\nREQUEST:\n\nSHOW ME ALL USERS WHO REGISTERED IN THE LAST 30 DAYS AND HAVE MADE AT LEAST ONE PURCHASE",
+        "mutation_type": "lexical",
+        "description": "Convert all text to uppercase",
+        "severity": 0.1
+      },
+      "original_response": {
+        "text": "```sql\nSELECT DISTINCT u.*\nFROM users u\nINNER JOIN purchases p ON u.user_id = p.user_id\nWHERE u.registration_date >= DATE_SUB(CURRENT_DATE, INTERVAL 30 DAY);\n```",
+        "model": "claude-sonnet-4-20250514",
+        "tokens_used": 146,
+        "response_time": 1.895509958267212,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "```sql\nSELECT DISTINCT u.*\nFROM users u\nINNER JOIN purchases p ON u.user_id = p.user_id\nWHERE u.registration_date >= DATE_SUB(CURDATE(), INTERVAL 30 DAY);\n```",
+        "model": "claude-sonnet-4-20250514",
+        "tokens_used": 172,
+        "response_time": 1.635479211807251,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 0.9428571428571428,
+        "semantic_similarity": 0.983354389667511,
+        "structural_similarity": 1.0,
+        "overall_similarity": 0.9745343376908984,
+        "classification": "equivalent",
+        "details": {
+          "character_diff": [
+            "--- original\n",
+            "+++ mutated\n",
+            "@@ -2,5 +2,5 @@\n",
+            " SELECT DISTINCT u.*\n",
+            " FROM users u\n",
+            " INNER JOIN purchases p ON u.user_id = p.user_id\n",
+            "-WHERE u.registration_date >= DATE_SUB(CURRENT_DATE, INTERVAL 30 DAY);\n",
+            "+WHERE u.registration_date >= DATE_SUB(CURDATE(), INTERVAL 30 DAY);\n",
+            " ```"
+          ],
+          "word_diff": {
+            "added": [
+              "DATE_SUB(CURDATE(),"
+            ],
+            "removed": [
+              "DATE_SUB(CURRENT_DATE,"
+            ]
+          },
+          "length_ratio": 0.9813664596273292,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 0.8675979125638379
+        }
+      }
+    },
+    {
+      "mutation": {
+        "original_text": "You are a SQL expert. Generate a valid SQL query for the given request.\n\nRules:\n- Use proper SQL syntax\n- Return only the SQL query without explanations\n- Use appropriate table and column names\n- Ensure the query is syntactically correct\n\nRequest:\n\nShow me all users who registered in the last 30 days and have made at least one purchase",
+        "mutated_text": "Generate a valid SQL query for the given request. Rules:\n- Use proper SQL syntax\n- Return only the SQL query without explanations\n- Use appropriate table and column names\n- Ensure the query is syntactically correct\n\nRequest:\n\nShow me all users who registered in the last 30 days and have made at least one purchase You are a SQL expert.",
+        "mutation_type": "structural",
+        "description": "Randomly reorder sentences",
+        "severity": 0.6
+      },
+      "original_response": {
+        "text": "```sql\nSELECT DISTINCT u.*\nFROM users u\nINNER JOIN purchases p ON u.user_id = p.user_id\nWHERE u.registration_date >= DATE_SUB(CURRENT_DATE, INTERVAL 30 DAY);\n```",
+        "model": "claude-sonnet-4-20250514",
+        "tokens_used": 146,
+        "response_time": 1.895509958267212,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "```sql\nSELECT DISTINCT u.*\nFROM users u\nINNER JOIN purchases p ON u.user_id = p.user_id\nWHERE u.registration_date >= DATE_SUB(CURRENT_DATE, INTERVAL 30 DAY);\n```",
+        "model": "claude-sonnet-4-20250514",
+        "tokens_used": 145,
+        "response_time": 1.8419289588928223,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 1.0,
+        "semantic_similarity": 1.0000001192092896,
+        "structural_similarity": 1.0,
+        "overall_similarity": 1.0000000596046448,
+        "classification": "equivalent",
+        "details": {
+          "character_diff": [],
+          "word_diff": {
+            "added": [],
+            "removed": []
+          },
+          "length_ratio": 1.0,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 1.0
+        }
+      }
+    },
+    {
+      "mutation": {
+        "original_text": "You are a SQL expert. Generate a valid SQL query for the given request.\n\nRules:\n- Use proper SQL syntax\n- Return only the SQL query without explanations\n- Use appropriate table and column names\n- Ensure the query is syntactically correct\n\nRequest:\n\nShow me all users who registered in the last 30 days and have made at least one purchase",
+        "mutated_text": "Generate a valid SQL query for the given request. You are a SQL expert. Rules:\n- Use proper SQL syntax\n- Return only the SQL query without explanations\n- Use appropriate table and column names\n- Ensure the query is syntactically correct\n\nRequest:\n\nShow me all users who registered in the last 30 days and have made at least one purchase",
+        "mutation_type": "structural",
+        "description": "Randomly reorder sentences",
+        "severity": 0.6
+      },
+      "original_response": {
+        "text": "```sql\nSELECT DISTINCT u.*\nFROM users u\nINNER JOIN purchases p ON u.user_id = p.user_id\nWHERE u.registration_date >= DATE_SUB(CURRENT_DATE, INTERVAL 30 DAY);\n```",
+        "model": "claude-sonnet-4-20250514",
+        "tokens_used": 146,
+        "response_time": 1.895509958267212,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "```sql\nSELECT DISTINCT u.*\nFROM users u\nINNER JOIN purchases p ON u.user_id = p.user_id\nWHERE u.registration_date >= DATE_SUB(CURRENT_DATE, INTERVAL 30 DAY);\n```",
+        "model": "claude-sonnet-4-20250514",
+        "tokens_used": 145,
+        "response_time": 1.7838010787963867,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 1.0,
+        "semantic_similarity": 1.0000001192092896,
+        "structural_similarity": 1.0,
+        "overall_similarity": 1.0000000596046448,
+        "classification": "equivalent",
+        "details": {
+          "character_diff": [],
+          "word_diff": {
+            "added": [],
+            "removed": []
+          },
+          "length_ratio": 1.0,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 1.0
+        }
+      }
+    },
+    {
+      "mutation": {
+        "original_text": "You are a SQL expert. Generate a valid SQL query for the given request.\n\nRules:\n- Use proper SQL syntax\n- Return only the SQL query without explanations\n- Use appropriate table and column names\n- Ensure the query is syntactically correct\n\nRequest:\n\nShow me all users who registered in the last 30 days and have made at least one purchase",
+        "mutated_text": "Rules:\n- Use proper SQL syntax\n- Return only the SQL query without explanations\n- Use appropriate table and column names\n- Ensure the query is syntactically correct\n\nRequest:\n\nShow me all users who registered in the last 30 days and have made at least one purchase Generate a valid SQL query for the given request. You are a SQL expert.",
+        "mutation_type": "structural",
+        "description": "Reverse sentence order",
+        "severity": 0.5
+      },
+      "original_response": {
+        "text": "```sql\nSELECT DISTINCT u.*\nFROM users u\nINNER JOIN purchases p ON u.user_id = p.user_id\nWHERE u.registration_date >= DATE_SUB(CURRENT_DATE, INTERVAL 30 DAY);\n```",
+        "model": "claude-sonnet-4-20250514",
+        "tokens_used": 146,
+        "response_time": 1.895509958267212,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "```sql\nSELECT DISTINCT u.*\nFROM users u\nINNER JOIN purchases p ON u.user_id = p.user_id\nWHERE u.registration_date >= CURRENT_DATE - INTERVAL 30 DAY;\n```",
+        "model": "claude-sonnet-4-20250514",
+        "tokens_used": 140,
+        "response_time": 1.757755994796753,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 0.9230769230769231,
+        "semantic_similarity": 0.983534574508667,
+        "structural_similarity": 1.0,
+        "overall_similarity": 0.9686903641774105,
+        "classification": "equivalent",
+        "details": {
+          "character_diff": [
+            "--- original\n",
+            "+++ mutated\n",
+            "@@ -2,5 +2,5 @@\n",
+            " SELECT DISTINCT u.*\n",
+            " FROM users u\n",
+            " INNER JOIN purchases p ON u.user_id = p.user_id\n",
+            "-WHERE u.registration_date >= DATE_SUB(CURRENT_DATE, INTERVAL 30 DAY);\n",
+            "+WHERE u.registration_date >= CURRENT_DATE - INTERVAL 30 DAY;\n",
+            " ```"
+          ],
+          "word_diff": {
+            "added": [
+              "CURRENT_DATE",
+              "-",
+              "DAY;"
+            ],
+            "removed": [
+              "DATE_SUB(CURRENT_DATE,",
+              "DAY);"
+            ]
+          },
+          "length_ratio": 0.9440993788819876,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 0.7536589586091456
+        }
+      }
+    },
+    {
+      "mutation": {
+        "original_text": "You are a SQL expert. Generate a valid SQL query for the given request.\n\nRules:\n- Use proper SQL syntax\n- Return only the SQL query without explanations\n- Use appropriate table and column names\n- Ensure the query is syntactically correct\n\nRequest:\n\nShow me all users who registered in the last 30 days and have made at least one purchase",
+        "mutated_text": "Generate a valid SQL query for the given request. Rules:\n- Use proper SQL syntax\n- Return only the SQL query without explanations\n- Use appropriate table and column names\n- Ensure the query is syntactically correct\n\nRequest:\n\nShow me all users who registered in the last 30 days and have made at least one purchase You are a SQL expert.",
+        "mutation_type": "structural",
+        "description": "Randomly reorder sentences",
+        "severity": 0.6
+      },
+      "original_response": {
+        "text": "```sql\nSELECT DISTINCT u.*\nFROM users u\nINNER JOIN purchases p ON u.user_id = p.user_id\nWHERE u.registration_date >= DATE_SUB(CURRENT_DATE, INTERVAL 30 DAY);\n```",
+        "model": "claude-sonnet-4-20250514",
+        "tokens_used": 146,
+        "response_time": 1.895509958267212,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "```sql\nSELECT DISTINCT u.*\nFROM users u\nINNER JOIN purchases p ON u.user_id = p.user_id\nWHERE u.registration_date >= DATE_SUB(CURRENT_DATE, INTERVAL 30 DAY);\n```",
+        "model": "claude-sonnet-4-20250514",
+        "tokens_used": 145,
+        "response_time": 1.7644431591033936,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 1.0,
+        "semantic_similarity": 1.0000001192092896,
+        "structural_similarity": 1.0,
+        "overall_similarity": 1.0000000596046448,
+        "classification": "equivalent",
+        "details": {
+          "character_diff": [],
+          "word_diff": {
+            "added": [],
+            "removed": []
+          },
+          "length_ratio": 1.0,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 1.0
+        }
+      }
+    }
+  ],
+  "summary": {
+    "robustness_score": 1.0,
+    "equivalent_count": 6,
+    "minor_variation_count": 0,
+    "behavioral_deviation_count": 0,
+    "equivalent_percentage": 100.0,
+    "minor_variation_percentage": 0.0,
+    "behavioral_deviation_percentage": 0.0,
+    "avg_response_time": 1.8588029940923054,
+    "failed_mutations": 0,
+    "total_mutations": 6
+  }
+}

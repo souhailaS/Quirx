@@ -1,0 +1,377 @@
+{
+  "timestamp": "2025-07-24T00:28:58.940516",
+  "prompt_file": "examples/prompt_sql.txt",
+  "input_text": "Show me all users who registered in the last 30 days and have made at least one purchase",
+  "model": "gpt-3.5-turbo",
+  "total_mutations": 6,
+  "results": [
+    {
+      "mutation": {
+        "original_text": "You are a SQL expert. Generate a valid SQL query for the given request.\n\nRules:\n- Use proper SQL syntax\n- Return only the SQL query without explanations\n- Use appropriate table and column names\n- Ensure the query is syntactically correct\n\nRequest:\n\nShow me all users who registered in the last 30 days and have made at least one purchase",
+        "mutated_text": "You are a SQL expert Generate a valid SQL query for the given request\n\nRules\n Use proper SQL syntax\n Return only the SQL query without explanations\n Use appropriate table and column names\n Ensure the query is syntactically correct\n\nRequest\n\nShow me all users who registered in the last 30 days and have made at least one purchase",
+        "mutation_type": "lexical",
+        "description": "Remove all punctuation",
+        "severity": 0.4
+      },
+      "original_response": {
+        "text": "SELECT *\nFROM users\nWHERE registration_date >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)\nAND user_id IN (SELECT user_id FROM purchases);",
+        "model": "gpt-3.5-turbo",
+        "tokens_used": 110,
+        "response_time": 0.6876769065856934,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "SELECT * \nFROM users \nWHERE registration_date >= CURRENT_DATE - INTERVAL '30 days'\nAND user_id IN (SELECT user_id FROM purchases);",
+        "model": "gpt-3.5-turbo",
+        "tokens_used": 103,
+        "response_time": 0.919745922088623,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 0.7307692307692307,
+        "semantic_similarity": 0.9636549949645996,
+        "structural_similarity": 1.0,
+        "overall_similarity": 0.9010582667130691,
+        "classification": "minor_variation",
+        "details": {
+          "character_diff": [
+            "--- original\n",
+            "+++ mutated\n",
+            "@@ -1,4 +1,4 @@\n",
+            "-SELECT *\n",
+            "-FROM users\n",
+            "-WHERE registration_date >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)\n",
+            "+SELECT * \n",
+            "+FROM users \n",
+            "+WHERE registration_date >= CURRENT_DATE - INTERVAL '30 days'\n",
+            " AND user_id IN (SELECT user_id FROM purchases);"
+          ],
+          "word_diff": {
+            "added": [
+              "CURRENT_DATE",
+              "-",
+              "'30",
+              "days'"
+            ],
+            "removed": [
+              "DATE_SUB(CURDATE(),",
+              "30",
+              "DAY)"
+            ]
+          },
+          "length_ratio": 0.9923664122137404,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 0.5662628095018116
+        }
+      }
+    },
+    {
+      "mutation": {
+        "original_text": "You are a SQL expert. Generate a valid SQL query for the given request.\n\nRules:\n- Use proper SQL syntax\n- Return only the SQL query without explanations\n- Use appropriate table and column names\n- Ensure the query is syntactically correct\n\nRequest:\n\nShow me all users who registered in the last 30 days and have made at least one purchase",
+        "mutated_text": "YOU ARE A SQL EXPERT. GENERATE A VALID SQL QUERY FOR THE GIVEN REQUEST.\n\nRULES:\n- USE PROPER SQL SYNTAX\n- RETURN ONLY THE SQL QUERY WITHOUT EXPLANATIONS\n- USE APPROPRIATE TABLE AND COLUMN NAMES\n- ENSURE THE QUERY IS SYNTACTICALLY CORRECT\n\nREQUEST:\n\nSHOW ME ALL USERS WHO REGISTERED IN THE LAST 30 DAYS AND HAVE MADE AT LEAST ONE PURCHASE",
+        "mutation_type": "lexical",
+        "description": "Convert all text to uppercase",
+        "severity": 0.1
+      },
+      "original_response": {
+        "text": "SELECT *\nFROM users\nWHERE registration_date >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)\nAND user_id IN (SELECT user_id FROM purchases);",
+        "model": "gpt-3.5-turbo",
+        "tokens_used": 110,
+        "response_time": 0.6876769065856934,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "SELECT *\nFROM users\nWHERE registration_date >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)\nAND user_id IN (SELECT user_id FROM purchases);",
+        "model": "gpt-3.5-turbo",
+        "tokens_used": 128,
+        "response_time": 0.7381970882415771,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 1.0,
+        "semantic_similarity": 1.0000001192092896,
+        "structural_similarity": 1.0,
+        "overall_similarity": 1.0000000596046448,
+        "classification": "equivalent",
+        "details": {
+          "character_diff": [],
+          "word_diff": {
+            "added": [],
+            "removed": []
+          },
+          "length_ratio": 1.0,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 1.0
+        }
+      }
+    },
+    {
+      "mutation": {
+        "original_text": "You are a SQL expert. Generate a valid SQL query for the given request.\n\nRules:\n- Use proper SQL syntax\n- Return only the SQL query without explanations\n- Use appropriate table and column names\n- Ensure the query is syntactically correct\n\nRequest:\n\nShow me all users who registered in the last 30 days and have made at least one purchase",
+        "mutated_text": "Generate a valid SQL query for the given request. Rules:\n- Use proper SQL syntax\n- Return only the SQL query without explanations\n- Use appropriate table and column names\n- Ensure the query is syntactically correct\n\nRequest:\n\nShow me all users who registered in the last 30 days and have made at least one purchase You are a SQL expert.",
+        "mutation_type": "structural",
+        "description": "Randomly reorder sentences",
+        "severity": 0.6
+      },
+      "original_response": {
+        "text": "SELECT *\nFROM users\nWHERE registration_date >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)\nAND user_id IN (SELECT user_id FROM purchases);",
+        "model": "gpt-3.5-turbo",
+        "tokens_used": 110,
+        "response_time": 0.6876769065856934,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "SELECT *\nFROM users\nWHERE registration_date >= CURRENT_DATE - INTERVAL '30 days'\nAND user_id IN (SELECT user_id FROM purchases);",
+        "model": "gpt-3.5-turbo",
+        "tokens_used": 107,
+        "response_time": 0.7828590869903564,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 0.7307692307692307,
+        "semantic_similarity": 0.9636549949645996,
+        "structural_similarity": 1.0,
+        "overall_similarity": 0.9010582667130691,
+        "classification": "minor_variation",
+        "details": {
+          "character_diff": [
+            "--- original\n",
+            "+++ mutated\n",
+            "@@ -1,4 +1,4 @@\n",
+            " SELECT *\n",
+            " FROM users\n",
+            "-WHERE registration_date >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)\n",
+            "+WHERE registration_date >= CURRENT_DATE - INTERVAL '30 days'\n",
+            " AND user_id IN (SELECT user_id FROM purchases);"
+          ],
+          "word_diff": {
+            "added": [
+              "CURRENT_DATE",
+              "-",
+              "'30",
+              "days'"
+            ],
+            "removed": [
+              "DATE_SUB(CURDATE(),",
+              "30",
+              "DAY)"
+            ]
+          },
+          "length_ratio": 0.9770992366412213,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 0.5662628095018116
+        }
+      }
+    },
+    {
+      "mutation": {
+        "original_text": "You are a SQL expert. Generate a valid SQL query for the given request.\n\nRules:\n- Use proper SQL syntax\n- Return only the SQL query without explanations\n- Use appropriate table and column names\n- Ensure the query is syntactically correct\n\nRequest:\n\nShow me all users who registered in the last 30 days and have made at least one purchase",
+        "mutated_text": "Generate a valid SQL query for the given request. You are a SQL expert. Rules:\n- Use proper SQL syntax\n- Return only the SQL query without explanations\n- Use appropriate table and column names\n- Ensure the query is syntactically correct\n\nRequest:\n\nShow me all users who registered in the last 30 days and have made at least one purchase",
+        "mutation_type": "structural",
+        "description": "Randomly reorder sentences",
+        "severity": 0.6
+      },
+      "original_response": {
+        "text": "SELECT *\nFROM users\nWHERE registration_date >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)\nAND user_id IN (SELECT user_id FROM purchases);",
+        "model": "gpt-3.5-turbo",
+        "tokens_used": 110,
+        "response_time": 0.6876769065856934,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "SELECT *\nFROM users\nWHERE registration_date >= CURRENT_DATE - INTERVAL '30 days'\nAND user_id IN (\n    SELECT user_id\n    FROM purchases\n)",
+        "model": "gpt-3.5-turbo",
+        "tokens_used": 111,
+        "response_time": 1.004152774810791,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 0.7058823529411765,
+        "semantic_similarity": 0.9533281922340393,
+        "structural_similarity": 0.75,
+        "overall_similarity": 0.8384288019993726,
+        "classification": "minor_variation",
+        "details": {
+          "character_diff": [
+            "--- original\n",
+            "+++ mutated\n",
+            "@@ -1,4 +1,7 @@\n",
+            " SELECT *\n",
+            " FROM users\n",
+            "-WHERE registration_date >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)\n",
+            "-AND user_id IN (SELECT user_id FROM purchases);",
+            "+WHERE registration_date >= CURRENT_DATE - INTERVAL '30 days'\n",
+            "+AND user_id IN (\n",
+            "+    SELECT user_id\n",
+            "+    FROM purchases\n",
+            "+)"
+          ],
+          "word_diff": {
+            "added": [
+              "CURRENT_DATE",
+              "-",
+              "'30",
+              "days'",
+              "(",
+              "SELECT",
+              "purchases",
+              ")"
+            ],
+            "removed": [
+              "DATE_SUB(CURDATE(),",
+              "30",
+              "DAY)",
+              "(SELECT",
+              "purchases);"
+            ]
+          },
+          "length_ratio": 1.0458015267175573,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 0.5253069596658245
+        }
+      }
+    },
+    {
+      "mutation": {
+        "original_text": "You are a SQL expert. Generate a valid SQL query for the given request.\n\nRules:\n- Use proper SQL syntax\n- Return only the SQL query without explanations\n- Use appropriate table and column names\n- Ensure the query is syntactically correct\n\nRequest:\n\nShow me all users who registered in the last 30 days and have made at least one purchase",
+        "mutated_text": "Rules:\n- Use proper SQL syntax\n- Return only the SQL query without explanations\n- Use appropriate table and column names\n- Ensure the query is syntactically correct\n\nRequest:\n\nShow me all users who registered in the last 30 days and have made at least one purchase Generate a valid SQL query for the given request. You are a SQL expert.",
+        "mutation_type": "structural",
+        "description": "Reverse sentence order",
+        "severity": 0.5
+      },
+      "original_response": {
+        "text": "SELECT *\nFROM users\nWHERE registration_date >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)\nAND user_id IN (SELECT user_id FROM purchases);",
+        "model": "gpt-3.5-turbo",
+        "tokens_used": 110,
+        "response_time": 0.6876769065856934,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "SELECT * \nFROM users \nWHERE registration_date >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)\nAND user_id IN (SELECT user_id FROM purchases);",
+        "model": "gpt-3.5-turbo",
+        "tokens_used": 111,
+        "response_time": 0.8155179023742676,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 1.0,
+        "semantic_similarity": 1.0000001192092896,
+        "structural_similarity": 1.0,
+        "overall_similarity": 1.0000000596046448,
+        "classification": "equivalent",
+        "details": {
+          "character_diff": [
+            "--- original\n",
+            "+++ mutated\n",
+            "@@ -1,4 +1,4 @@\n",
+            "-SELECT *\n",
+            "-FROM users\n",
+            "+SELECT * \n",
+            "+FROM users \n",
+            " WHERE registration_date >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)\n",
+            " AND user_id IN (SELECT user_id FROM purchases);"
+          ],
+          "word_diff": {
+            "added": [],
+            "removed": []
+          },
+          "length_ratio": 1.015267175572519,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 1.0
+        }
+      }
+    },
+    {
+      "mutation": {
+        "original_text": "You are a SQL expert. Generate a valid SQL query for the given request.\n\nRules:\n- Use proper SQL syntax\n- Return only the SQL query without explanations\n- Use appropriate table and column names\n- Ensure the query is syntactically correct\n\nRequest:\n\nShow me all users who registered in the last 30 days and have made at least one purchase",
+        "mutated_text": "Generate a valid SQL query for the given request. Rules:\n- Use proper SQL syntax\n- Return only the SQL query without explanations\n- Use appropriate table and column names\n- Ensure the query is syntactically correct\n\nRequest:\n\nShow me all users who registered in the last 30 days and have made at least one purchase You are a SQL expert.",
+        "mutation_type": "structural",
+        "description": "Randomly reorder sentences",
+        "severity": 0.6
+      },
+      "original_response": {
+        "text": "SELECT *\nFROM users\nWHERE registration_date >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)\nAND user_id IN (SELECT user_id FROM purchases);",
+        "model": "gpt-3.5-turbo",
+        "tokens_used": 110,
+        "response_time": 0.6876769065856934,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "SELECT * \nFROM users\nWHERE registration_date >= DATEADD(day, -30, GETDATE())\nAND user_id IN (SELECT user_id FROM purchases)",
+        "model": "gpt-3.5-turbo",
+        "tokens_used": 110,
+        "response_time": 0.7156178951263428,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 0.7636363636363637,
+        "semantic_similarity": 0.9384788274765015,
+        "structural_similarity": 0.75,
+        "overall_similarity": 0.8483303228291599,
+        "classification": "minor_variation",
+        "details": {
+          "character_diff": [
+            "--- original\n",
+            "+++ mutated\n",
+            "@@ -1,4 +1,4 @@\n",
+            "-SELECT *\n",
+            "+SELECT * \n",
+            " FROM users\n",
+            "-WHERE registration_date >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)\n",
+            "-AND user_id IN (SELECT user_id FROM purchases);",
+            "+WHERE registration_date >= DATEADD(day, -30, GETDATE())\n",
+            "+AND user_id IN (SELECT user_id FROM purchases)"
+          ],
+          "word_diff": {
+            "added": [
+              "DATEADD(day,",
+              "-30,",
+              "GETDATE())",
+              "purchases)"
+            ],
+            "removed": [
+              "DATE_SUB(CURDATE(),",
+              "INTERVAL",
+              "30",
+              "DAY)",
+              "purchases);"
+            ]
+          },
+          "length_ratio": 0.9389312977099237,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 0.6055701203474636
+        }
+      }
+    }
+  ],
+  "summary": {
+    "robustness_score": 0.7999999999999999,
+    "equivalent_count": 2,
+    "minor_variation_count": 4,
+    "behavioral_deviation_count": 0,
+    "equivalent_percentage": 33.33333333333333,
+    "minor_variation_percentage": 66.66666666666666,
+    "behavioral_deviation_percentage": 0.0,
+    "avg_response_time": 0.7585126757621765,
+    "failed_mutations": 0,
+    "total_mutations": 6
+  }
+}

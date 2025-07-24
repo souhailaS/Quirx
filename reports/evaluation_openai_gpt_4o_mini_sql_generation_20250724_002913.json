@@ -1,0 +1,387 @@
+{
+  "timestamp": "2025-07-24T00:29:13.044767",
+  "prompt_file": "examples/prompt_sql.txt",
+  "input_text": "Show me all users who registered in the last 30 days and have made at least one purchase",
+  "model": "gpt-4o-mini",
+  "total_mutations": 6,
+  "results": [
+    {
+      "mutation": {
+        "original_text": "You are a SQL expert. Generate a valid SQL query for the given request.\n\nRules:\n- Use proper SQL syntax\n- Return only the SQL query without explanations\n- Use appropriate table and column names\n- Ensure the query is syntactically correct\n\nRequest:\n\nShow me all users who registered in the last 30 days and have made at least one purchase",
+        "mutated_text": "You are a SQL expert Generate a valid SQL query for the given request\n\nRules\n Use proper SQL syntax\n Return only the SQL query without explanations\n Use appropriate table and column names\n Ensure the query is syntactically correct\n\nRequest\n\nShow me all users who registered in the last 30 days and have made at least one purchase",
+        "mutation_type": "lexical",
+        "description": "Remove all punctuation",
+        "severity": 0.4
+      },
+      "original_response": {
+        "text": "```sql\nSELECT u.user_id, u.username, u.registration_date\nFROM users u\nJOIN purchases p ON u.user_id = p.user_id\nWHERE u.registration_date >= NOW() - INTERVAL 30 DAY\nGROUP BY u.user_id\nHAVING COUNT(p.purchase_id) >= 1;\n```",
+        "model": "gpt-4o-mini",
+        "tokens_used": 142,
+        "response_time": 1.5214052200317383,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "```sql\nSELECT u.*\nFROM users u\nJOIN purchases p ON u.user_id = p.user_id\nWHERE u.registration_date >= NOW() - INTERVAL 30 DAY\nGROUP BY u.user_id;\n```",
+        "model": "gpt-4o-mini",
+        "tokens_used": 117,
+        "response_time": 1.3350069522857666,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 0.7948717948717948,
+        "semantic_similarity": 0.9545986652374268,
+        "structural_similarity": 0.625,
+        "overall_similarity": 0.8407608710802519,
+        "classification": "minor_variation",
+        "details": {
+          "character_diff": [
+            "--- original\n",
+            "+++ mutated\n",
+            "@@ -1,8 +1,7 @@\n",
+            " ```sql\n",
+            "-SELECT u.user_id, u.username, u.registration_date\n",
+            "+SELECT u.*\n",
+            " FROM users u\n",
+            " JOIN purchases p ON u.user_id = p.user_id\n",
+            " WHERE u.registration_date >= NOW() - INTERVAL 30 DAY\n",
+            "-GROUP BY u.user_id\n",
+            "-HAVING COUNT(p.purchase_id) >= 1;\n",
+            "+GROUP BY u.user_id;\n",
+            " ```"
+          ],
+          "word_diff": {
+            "added": [
+              "u.*",
+              "u.user_id;"
+            ],
+            "removed": [
+              "u.user_id,",
+              "u.username,",
+              "u.registration_date",
+              "u.user_id",
+              "HAVING",
+              "COUNT(p.purchase_id)",
+              ">=",
+              "1;"
+            ]
+          },
+          "length_ratio": 0.6742081447963801,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 0.6030603844740591
+        }
+      }
+    },
+    {
+      "mutation": {
+        "original_text": "You are a SQL expert. Generate a valid SQL query for the given request.\n\nRules:\n- Use proper SQL syntax\n- Return only the SQL query without explanations\n- Use appropriate table and column names\n- Ensure the query is syntactically correct\n\nRequest:\n\nShow me all users who registered in the last 30 days and have made at least one purchase",
+        "mutated_text": "YOU ARE A SQL EXPERT. GENERATE A VALID SQL QUERY FOR THE GIVEN REQUEST.\n\nRULES:\n- USE PROPER SQL SYNTAX\n- RETURN ONLY THE SQL QUERY WITHOUT EXPLANATIONS\n- USE APPROPRIATE TABLE AND COLUMN NAMES\n- ENSURE THE QUERY IS SYNTACTICALLY CORRECT\n\nREQUEST:\n\nSHOW ME ALL USERS WHO REGISTERED IN THE LAST 30 DAYS AND HAVE MADE AT LEAST ONE PURCHASE",
+        "mutation_type": "lexical",
+        "description": "Convert all text to uppercase",
+        "severity": 0.1
+      },
+      "original_response": {
+        "text": "```sql\nSELECT u.user_id, u.username, u.registration_date\nFROM users u\nJOIN purchases p ON u.user_id = p.user_id\nWHERE u.registration_date >= NOW() - INTERVAL 30 DAY\nGROUP BY u.user_id\nHAVING COUNT(p.purchase_id) >= 1;\n```",
+        "model": "gpt-4o-mini",
+        "tokens_used": 142,
+        "response_time": 1.5214052200317383,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "```sql\nSELECT DISTINCT u.*\nFROM users u\nJOIN purchases p ON u.user_id = p.user_id\nWHERE u.registration_date >= NOW() - INTERVAL 30 DAY;\n```",
+        "model": "gpt-4o-mini",
+        "tokens_used": 133,
+        "response_time": 2.2228667736053467,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 0.7368421052631579,
+        "semantic_similarity": 0.9096347689628601,
+        "structural_similarity": 0.625,
+        "overall_similarity": 0.8008700160603774,
+        "classification": "minor_variation",
+        "details": {
+          "character_diff": [
+            "--- original\n",
+            "+++ mutated\n",
+            "@@ -1,8 +1,6 @@\n",
+            " ```sql\n",
+            "-SELECT u.user_id, u.username, u.registration_date\n",
+            "+SELECT DISTINCT u.*\n",
+            " FROM users u\n",
+            " JOIN purchases p ON u.user_id = p.user_id\n",
+            "-WHERE u.registration_date >= NOW() - INTERVAL 30 DAY\n",
+            "-GROUP BY u.user_id\n",
+            "-HAVING COUNT(p.purchase_id) >= 1;\n",
+            "+WHERE u.registration_date >= NOW() - INTERVAL 30 DAY;\n",
+            " ```"
+          ],
+          "word_diff": {
+            "added": [
+              "DISTINCT",
+              "u.*",
+              "DAY;"
+            ],
+            "removed": [
+              "u.user_id,",
+              "u.username,",
+              "u.registration_date",
+              "DAY",
+              "GROUP",
+              "BY",
+              "u.user_id",
+              "HAVING",
+              "COUNT(p.purchase_id)",
+              ">=",
+              "1;"
+            ]
+          },
+          "length_ratio": 0.6289592760180995,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 0.5244455667029588
+        }
+      }
+    },
+    {
+      "mutation": {
+        "original_text": "You are a SQL expert. Generate a valid SQL query for the given request.\n\nRules:\n- Use proper SQL syntax\n- Return only the SQL query without explanations\n- Use appropriate table and column names\n- Ensure the query is syntactically correct\n\nRequest:\n\nShow me all users who registered in the last 30 days and have made at least one purchase",
+        "mutated_text": "Generate a valid SQL query for the given request. Rules:\n- Use proper SQL syntax\n- Return only the SQL query without explanations\n- Use appropriate table and column names\n- Ensure the query is syntactically correct\n\nRequest:\n\nShow me all users who registered in the last 30 days and have made at least one purchase You are a SQL expert.",
+        "mutation_type": "structural",
+        "description": "Randomly reorder sentences",
+        "severity": 0.6
+      },
+      "original_response": {
+        "text": "```sql\nSELECT u.user_id, u.username, u.registration_date\nFROM users u\nJOIN purchases p ON u.user_id = p.user_id\nWHERE u.registration_date >= NOW() - INTERVAL 30 DAY\nGROUP BY u.user_id\nHAVING COUNT(p.purchase_id) >= 1;\n```",
+        "model": "gpt-4o-mini",
+        "tokens_used": 142,
+        "response_time": 1.5214052200317383,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "```sql\nSELECT u.user_id, u.username, u.registration_date\nFROM users u\nJOIN purchases p ON u.user_id = p.user_id\nWHERE u.registration_date >= NOW() - INTERVAL 30 DAY\nGROUP BY u.user_id\nHAVING COUNT(p.purchase_id) >= 1;\n```",
+        "model": "gpt-4o-mini",
+        "tokens_used": 142,
+        "response_time": 2.21833872795105,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 1.0,
+        "semantic_similarity": 1.0000001192092896,
+        "structural_similarity": 1.0,
+        "overall_similarity": 1.0000000596046448,
+        "classification": "equivalent",
+        "details": {
+          "character_diff": [],
+          "word_diff": {
+            "added": [],
+            "removed": []
+          },
+          "length_ratio": 1.0,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 1.0
+        }
+      }
+    },
+    {
+      "mutation": {
+        "original_text": "You are a SQL expert. Generate a valid SQL query for the given request.\n\nRules:\n- Use proper SQL syntax\n- Return only the SQL query without explanations\n- Use appropriate table and column names\n- Ensure the query is syntactically correct\n\nRequest:\n\nShow me all users who registered in the last 30 days and have made at least one purchase",
+        "mutated_text": "Generate a valid SQL query for the given request. You are a SQL expert. Rules:\n- Use proper SQL syntax\n- Return only the SQL query without explanations\n- Use appropriate table and column names\n- Ensure the query is syntactically correct\n\nRequest:\n\nShow me all users who registered in the last 30 days and have made at least one purchase",
+        "mutation_type": "structural",
+        "description": "Randomly reorder sentences",
+        "severity": 0.6
+      },
+      "original_response": {
+        "text": "```sql\nSELECT u.user_id, u.username, u.registration_date\nFROM users u\nJOIN purchases p ON u.user_id = p.user_id\nWHERE u.registration_date >= NOW() - INTERVAL 30 DAY\nGROUP BY u.user_id\nHAVING COUNT(p.purchase_id) >= 1;\n```",
+        "model": "gpt-4o-mini",
+        "tokens_used": 142,
+        "response_time": 1.5214052200317383,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "```sql\nSELECT u.user_id, u.username, u.registration_date\nFROM users u\nJOIN purchases p ON u.user_id = p.user_id\nWHERE u.registration_date >= NOW() - INTERVAL 30 DAY\nGROUP BY u.user_id\nHAVING COUNT(p.purchase_id) >= 1;\n```",
+        "model": "gpt-4o-mini",
+        "tokens_used": 142,
+        "response_time": 1.3636198043823242,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 1.0,
+        "semantic_similarity": 1.0000001192092896,
+        "structural_similarity": 1.0,
+        "overall_similarity": 1.0000000596046448,
+        "classification": "equivalent",
+        "details": {
+          "character_diff": [],
+          "word_diff": {
+            "added": [],
+            "removed": []
+          },
+          "length_ratio": 1.0,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 1.0
+        }
+      }
+    },
+    {
+      "mutation": {
+        "original_text": "You are a SQL expert. Generate a valid SQL query for the given request.\n\nRules:\n- Use proper SQL syntax\n- Return only the SQL query without explanations\n- Use appropriate table and column names\n- Ensure the query is syntactically correct\n\nRequest:\n\nShow me all users who registered in the last 30 days and have made at least one purchase",
+        "mutated_text": "Rules:\n- Use proper SQL syntax\n- Return only the SQL query without explanations\n- Use appropriate table and column names\n- Ensure the query is syntactically correct\n\nRequest:\n\nShow me all users who registered in the last 30 days and have made at least one purchase Generate a valid SQL query for the given request. You are a SQL expert.",
+        "mutation_type": "structural",
+        "description": "Reverse sentence order",
+        "severity": 0.5
+      },
+      "original_response": {
+        "text": "```sql\nSELECT u.user_id, u.username, u.registration_date\nFROM users u\nJOIN purchases p ON u.user_id = p.user_id\nWHERE u.registration_date >= NOW() - INTERVAL 30 DAY\nGROUP BY u.user_id\nHAVING COUNT(p.purchase_id) >= 1;\n```",
+        "model": "gpt-4o-mini",
+        "tokens_used": 142,
+        "response_time": 1.5214052200317383,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "```sql\nSELECT DISTINCT u.user_id, u.username, u.registration_date\nFROM users u\nJOIN purchases p ON u.user_id = p.user_id\nWHERE u.registration_date >= NOW() - INTERVAL 30 DAY;\n```",
+        "model": "gpt-4o-mini",
+        "tokens_used": 126,
+        "response_time": 1.2760331630706787,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 0.8461538461538461,
+        "semantic_similarity": 0.9079542756080627,
+        "structural_similarity": 1.0,
+        "overall_similarity": 0.9078232916501852,
+        "classification": "minor_variation",
+        "details": {
+          "character_diff": [
+            "--- original\n",
+            "+++ mutated\n",
+            "@@ -1,8 +1,6 @@\n",
+            " ```sql\n",
+            "-SELECT u.user_id, u.username, u.registration_date\n",
+            "+SELECT DISTINCT u.user_id, u.username, u.registration_date\n",
+            " FROM users u\n",
+            " JOIN purchases p ON u.user_id = p.user_id\n",
+            "-WHERE u.registration_date >= NOW() - INTERVAL 30 DAY\n",
+            "-GROUP BY u.user_id\n",
+            "-HAVING COUNT(p.purchase_id) >= 1;\n",
+            "+WHERE u.registration_date >= NOW() - INTERVAL 30 DAY;\n",
+            " ```"
+          ],
+          "word_diff": {
+            "added": [
+              "DISTINCT",
+              "DAY;"
+            ],
+            "removed": [
+              "DAY",
+              "GROUP",
+              "BY",
+              "u.user_id",
+              "HAVING",
+              "COUNT(p.purchase_id)",
+              ">=",
+              "1;"
+            ]
+          },
+          "length_ratio": 0.8054298642533937,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 0.6492960288525818
+        }
+      }
+    },
+    {
+      "mutation": {
+        "original_text": "You are a SQL expert. Generate a valid SQL query for the given request.\n\nRules:\n- Use proper SQL syntax\n- Return only the SQL query without explanations\n- Use appropriate table and column names\n- Ensure the query is syntactically correct\n\nRequest:\n\nShow me all users who registered in the last 30 days and have made at least one purchase",
+        "mutated_text": "Generate a valid SQL query for the given request. Rules:\n- Use proper SQL syntax\n- Return only the SQL query without explanations\n- Use appropriate table and column names\n- Ensure the query is syntactically correct\n\nRequest:\n\nShow me all users who registered in the last 30 days and have made at least one purchase You are a SQL expert.",
+        "mutation_type": "structural",
+        "description": "Randomly reorder sentences",
+        "severity": 0.6
+      },
+      "original_response": {
+        "text": "```sql\nSELECT u.user_id, u.username, u.registration_date\nFROM users u\nJOIN purchases p ON u.user_id = p.user_id\nWHERE u.registration_date >= NOW() - INTERVAL 30 DAY\nGROUP BY u.user_id\nHAVING COUNT(p.purchase_id) >= 1;\n```",
+        "model": "gpt-4o-mini",
+        "tokens_used": 142,
+        "response_time": 1.5214052200317383,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "```sql\nSELECT u.*\nFROM users u\nJOIN purchases p ON u.user_id = p.user_id\nWHERE u.registration_date >= NOW() - INTERVAL 30 DAY\nGROUP BY u.user_id;\n```",
+        "model": "gpt-4o-mini",
+        "tokens_used": 122,
+        "response_time": 1.4572112560272217,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 0.7948717948717948,
+        "semantic_similarity": 0.9545986652374268,
+        "structural_similarity": 0.625,
+        "overall_similarity": 0.8407608710802519,
+        "classification": "minor_variation",
+        "details": {
+          "character_diff": [
+            "--- original\n",
+            "+++ mutated\n",
+            "@@ -1,8 +1,7 @@\n",
+            " ```sql\n",
+            "-SELECT u.user_id, u.username, u.registration_date\n",
+            "+SELECT u.*\n",
+            " FROM users u\n",
+            " JOIN purchases p ON u.user_id = p.user_id\n",
+            " WHERE u.registration_date >= NOW() - INTERVAL 30 DAY\n",
+            "-GROUP BY u.user_id\n",
+            "-HAVING COUNT(p.purchase_id) >= 1;\n",
+            "+GROUP BY u.user_id;\n",
+            " ```"
+          ],
+          "word_diff": {
+            "added": [
+              "u.*",
+              "u.user_id;"
+            ],
+            "removed": [
+              "u.user_id,",
+              "u.username,",
+              "u.registration_date",
+              "u.user_id",
+              "HAVING",
+              "COUNT(p.purchase_id)",
+              ">=",
+              "1;"
+            ]
+          },
+          "length_ratio": 0.6742081447963801,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 0.6030603844740591
+        }
+      }
+    }
+  ],
+  "summary": {
+    "robustness_score": 0.7999999999999999,
+    "equivalent_count": 2,
+    "minor_variation_count": 4,
+    "behavioral_deviation_count": 0,
+    "equivalent_percentage": 33.33333333333333,
+    "minor_variation_percentage": 66.66666666666666,
+    "behavioral_deviation_percentage": 0.0,
+    "avg_response_time": 1.5834589997927349,
+    "failed_mutations": 0,
+    "total_mutations": 6
+  }
+}

@@ -1,0 +1,393 @@
+{
+  "timestamp": "2025-07-24T00:29:42.387598",
+  "prompt_file": "examples/prompt_sql.txt",
+  "input_text": "Show me all users who registered in the last 30 days and have made at least one purchase",
+  "model": "claude-3-5-sonnet-20241022",
+  "total_mutations": 6,
+  "results": [
+    {
+      "mutation": {
+        "original_text": "You are a SQL expert. Generate a valid SQL query for the given request.\n\nRules:\n- Use proper SQL syntax\n- Return only the SQL query without explanations\n- Use appropriate table and column names\n- Ensure the query is syntactically correct\n\nRequest:\n\nShow me all users who registered in the last 30 days and have made at least one purchase",
+        "mutated_text": "YOU ARE A SQL EXPERT. GENERATE A VALID SQL QUERY FOR THE GIVEN REQUEST.\n\nRULES:\n- USE PROPER SQL SYNTAX\n- RETURN ONLY THE SQL QUERY WITHOUT EXPLANATIONS\n- USE APPROPRIATE TABLE AND COLUMN NAMES\n- ENSURE THE QUERY IS SYNTACTICALLY CORRECT\n\nREQUEST:\n\nSHOW ME ALL USERS WHO REGISTERED IN THE LAST 30 DAYS AND HAVE MADE AT LEAST ONE PURCHASE",
+        "mutation_type": "lexical",
+        "description": "Convert all text to uppercase",
+        "severity": 0.1
+      },
+      "original_response": {
+        "text": "SELECT DISTINCT u.user_id, u.username, u.registration_date\nFROM users u\nINNER JOIN orders o ON u.user_id = o.user_id\nWHERE u.registration_date >= DATEADD(day, -30, GETDATE())\nORDER BY u.registration_date DESC;",
+        "model": "claude-3-5-sonnet-20241022",
+        "tokens_used": 160,
+        "response_time": 4.3813230991363525,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "SELECT DISTINCT u.user_id, u.username, u.registration_date\nFROM users u\nINNER JOIN orders o ON u.user_id = o.user_id\nWHERE u.registration_date >= DATEADD(day, -30, GETDATE())\nORDER BY u.registration_date DESC;",
+        "model": "claude-3-5-sonnet-20241022",
+        "tokens_used": 187,
+        "response_time": 2.2732322216033936,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 1.0,
+        "semantic_similarity": 1.0,
+        "structural_similarity": 1.0,
+        "overall_similarity": 1.0,
+        "classification": "equivalent",
+        "details": {
+          "character_diff": [],
+          "word_diff": {
+            "added": [],
+            "removed": []
+          },
+          "length_ratio": 1.0,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 1.0
+        }
+      }
+    },
+    {
+      "mutation": {
+        "original_text": "You are a SQL expert. Generate a valid SQL query for the given request.\n\nRules:\n- Use proper SQL syntax\n- Return only the SQL query without explanations\n- Use appropriate table and column names\n- Ensure the query is syntactically correct\n\nRequest:\n\nShow me all users who registered in the last 30 days and have made at least one purchase",
+        "mutated_text": "You are a SQL expert Generate a valid SQL query for the given request\n\nRules\n Use proper SQL syntax\n Return only the SQL query without explanations\n Use appropriate table and column names\n Ensure the query is syntactically correct\n\nRequest\n\nShow me all users who registered in the last 30 days and have made at least one purchase",
+        "mutation_type": "lexical",
+        "description": "Remove all punctuation",
+        "severity": 0.4
+      },
+      "original_response": {
+        "text": "SELECT DISTINCT u.user_id, u.username, u.registration_date\nFROM users u\nINNER JOIN orders o ON u.user_id = o.user_id\nWHERE u.registration_date >= DATEADD(day, -30, GETDATE())\nORDER BY u.registration_date DESC;",
+        "model": "claude-3-5-sonnet-20241022",
+        "tokens_used": 160,
+        "response_time": 4.3813230991363525,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "SELECT DISTINCT u.* \nFROM users u \nINNER JOIN orders o ON u.user_id = o.user_id \nWHERE u.registration_date >= DATEADD(day, -30, GETDATE()) \nAND o.order_id IS NOT NULL;",
+        "model": "claude-3-5-sonnet-20241022",
+        "tokens_used": 149,
+        "response_time": 3.1938676834106445,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 0.7671232876712328,
+        "semantic_similarity": 0.9385765194892883,
+        "structural_similarity": 0.5,
+        "overall_similarity": 0.799425246046014,
+        "classification": "minor_variation",
+        "details": {
+          "character_diff": [
+            "--- original\n",
+            "+++ mutated\n",
+            "@@ -1,5 +1,5 @@\n",
+            "-SELECT DISTINCT u.user_id, u.username, u.registration_date\n",
+            "-FROM users u\n",
+            "-INNER JOIN orders o ON u.user_id = o.user_id\n",
+            "-WHERE u.registration_date >= DATEADD(day, -30, GETDATE())\n",
+            "-ORDER BY u.registration_date DESC;",
+            "+SELECT DISTINCT u.* \n",
+            "+FROM users u \n",
+            "+INNER JOIN orders o ON u.user_id = o.user_id \n",
+            "+WHERE u.registration_date >= DATEADD(day, -30, GETDATE()) \n",
+            "+AND o.order_id IS NOT NULL;"
+          ],
+          "word_diff": {
+            "added": [
+              "u.*",
+              "AND",
+              "o.order_id",
+              "IS",
+              "NOT",
+              "NULL;"
+            ],
+            "removed": [
+              "u.user_id,",
+              "u.username,",
+              "u.registration_date",
+              "ORDER",
+              "BY",
+              "u.registration_date",
+              "DESC;"
+            ]
+          },
+          "length_ratio": 0.7990430622009569,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 0.6881094989912835
+        }
+      }
+    },
+    {
+      "mutation": {
+        "original_text": "You are a SQL expert. Generate a valid SQL query for the given request.\n\nRules:\n- Use proper SQL syntax\n- Return only the SQL query without explanations\n- Use appropriate table and column names\n- Ensure the query is syntactically correct\n\nRequest:\n\nShow me all users who registered in the last 30 days and have made at least one purchase",
+        "mutated_text": "Generate a valid SQL query for the given request. Rules:\n- Use proper SQL syntax\n- Return only the SQL query without explanations\n- Use appropriate table and column names\n- Ensure the query is syntactically correct\n\nRequest:\n\nShow me all users who registered in the last 30 days and have made at least one purchase You are a SQL expert.",
+        "mutation_type": "structural",
+        "description": "Randomly reorder sentences",
+        "severity": 0.6
+      },
+      "original_response": {
+        "text": "SELECT DISTINCT u.user_id, u.username, u.registration_date\nFROM users u\nINNER JOIN orders o ON u.user_id = o.user_id\nWHERE u.registration_date >= DATEADD(day, -30, GETDATE())\nORDER BY u.registration_date DESC;",
+        "model": "claude-3-5-sonnet-20241022",
+        "tokens_used": 160,
+        "response_time": 4.3813230991363525,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "SELECT DISTINCT u.user_id, u.username, u.registration_date\nFROM users u\nINNER JOIN orders o ON u.user_id = o.user_id\nWHERE u.registration_date >= DATEADD(day, -30, GETDATE())\nAND o.order_id IS NOT NULL\nORDER BY u.registration_date DESC;",
+        "model": "claude-3-5-sonnet-20241022",
+        "tokens_used": 169,
+        "response_time": 2.644536018371582,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 0.9367088607594937,
+        "semantic_similarity": 0.9505071043968201,
+        "structural_similarity": 1.0,
+        "overall_similarity": 0.956266210426258,
+        "classification": "equivalent",
+        "details": {
+          "character_diff": [
+            "--- original\n",
+            "+++ mutated\n",
+            "@@ -2,4 +2,5 @@\n",
+            " FROM users u\n",
+            " INNER JOIN orders o ON u.user_id = o.user_id\n",
+            " WHERE u.registration_date >= DATEADD(day, -30, GETDATE())\n",
+            "+AND o.order_id IS NOT NULL\n",
+            " ORDER BY u.registration_date DESC;"
+          ],
+          "word_diff": {
+            "added": [
+              "AND",
+              "o.order_id",
+              "IS",
+              "NOT",
+              "NULL"
+            ],
+            "removed": []
+          },
+          "length_ratio": 1.1291866028708133,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 0.8380055871435848
+        }
+      }
+    },
+    {
+      "mutation": {
+        "original_text": "You are a SQL expert. Generate a valid SQL query for the given request.\n\nRules:\n- Use proper SQL syntax\n- Return only the SQL query without explanations\n- Use appropriate table and column names\n- Ensure the query is syntactically correct\n\nRequest:\n\nShow me all users who registered in the last 30 days and have made at least one purchase",
+        "mutated_text": "You are a SQL expert. Generate a valid SQL query for the given request. Rules:\n- Use proper SQL syntax\n- Return only the SQL query without explanations\n- Use appropriate table and column names\n- Ensure the query is syntactically correct\n\nRequest:\n\nShow me all users who registered in the last 30 days and have made at least one purchase",
+        "mutation_type": "structural",
+        "description": "Randomly reorder sentences",
+        "severity": 0.6
+      },
+      "original_response": {
+        "text": "SELECT DISTINCT u.user_id, u.username, u.registration_date\nFROM users u\nINNER JOIN orders o ON u.user_id = o.user_id\nWHERE u.registration_date >= DATEADD(day, -30, GETDATE())\nORDER BY u.registration_date DESC;",
+        "model": "claude-3-5-sonnet-20241022",
+        "tokens_used": 160,
+        "response_time": 4.3813230991363525,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "SELECT DISTINCT u.user_id, u.username, u.registration_date\nFROM users u\nINNER JOIN orders o ON u.user_id = o.user_id\nWHERE u.registration_date >= DATEADD(day, -30, GETDATE())\nAND EXISTS (\n    SELECT 1 FROM orders \n    WHERE user_id = u.user_id\n)\nORDER BY u.registration_date DESC;",
+        "model": "claude-3-5-sonnet-20241022",
+        "tokens_used": 186,
+        "response_time": 2.241414785385132,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 0.8604651162790697,
+        "semantic_similarity": 0.9676896333694458,
+        "structural_similarity": 0.8333333333333334,
+        "overall_similarity": 0.9086510182351106,
+        "classification": "minor_variation",
+        "details": {
+          "character_diff": [
+            "--- original\n",
+            "+++ mutated\n",
+            "@@ -2,4 +2,8 @@\n",
+            " FROM users u\n",
+            " INNER JOIN orders o ON u.user_id = o.user_id\n",
+            " WHERE u.registration_date >= DATEADD(day, -30, GETDATE())\n",
+            "+AND EXISTS (\n",
+            "+    SELECT 1 FROM orders \n",
+            "+    WHERE user_id = u.user_id\n",
+            "+)\n",
+            " ORDER BY u.registration_date DESC;"
+          ],
+          "word_diff": {
+            "added": [
+              "AND",
+              "EXISTS",
+              "(",
+              "SELECT",
+              "1",
+              "FROM",
+              "orders",
+              "WHERE",
+              "user_id",
+              "=",
+              "u.user_id",
+              ")"
+            ],
+            "removed": []
+          },
+          "length_ratio": 1.3397129186602872,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 0.7306510761650313
+        }
+      }
+    },
+    {
+      "mutation": {
+        "original_text": "You are a SQL expert. Generate a valid SQL query for the given request.\n\nRules:\n- Use proper SQL syntax\n- Return only the SQL query without explanations\n- Use appropriate table and column names\n- Ensure the query is syntactically correct\n\nRequest:\n\nShow me all users who registered in the last 30 days and have made at least one purchase",
+        "mutated_text": "Generate a valid SQL query for the given request. Rules:\n- Use proper SQL syntax\n- Return only the SQL query without explanations\n- Use appropriate table and column names\n- Ensure the query is syntactically correct\n\nRequest:\n\nShow me all users who registered in the last 30 days and have made at least one purchase You are a SQL expert.",
+        "mutation_type": "structural",
+        "description": "Randomly reorder sentences",
+        "severity": 0.6
+      },
+      "original_response": {
+        "text": "SELECT DISTINCT u.user_id, u.username, u.registration_date\nFROM users u\nINNER JOIN orders o ON u.user_id = o.user_id\nWHERE u.registration_date >= DATEADD(day, -30, GETDATE())\nORDER BY u.registration_date DESC;",
+        "model": "claude-3-5-sonnet-20241022",
+        "tokens_used": 160,
+        "response_time": 4.3813230991363525,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "SELECT DISTINCT u.user_id, u.username, u.registration_date\nFROM users u\nINNER JOIN orders o ON u.user_id = o.user_id\nWHERE u.registration_date >= DATEADD(day, -30, GETDATE())\nAND EXISTS (\n    SELECT 1 \n    FROM orders \n    WHERE user_id = u.user_id\n)\nORDER BY u.registration_date DESC;",
+        "model": "claude-3-5-sonnet-20241022",
+        "tokens_used": 188,
+        "response_time": 3.7251880168914795,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 0.8604651162790697,
+        "semantic_similarity": 0.9676896333694458,
+        "structural_similarity": 0.8333333333333334,
+        "overall_similarity": 0.9086510182351106,
+        "classification": "minor_variation",
+        "details": {
+          "character_diff": [
+            "--- original\n",
+            "+++ mutated\n",
+            "@@ -2,4 +2,9 @@\n",
+            " FROM users u\n",
+            " INNER JOIN orders o ON u.user_id = o.user_id\n",
+            " WHERE u.registration_date >= DATEADD(day, -30, GETDATE())\n",
+            "+AND EXISTS (\n",
+            "+    SELECT 1 \n",
+            "+    FROM orders \n",
+            "+    WHERE user_id = u.user_id\n",
+            "+)\n",
+            " ORDER BY u.registration_date DESC;"
+          ],
+          "word_diff": {
+            "added": [
+              "AND",
+              "EXISTS",
+              "(",
+              "SELECT",
+              "1",
+              "FROM",
+              "orders",
+              "WHERE",
+              "user_id",
+              "=",
+              "u.user_id",
+              ")"
+            ],
+            "removed": []
+          },
+          "length_ratio": 1.3636363636363635,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 0.7306510761650313
+        }
+      }
+    },
+    {
+      "mutation": {
+        "original_text": "You are a SQL expert. Generate a valid SQL query for the given request.\n\nRules:\n- Use proper SQL syntax\n- Return only the SQL query without explanations\n- Use appropriate table and column names\n- Ensure the query is syntactically correct\n\nRequest:\n\nShow me all users who registered in the last 30 days and have made at least one purchase",
+        "mutated_text": "Generate a valid SQL query for the given request. Rules:\n- Use proper SQL syntax\n- Return only the SQL query without explanations\n- Use appropriate table and column names\n- Ensure the query is syntactically correct\n\nRequest:\n\nShow me all users who registered in the last 30 days and have made at least one purchase You are a SQL expert.",
+        "mutation_type": "structural",
+        "description": "Randomly reorder sentences",
+        "severity": 0.6
+      },
+      "original_response": {
+        "text": "SELECT DISTINCT u.user_id, u.username, u.registration_date\nFROM users u\nINNER JOIN orders o ON u.user_id = o.user_id\nWHERE u.registration_date >= DATEADD(day, -30, GETDATE())\nORDER BY u.registration_date DESC;",
+        "model": "claude-3-5-sonnet-20241022",
+        "tokens_used": 160,
+        "response_time": 4.3813230991363525,
+        "error": null
+      },
+      "mutated_response": {
+        "text": "SELECT DISTINCT u.user_id, u.username, u.registration_date\nFROM users u\nJOIN orders o ON u.user_id = o.user_id\nWHERE u.registration_date >= DATEADD(day, -30, GETDATE())\nAND o.order_date IS NOT NULL\nORDER BY u.registration_date DESC;",
+        "model": "claude-3-5-sonnet-20241022",
+        "tokens_used": 167,
+        "response_time": 2.131484031677246,
+        "error": null
+      },
+      "comparison": {
+        "token_similarity": 0.9230769230769231,
+        "semantic_similarity": 0.9397577047348022,
+        "structural_similarity": 1.0,
+        "overall_similarity": 0.9468019292904781,
+        "classification": "minor_variation",
+        "details": {
+          "character_diff": [
+            "--- original\n",
+            "+++ mutated\n",
+            "@@ -1,5 +1,6 @@\n",
+            " SELECT DISTINCT u.user_id, u.username, u.registration_date\n",
+            " FROM users u\n",
+            "-INNER JOIN orders o ON u.user_id = o.user_id\n",
+            "+JOIN orders o ON u.user_id = o.user_id\n",
+            " WHERE u.registration_date >= DATEADD(day, -30, GETDATE())\n",
+            "+AND o.order_date IS NOT NULL\n",
+            " ORDER BY u.registration_date DESC;"
+          ],
+          "word_diff": {
+            "added": [
+              "AND",
+              "o.order_date",
+              "IS",
+              "NOT",
+              "NULL"
+            ],
+            "removed": [
+              "INNER"
+            ]
+          },
+          "length_ratio": 1.1100478468899522,
+          "is_json_valid": {
+            "original_valid": false,
+            "mutated_valid": false
+          },
+          "bleu_score": 0.7932358832483425
+        }
+      }
+    }
+  ],
+  "summary": {
+    "robustness_score": 0.7999999999999999,
+    "equivalent_count": 2,
+    "minor_variation_count": 4,
+    "behavioral_deviation_count": 0,
+    "equivalent_percentage": 33.33333333333333,
+    "minor_variation_percentage": 66.66666666666666,
+    "behavioral_deviation_percentage": 0.0,
+    "avg_response_time": 3.541471779346466,
+    "failed_mutations": 0,
+    "total_mutations": 6
+  }
+}
