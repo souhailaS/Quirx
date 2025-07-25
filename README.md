@@ -1,6 +1,6 @@
-# Quirx
+<h1 style="font-family: 'Apple Chancery', cursive;">Quirx</h1>
 
-**A Mutation-Based Fuzzer for Evaluating Prompt Robustness in LLM-Driven Applications**
+**A Mutation-Based Fuzzer for Evaluating Prompt Robustness in LLM-based Applications**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
