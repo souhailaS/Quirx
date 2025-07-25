@@ -247,7 +247,7 @@ Examples:
                     print(f"Open in browser: file://{os.path.abspath(filepath)}")
                 else:  # json
                     print(f"JSON report generated: {filepath}")
-                    print(f"View with: cat {filepath} | jq  # or your preferred JSON viewer")
+                    print(f"View with: cat {filepath} | jq ")
             else:
                 # Print markdown to stdout (traditional behavior)
                 content = reporter.generate_report(report, args.format, args.ci_mode)
