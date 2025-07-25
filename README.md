@@ -31,7 +31,7 @@ Quirx is a Python-based tool designed to assess the robustness of LLM-based appl
 
 ```mermaid
 graph TD
-    A[Prompt File + Input] --> B[Mutation Engine]
+    A(Prompt File + Input) --> B[Mutation Engine]
     B --> C[Lexical Mutations]
     B --> D[Semantic Mutations] 
     B --> E[Structural Mutations]
@@ -40,19 +40,19 @@ graph TD
     D --> G[Synonyms<br/>Paraphrasing]
     E --> H[Reordering<br/>Restructuring]
     
-    F --> I[Mutated Prompts]
+    F --> I(Mutated Prompts)
     G --> I
     H --> I
     
     I --> J[LLM Runner]
     A --> J
     
-    J --> K[OpenAI Provider]
-    J --> L[Anthropic Provider]
-    J --> M[Mock Provider]
+    J --> K{OpenAI Provider}
+    J --> L{Anthropic Provider}
+    J --> M{Mock Provider}
     
-    K --> N[Original Response]
-    K --> O[Mutated Responses]
+    K --> N(Original Response)
+    K --> O(Mutated Responses)
     L --> N
     L --> O
     M --> N
@@ -69,23 +69,23 @@ graph TD
     R --> T
     S --> T
     
-    T --> U[Equivalent]
-    T --> V[Minor Variation]
-    T --> W[Behavioral Deviation]
+    T --> U{Equivalent}
+    T --> V{Minor Variation}
+    T --> W{Behavioral Deviation}
     
     U --> X[Report Generator]
     V --> X
     W --> X
     
-    X --> Y[Markdown Report]
-    X --> Z[JSON Report]
-    X --> AA[HTML Report]
+    X --> Y(Markdown Report)
+    X --> Z(JSON Report)
+    X --> AA(HTML Report)
     
     style A fill:#e1f5fe
     style B fill:#f3e5f5
     style J fill:#fff3e0
     style P fill:#e8f5e8
-         style X fill:#fce4ec
+    style X fill:#fce4ec
 ```
 
 ### Simplified Architecture
